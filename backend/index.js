@@ -18,45 +18,41 @@ app.get("/", (req, res) => {
     res.json("hello")
 })
 
-app.get("/books", (req, res) => {
-    const q = "select * from books"
+app.get("/top", (req, res) => {
+    const q = "select * from travel_information"
     db.query(q, (err, data) => {
         if(err) return res.json(err)
         return res.json(data)
     })
 })
 
-app.post("/books", (req, res) => {
-    const q = "insert into books (`title`,`desc`,`cover`, `price`) values (?)"
-    const values = [ req.body.title, req.body.desc, req.body.cover, req.body.price ]
+app.post("/travels", (req, res) => {
+    const q = "insert into travel_information (`travel_name`) values (?)"
+    const values = [ req.body.travel_name ]
 
     db.query(q, [values], (err, data) => {
         if(err) return res.json(err);
-        return res.json("book has been created");
+        return res.json("travel has been created");
     })
 })
 
-app.delete("/books/:id", (req, res) => {
-    const bookId = req.params.id;
-    console.log(bookId)
-    const q = "delete from books where id = ?"
-    db.query(q, [bookId], (err, data) => {
-        console.log('aa')
+app.delete("/top/:id", (req, res) => {
+    const travelId = req.params.id;
+    const q = "delete from travel_information where travel_id = ?"
+    db.query(q, [travelId], (err, data) => {
         if(err) return res.json(err)
-        return res.json("book has been deleted successfully.")
+        return res.json("travel has been deleted successfully.")
     })
 })
 
-app.put("/books/:id", (req, res) => {
-  const bookId = req.params.id;
-  console.log(bookId)
-  const q = "update books set `title` = ?, `desc` = ?, `cover` = ?, `price` = ? where id = ?";
-  const values = [ req.body.title, req.body.desc, req.body.cover, req.body.price ]
+app.put("/top/:id", (req, res) => {
+  const travelId = req.params.id;
+  const q = "update travel_information set `travel_name` = ? where travel_id = ?";
+  const values = [ req.body.travel_name ]
 
-  db.query(q, [...values, bookId], (err, data) => {
-      console.log('aa')
+  db.query(q, [...values, travelId], (err, data) => {
       if(err) return res.json(err)
-      return res.json("book has been updated successfully.")
+      return res.json("travel has been updated successfully.")
   })
 })
 

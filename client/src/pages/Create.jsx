@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
-const Update = () => {
+const Create = () => {
   const [travels, setTravels] = useState({
       travel_name: "",
   })
 
   const navigate = useNavigate()
-  const location = useLocation()
-  const travelId = location.pathname.split("/")[2]
 
   const handleChange = (e) => {
     setTravels((prev) => ({...prev, [e.target.name]: e.target.value}))
@@ -17,7 +15,7 @@ const Update = () => {
   const handleClick = async e => {
     e.preventDefault()
     try{
-      await axios.put("http://localhost:8800/top/" + travelId, travels)
+      await axios.post("http://localhost:8800/travels", travels)
       navigate("/")
     }catch(err){
       console.log(err)
@@ -26,11 +24,11 @@ const Update = () => {
 
   return (
     <div className='form'>
-      <h1>Update new plan</h1>
+      <h1>create new plan</h1>
       <input type="text" placeholder='travel_name' onChange={handleChange} name='travel_name' />
-      <button onClick={handleClick}>Update</button>
+      <button onClick={handleClick}>create</button>
     </div>
   )
 }
 
-export default Update
+export default Create
