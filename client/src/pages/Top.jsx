@@ -6,16 +6,16 @@ const Top = () => {
   const [travels, setTravels] = useState([])
 
   useEffect(() => {
-      const fechAllTravels = async () => {
-          try {
-              const res = await axios.get("http://localhost:8800/top")
-              setTravels(res.data)
-              console.log(res)
-          }catch(err){
-              console.log(err)
-          }
+    const fechAllTravels = async () => {
+      try {
+        const res = await axios.get("http://localhost:8800/top")
+        setTravels(res.data)
+        console.log(res)
+      }catch(err){
+        console.log(err)
       }
-      fechAllTravels()
+    }
+    fechAllTravels()
   }, [])
 
   const handleDelete = async (id) => {
@@ -26,6 +26,7 @@ const Top = () => {
       console.log(err)
     }
   }
+  
   return (
       <div>
         <button><Link to={`/create`}>create</Link></button>

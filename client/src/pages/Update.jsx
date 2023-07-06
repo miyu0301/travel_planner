@@ -4,7 +4,7 @@ import axios from 'axios'
 
 const Update = () => {
   const [travels, setTravels] = useState({
-      travel_name: "",
+    travel_name: "",
   })
 
   const navigate = useNavigate()
