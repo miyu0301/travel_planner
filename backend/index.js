@@ -28,11 +28,17 @@ app.get("/top", (req, res) => {
 
 app.post("/travels", (req, res) => {
   const q = "insert into travel_information (`travel_name`) values (?)"
+  const q2 = "insert into plan (`plan_id`) values (?)"
   const values = [ req.body.travel_name ]
+  const values2 = [ req.body.plans[0].plan_id ]
 
   db.query(q, [values], (err, data) => {
     if(err) return res.json(err);
-    return res.json("travel has been created");
+    // return res.json("travel has been created");
+  })
+  db.query(q2, [values2], (err, data) => {
+    if(err) return res.json(err);
+    return res.json("plans has been created");
   })
 })
 

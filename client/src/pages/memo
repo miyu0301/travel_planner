@@ -1,0 +1,43 @@
+let travel = {
+  travel_name: "",
+  image: "",
+  plan: [
+          {
+            plan_date: "",
+            plan_detail: [
+                          {
+                            start_time: "",
+                            end_date: "",
+                            detail: "",
+                          },
+                          {
+                            start_time: "",
+                            end_date: "",
+                            detail: "",
+                          },
+                        ]
+          },
+          {
+            plan_date: "",
+            plan_detail: [
+                          {
+                            start_time: "",
+                            end_date: "",
+                            detail: "",
+                          },
+                        ]
+          },
+        ]
+}
+
+let a = {
+          travel_name: "aa",
+          plans: [
+            {
+              plan_id: 1
+            },
+            // {
+            //   plan_id: 1
+            // }
+          ]
+        }
