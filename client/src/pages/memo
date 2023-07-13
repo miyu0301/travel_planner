@@ -36,8 +36,8 @@ let a = {
             {
               plan_id: 1
             },
-            // {
-            //   plan_id: 1
-            // }
+            {
+              plan_id: 2
+            }
           ]
         }
