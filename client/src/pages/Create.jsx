@@ -40,10 +40,13 @@ const Create = () => {
     });
   };
 
-  const handleSaveTodos = (e, index) => {
-    
-    alert(index)
-    // setPlans([]);
+  const handleSavePlan = async(e, index) => {
+    e.preventDefault()
+    try{
+      await axios.post("http://localhost:8800/plan", plans[index])
+    }catch(err){
+      console.log(err)
+    }
   };
 
   return (
@@ -61,7 +64,7 @@ const Create = () => {
             value={plan.plan_id}
             onChange={(e) => handleInputChange(e, index)}
           />
-          <button onClick={(e) => handleSaveTodos(e, index)}>save</button>
+          <button onClick={(e) => handleSavePlan(e, index)}>save</button>
         </div>
       ))}
       <button onClick={handleAddPlan}>add</button>
