@@ -52,8 +52,8 @@ app.post("/travels", (req, res) => {
 
 // save plan table
 app.post("/plan", (req, res) => {
-  const q = "insert into plan (`plan_id`) values (?);"
-  const values = [ req.body.plan_id ]
+  const q = "insert into plan (`travel_id`, `plan_date`) values (?);"
+  const values = [ req.body.travel_id, req.body.plan_date ]
 
   try {
     db.query(q, [values], (err, data) => {

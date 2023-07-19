@@ -3,19 +3,27 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const Create = () => {
-  const [travel_name, setTravelName] = useState("");
+  // const [travel_name, setTravelName] = useState("");
+  const [travel, setTravel] = useState({
+    travel_id: null,
+    travel_name: "",
+  });
   const [plans, setPlans] = useState([]);
   const [newPlan, setNewPlan] = useState({
-    plan_id: null,
+    travel_id: null,
+    plan_date: null,
   });
 
   const handleChangeTravel = (e) => {
-    setTravelName(e.target.value);
+    setTravel({
+      [e.target.name]: e.target.value
+    })
   }
   const handleClick = async e => {
     e.preventDefault()
     try{
-      await axios.post("http://localhost:8800/travels", travel_name)
+      await axios.post("http://localhost:8800/travels", travel)
+      travel['travel_id'] = 999;
       // navigate("/")
     }catch(err){
       console.log(err)
@@ -23,8 +31,8 @@ const Create = () => {
   }
 
   const handleInputChange = (e, index) => {
-    console.log(e)
     const { name, value } = e.target;
+    console.log(e.target.value)
     const updatedPlans = [...plans];
     updatedPlans[index] = {
       ...updatedPlans[index],
@@ -36,6 +44,7 @@ const Create = () => {
   const handleAddPlan = () => {
     setPlans([...plans, newPlan]);
     setNewPlan({
+      travel_id: null,
       plan_id: null,
     });
   };
@@ -43,6 +52,7 @@ const Create = () => {
   const handleSavePlan = async(e, index) => {
     e.preventDefault()
     try{
+      plans[index]['travel_id'] = travel['travel_id']
       await axios.post("http://localhost:8800/plan", plans[index])
     }catch(err){
       console.log(err)
@@ -59,9 +69,9 @@ const Create = () => {
       {plans.map((plan, index) => (
         <div key={index}>
           <input
-            type="text"
-            name="plan_id"
-            value={plan.plan_id}
+            type="date"
+            name="plan_date"
+            value={plan.plan_date}
             onChange={(e) => handleInputChange(e, index)}
           />
           <button onClick={(e) => handleSavePlan(e, index)}>save</button>
