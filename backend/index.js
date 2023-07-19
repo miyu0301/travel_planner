@@ -27,27 +27,26 @@ app.get("/top", (req, res) => {
   })
 })
 
-app.post("/travels", (req, res) => {
+app.post("/travel", (req, res) => {
   const q = "insert into travel_information (`travel_name`) values (?);"
   const q2 = "insert into plan (`plan_id`) values ?;"
   const values = [ req.body.travel_name ]
   // const values3 = req.body.plans.map( plan => [plan.plan_id] );
-  const values2 = [[300],[555]];
+  // const values2 = [[300],[555]];
 
   try {
     db.query(q, [values], (err, data) => {
       if(err) throw res.json(err);
       // if(err) return res.json(err);
-      // return res.json("travel has been created");
+      return res.json(data);
     })
-    db.query(q2, [values2], (err, data) => {
-      if(err) throw res.json(err);
-      console.log("success")
-    })
+    // db.query(q2, [values2], (err, data) => {
+    //   if(err) throw res.json(err);
+    //   console.log("success")
+    // })
   } catch (error) {
     console.log(error)
   }
-  return res.json("tables have been created");
 })
 
 // save plan table
