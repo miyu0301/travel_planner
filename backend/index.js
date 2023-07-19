@@ -64,6 +64,21 @@ app.post("/plan", (req, res) => {
   return res.json("OK")
 })
 
+// save detail table
+app.post("/plan_detail", (req, res) => {
+  const q = "insert into plan_detail (`plan_detail_id`) values (?);"
+  const values = [ req.body.plan_detail_id ]
+
+  try {
+    db.query(q, [values], (err, data) => {
+      if(err) throw res.json(err);
+    })
+  } catch (error) {
+    console.log(error)
+  }
+  return res.json("OK")
+})
+
 app.delete("/top/:id", (req, res) => {
   const travelId = req.params.id;
   const q = "delete from travel_information where travel_id = ?"

@@ -49,6 +49,17 @@ const Create = () => {
     setPlans(updatedPlans);
   };
 
+  const handleInputChangeDetail = (e, index, i) => {
+    const { name, value } = e.target;
+
+    const updatedPlans = [...plans];
+    updatedPlans[index].plan_detail[i] = {
+      [name]: value
+    };
+    setPlans(updatedPlans)
+    console.log(updatedPlans)
+  };
+
   const handleAddPlan = () => {
     setPlans([...plans, newPlan]);
     setNewPlan({
@@ -60,12 +71,16 @@ const Create = () => {
   };
 
   const handleAddDetail = (e, index) => {
-    let details = plans[index].plan_detail;
-    let new_detail = {
+    const updatedPlans = [...plans];
+    const new_detail = {
       plan_detail_id: null,
     }
-    plans[index].plan_detail = [...details, new_detail]
-    console.log(plans[index])
+    updatedPlans[index].plan_detail.push(new_detail)
+    setPlans(updatedPlans)
+    // const details = plans[index].plan_detail;
+    // plans[index].plan_detail = [...details, new_detail]
+    console.log(index)
+    console.log(plans)
   };
 
   const handleSavePlan = async(e, index) => {
@@ -74,6 +89,15 @@ const Create = () => {
       plans[index]['travel_id'] = travel['travel_id']
       let result = await axios.post("http://localhost:8800/plan", plans[index])
       plans[index]['plan_id'] = result.data.insertId;
+    }catch(err){
+      console.log(err)
+    }
+  };
+  const handleSaveDetail = async(e, index, i) => {
+    try{
+      console.log(plans)
+      console.log(plans[index].plan_detail[i])
+      let result = await axios.post("http://localhost:8800/plan_detail", plans[index].plan_detail[i])
     }catch(err){
       console.log(err)
     }
@@ -96,17 +120,18 @@ const Create = () => {
           />
           <button onClick={(e) => handleSavePlan(e, index)}>save</button>
           <button onClick={(e) => handleAddDetail(e, index)}>detail add</button>
-          {plan[index] && plan[index].plan_detail.map((detail, i) => (
+          {plan.plan_detail.map((detail, i) => (
             <div key={i}>
               <input 
-                type='text' 
-                name="plan_deail_id" 
+                type='text'
+                name='plan_detail_id'
                 value={detail.plan_detail_id}
-              />
+                onChange={(e) => handleInputChangeDetail(e, index, i)}
+            />
+              <button onClick={(e) => handleSaveDetail(e, index, i)}>detail save</button>
             </div>
           ))}
         </div>
-        //here
       ))}
       <button onClick={handleAddPlan}>add</button>
       
