@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const Create = () => {
-  // const [travel_name, setTravelName] = useState("");
   const [travel, setTravel] = useState({
     travel_id: null,
     travel_name: "",
@@ -15,30 +14,28 @@ const Create = () => {
     plan_date: null,
     plan_detail: []
   });
-  // const [planDetails, setPlanDetails] = useState([]);
-  // const [newPlanDetail, setNewPlanDetail] = useState({
-  //   travel_id: null,
-  //   plan_id: null,
-  //   plan_detail: []
-  // });
 
   const handleChangeTravel = (e) => {
     setTravel({
       [e.target.name]: e.target.value
     })
   }
-  const handleClick = async e => {
+  const handleSaveTravel = async e => {
     e.preventDefault()
     try{
+      console.log(travel)
       let result = await axios.post("http://localhost:8800/travel", travel)
-      travel['travel_id'] = result.data.insertId;
+      setTravel({
+        ...travel,
+        travel_id: result.data.insertId
+      })
       // navigate("/")
     }catch(err){
       console.log(err)
     }
   }
 
-  const handleInputChange = (e, index) => {
+  const handleChangePlan = (e, index) => {
     const { name, value } = e.target;
     console.log(e.target.value)
     const updatedPlans = [...plans];
@@ -49,7 +46,7 @@ const Create = () => {
     setPlans(updatedPlans);
   };
 
-  const handleInputChangeDetail = (e, index, i) => {
+  const handleChangeDetail = (e, index, i) => {
     const { name, value } = e.target;
 
     const updatedPlans = [...plans];
@@ -86,6 +83,8 @@ const Create = () => {
   const handleSavePlan = async(e, index) => {
     e.preventDefault()
     try{
+      console.log(plans)
+      console.log(index)
       plans[index]['travel_id'] = travel['travel_id']
       let result = await axios.post("http://localhost:8800/plan", plans[index])
       plans[index]['plan_id'] = result.data.insertId;
@@ -107,7 +106,7 @@ const Create = () => {
     <div>
       <h1>plan</h1>
       <input type="text" onChange={handleChangeTravel} name='travel_name' />
-      <button onClick={handleClick}>travel name save</button>
+      <button onClick={handleSaveTravel}>travel name save</button>
       <br />
       <br />
       {plans.map((plan, index) => (
@@ -116,7 +115,7 @@ const Create = () => {
             type="date"
             name="plan_date"
             value={plan.plan_date}
-            onChange={(e) => handleInputChange(e, index)}
+            onChange={(e) => handleChangePlan(e, index)}
           />
           <button onClick={(e) => handleSavePlan(e, index)}>save</button>
           <button onClick={(e) => handleAddDetail(e, index)}>detail add</button>
@@ -126,7 +125,7 @@ const Create = () => {
                 type='text'
                 name='plan_detail_id'
                 value={detail.plan_detail_id}
-                onChange={(e) => handleInputChangeDetail(e, index, i)}
+                onChange={(e) => handleChangeDetail(e, index, i)}
             />
               <button onClick={(e) => handleSaveDetail(e, index, i)}>detail save</button>
             </div>
