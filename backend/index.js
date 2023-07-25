@@ -49,11 +49,11 @@ app.post("/plan", (req, res) => {
   try {
     db.query(q, [values], (err, data) => {
       if(err) throw res.json(err);
+      return res.json(data)
     })
   } catch (error) {
     console.log(error)
   }
-  return res.json("OK")
 })
 
 // save detail table
