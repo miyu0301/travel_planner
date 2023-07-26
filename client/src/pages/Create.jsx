@@ -35,13 +35,23 @@ const Create = () => {
     }
   }
 
+  const handleClickPlan = (p_idx, is_input) => {
+    const updatedPlans = [...plans];
+    updatedPlans[p_idx] = {
+      ...updatedPlans[p_idx],
+      is_input: is_input
+    };
+    setPlans(updatedPlans);
+  };
+
   const handleChangePlan = (e, p_idx) => {
     const { name, value } = e.target;
     console.log(e.target.value)
     const updatedPlans = [...plans];
     updatedPlans[p_idx] = {
       ...updatedPlans[p_idx],
-      [name]: value
+      [name]: value,
+      // is_input: true
     };
     setPlans(updatedPlans);
   };
@@ -70,6 +80,7 @@ const Create = () => {
       travel_id: null,
       plan_id: null,
       plan_date: null,
+      is_input: true,
       plan_detail: []
     }
     setPlans([...plans, new_plan]);
@@ -136,12 +147,20 @@ const Create = () => {
       <br />
       {plans.map((plan, p_idx) => (
         <div key={p_idx}>
-          <input
-            type="date"
-            name="plan_date"
-            value={plan.plan_date}
-            onChange={(e) => handleChangePlan(e, p_idx)}
-          />
+          {!plan.is_input && 
+            <label htmlFor="" onClick={(e) => handleClickPlan(p_idx, true)}>{plan.plan_date}</label>
+          }
+          {
+            plan.is_input &&
+            <input
+              type="date"
+              name="plan_date"
+              value={plan.plan_date}
+              onChange={(e) => handleChangePlan(e, p_idx)}
+              onFocus={(e) => handleClickPlan(p_idx, true)}
+              onBlur={(e) => handleClickPlan(p_idx, false)}
+            />
+          }
           <button onClick={(e) => handleSavePlan(e, p_idx)}>save</button>
           <button onClick={(e) => handleAddDetail(e, p_idx)}>detail add</button>
           {plan.plan_detail.map((detail, d_idx) => (
@@ -151,7 +170,7 @@ const Create = () => {
                 name='plan_detail_id'
                 value={detail.plan_detail_id}
                 onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
-            />
+              />
               <button onClick={(e) => handleSaveDetail(e, p_idx, d_idx)}>detail save</button>
             </div>
           ))}
