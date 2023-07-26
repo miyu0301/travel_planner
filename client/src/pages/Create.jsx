@@ -61,8 +61,10 @@ const Create = () => {
 
     const updatedPlans = [...plans];
     updatedPlans[p_idx].plan_detail[d_idx] = {
+      ...updatedPlans[p_idx].plan_detail[d_idx],
       [name]: value
     };
+    console.log(updatedPlans[p_idx].plan_detail[d_idx])
     setPlans(updatedPlans)
   };
 
@@ -92,7 +94,6 @@ const Create = () => {
       plan_id: null,
       start_time: null,
       end_time: null,
-      plan_id: null,
       detail: null,
       map: null,
       memo: null,
@@ -173,9 +174,27 @@ const Create = () => {
           {plan.plan_detail.map((detail, d_idx) => (
             <div key={d_idx}>
               <input 
+                type='time'
+                name='start_time'
+                value={detail.start_time}
+                onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
+              />
+              <input 
+                type='time'
+                name='end_time'
+                value={detail.end_time}
+                onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
+              />
+              <input 
                 type='text'
-                name='plan_detail_id'
-                value={detail.plan_detail_id}
+                name='detail'
+                value={detail.detail}
+                onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
+              />
+              <input 
+                type='text'
+                name='memo'
+                value={detail.memo}
                 onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
               />
               <button onClick={(e) => handleSaveDetail(e, p_idx, d_idx)}>detail save</button>
