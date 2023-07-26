@@ -23,6 +23,7 @@ const Create = () => {
   const handleSaveTravel = async e => {
     e.preventDefault()
     try{
+      console.log("SAVE TRAVEL")
       console.log(travel)
       let result = await axios.post("http://localhost:8800/travel", travel)
       setTravel({
@@ -46,7 +47,6 @@ const Create = () => {
 
   const handleChangePlan = (e, p_idx) => {
     const { name, value } = e.target;
-    console.log(e.target.value)
     const updatedPlans = [...plans];
     updatedPlans[p_idx] = {
       ...updatedPlans[p_idx],
@@ -64,7 +64,6 @@ const Create = () => {
       [name]: value
     };
     setPlans(updatedPlans)
-    console.log(updatedPlans)
   };
 
   const handleAddPlan = () => {
@@ -87,10 +86,8 @@ const Create = () => {
   };
 
   const handleAddDetail = (e, p_idx) => {
-    console.log(plans)
     const updatedPlans = [...plans];
     const new_detail = {
-      plan_detail_id: null,
       travel_id: null,
       plan_id: null,
       start_time: null,
@@ -104,16 +101,15 @@ const Create = () => {
     setPlans(updatedPlans)
     // const details = plans[index].plan_detail;
     // plans[index].plan_detail = [...details, new_detail]
-    console.log(p_idx)
-    console.log(plans)
   };
 
   const handleSavePlan = async(e, p_idx) => {
-    e.preventDefault()
+      console.log("SAVE PLAN")
+      e.preventDefault()
     try{
       plans[p_idx]['travel_id'] = travel['travel_id']
+      console.log(plans[p_idx])
       let result = await axios.post("http://localhost:8800/plan", plans[p_idx])
-      console.log(result.data)
       setPlans(prevPlans => {
         const updatePlans = [...prevPlans];
         updatePlans[p_idx] = {
@@ -130,9 +126,20 @@ const Create = () => {
   };
   const handleSaveDetail = async(e, p_idx, d_idx) => {
     try{
-      console.log(plans)
+      console.log("SAVE DETAIL")
+      plans[p_idx].plan_detail[d_idx].travel_id = travel['travel_id']
+      plans[p_idx].plan_detail[d_idx].plan_id = plans[p_idx].plan_id
       console.log(plans[p_idx].plan_detail[d_idx])
       let result = await axios.post("http://localhost:8800/plan_detail", plans[p_idx].plan_detail[d_idx])
+      setPlans(prevPlans => {
+        const updatePlans = [...prevPlans];
+        updatePlans[p_idx].plan_detail[d_idx] = {
+          ...updatePlans[p_idx].plan_detail[d_idx],
+          travel_id: travel['travel_id'],
+          plan_id: plans[p_idx].plan_id,
+        };
+        return updatePlans
+      })
     }catch(err){
       console.log(err)
     }

@@ -58,17 +58,17 @@ app.post("/plan", (req, res) => {
 
 // save detail table
 app.post("/plan_detail", (req, res) => {
-  const q = "insert into plan_detail (`plan_detail_id`) values (?);"
-  const values = [ req.body.plan_detail_id ]
+  const q = "insert into plan_detail (`travel_id`, `plan_id`) values (?);"
+  const values = [ req.body.travel_id, req.body.plan_id ]
 
   try {
     db.query(q, [values], (err, data) => {
       if(err) throw res.json(err);
+      return res.json(data)
     })
   } catch (error) {
     console.log(error)
   }
-  return res.json("OK")
 })
 
 app.delete("/top/:id", (req, res) => {
