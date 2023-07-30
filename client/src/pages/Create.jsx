@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import "../css/style.css"
 
 const Create = () => {
   const [travel, setTravel] = useState({
@@ -197,7 +198,7 @@ const Create = () => {
                 value={detail.memo}
                 onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
               />
-              <button onClick={(e) => handleSaveDetail(e, p_idx, d_idx)}>detail save</button>
+              <button className='btn-detail' onClick={(e) => handleSaveDetail(e, p_idx, d_idx)}>detail save</button>
             </div>
           ))}
         </div>
