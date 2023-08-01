@@ -40,6 +40,20 @@ app.post("/travel", (req, res) => {
     console.log(error)
   }
 })
+app.put("/travel/:id", (req, res) => {
+  const travelId = req.params.id;
+  const q = "update travel_information set `travel_name` = ? where travel_id = ?";
+  const values = [ req.body.travel_name ]
+
+  try {
+    db.query(q, [...values, travelId], (err, data) => {
+      if(err) throw res.json(err);
+      return res.json(data);
+    })
+  } catch (error) {
+    console.log(error)
+  }
+})
 
 // save plan table
 app.post("/plan", (req, res) => {

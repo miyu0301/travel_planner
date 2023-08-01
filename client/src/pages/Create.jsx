@@ -13,31 +13,39 @@ const Create = () => {
 
   const handleChangeTravel = (e) => {
     setTravel({
+      ...travel,
       [e.target.name]: e.target.value,
-      is_input: true
     })
   }
-  const changeTravelInput = (is_input) => {
+  const clickTravelLabel = () => {
     let newTravel = {
       ...travel,
-      is_input: is_input
+      is_input: true
     }
     setTravel(newTravel)
-    console.log(travel)
   }
 
   const handleBlurTravel = async e => {
-      console.log("blur")
       e.preventDefault()
     try{
       console.log("SAVE TRAVEL")
       console.log(travel)
-      let result = await axios.post("http://localhost:8800/travel", travel)
-      setTravel({
-        ...travel,
-        travel_id: result.data.insertId,
-        is_input: false
-      })
+      let newTravel = {}
+      if(!travel.travel_id){
+        let result = await axios.post("http://localhost:8800/travel", travel)
+        newTravel = {
+          ...travel,
+          travel_id: result.data.insertId,
+          is_input: false
+        }
+      }else{
+        await axios.put("http://localhost:8800/travel/" + travel.travel_id, travel)
+        newTravel = {
+          ...travel,
+          is_input: false
+        }
+      }
+      setTravel(newTravel)
     }catch(err){
       console.log(err)
     }
@@ -149,7 +157,7 @@ const Create = () => {
       {!travel.is_input &&
         <label 
           onChange={handleChangeTravel}
-          onClick={(e) => changeTravelInput(true)}
+          onClick={(e) => clickTravelLabel(e)}
           name='travel_name'>
           {travel.travel_name}
         </label>
