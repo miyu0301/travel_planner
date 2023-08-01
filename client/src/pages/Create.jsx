@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import "../css/style.css"
@@ -10,6 +10,17 @@ const Create = () => {
     is_input: false
   });
   const [plans, setPlans] = useState([]);
+
+  useEffect(() => {
+    const saveTravel = async () => {
+      let result = await axios.post("http://localhost:8800/travel", travel)
+      setTravel({
+        ...travel,
+        travel_id: result.data.insertId,
+      })
+    }
+    saveTravel();
+  }, [])
 
   const handleChangeTravel = (e) => {
     setTravel({
@@ -29,25 +40,17 @@ const Create = () => {
     try{
       console.log("SAVE TRAVEL")
       console.log(travel)
-      if(!travel.travel_id){
-        let result = await axios.post("http://localhost:8800/travel", travel)
-        setTravel({
-          ...travel,
-          travel_id: result.data.insertId,
-          is_input: false
-        })
-      }else{
-        await axios.put("http://localhost:8800/travel/" + travel.travel_id, travel)
-        setTravel({
-          ...travel,
-          is_input: false
-        })
-      }
+      await axios.put("http://localhost:8800/travel/" + travel.travel_id, travel)
+      setTravel({
+        ...travel,
+        is_input: false
+      })
+
     }catch(err){
       console.log(err)
     }
   }
-
+  
   const handleClickPlan = (p_idx, is_input) => {
     const updatedPlans = [...plans];
     updatedPlans[p_idx] = {
