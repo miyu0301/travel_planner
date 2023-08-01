@@ -105,6 +105,25 @@ app.post("/plan_detail", (req, res) => {
     console.log(error)
   }
 })
+app.put("/plan_detail/:id", (req, res) => {
+  const detailId = req.params.id;
+  const q = "update plan_detail set `start_time` = ?, `end_time` = ?, `detail` = ?, `memo` = ?  where plan_detail_id = ?";
+  const values = [
+    req.body.start_time,
+    req.body.end_time,
+    req.body.detail,
+    req.body.memo,
+  ]
+
+  try {
+    db.query(q, [...values, detailId], (err, data) => {
+      if(err) throw res.json(err);
+      return res.json(data)
+    })
+  } catch (error) {
+    console.log(error)
+  }
+})
 
 app.delete("/top/:id", (req, res) => {
   const travelId = req.params.id;

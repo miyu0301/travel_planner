@@ -56,11 +56,22 @@ const Create = () => {
   // 
   // PLAN
   // 
-  const handleClickPlan = (p_idx, is_input) => {
+  const handleClickAddPlan = () => {
+    const new_plan = {
+      travel_id: null,
+      plan_id: null,
+      plan_date: null,
+      is_input: true,
+      plan_detail: []
+    }
+    setPlans([...plans, new_plan]);
+  };
+
+  const handleClickPlanLabel = (p_idx) => {
     const updatedPlans = [...plans];
     updatedPlans[p_idx] = {
       ...updatedPlans[p_idx],
-      is_input: is_input
+      is_input: true
     };
     setPlans(updatedPlans);
   };
@@ -103,6 +114,36 @@ const Create = () => {
     }
   };
 
+  // 
+  // DETAIL
+  // 
+  const handleClickAddDetail = (p_idx) => {
+    const updatedPlans = [...plans];
+    const new_detail = {
+      plan_detail_id: null,
+      travel_id: null,
+      plan_id: null,
+      start_time: null,
+      end_time: null,
+      detail: null,
+      map: null,
+      memo: null,
+      is_input: true
+    }
+    updatedPlans[p_idx].plan_detail.push(new_detail)
+    setPlans(updatedPlans)
+  };
+
+
+  const handleClickDetailLabel = (p_idx, d_idx) => {
+    const updatedPlans = [...plans];
+    updatedPlans[p_idx].plan_detail[d_idx] = {
+      ...updatedPlans[p_idx].plan_detail[d_idx],
+      is_input: true
+    };
+    setPlans(updatedPlans);
+  };
+
   const handleChangeDetail = (e, p_idx, d_idx) => {
     const { name, value } = e.target;
 
@@ -115,49 +156,31 @@ const Create = () => {
     setPlans(updatedPlans)
   };
 
-  const handleClickAddPlan = () => {
-    const new_plan = {
-      travel_id: null,
-      plan_id: null,
-      plan_date: null,
-      is_input: true,
-      plan_detail: []
-    }
-    setPlans([...plans, new_plan]);
-  };
-
-  const handleAddDetail = (e, p_idx) => {
-    const updatedPlans = [...plans];
-    const new_detail = {
-      travel_id: null,
-      plan_id: null,
-      start_time: null,
-      end_time: null,
-      detail: null,
-      map: null,
-      memo: null,
-    }
-    updatedPlans[p_idx].plan_detail.push(new_detail)
-    setPlans(updatedPlans)
-  };
-
-
-  const handleSaveDetail = async(e, p_idx, d_idx) => {
+  const handleSaveDetail = async(p_idx, d_idx) => {
     try{
       console.log("SAVE DETAIL")
-      plans[p_idx].plan_detail[d_idx].travel_id = travel['travel_id']
-      plans[p_idx].plan_detail[d_idx].plan_id = plans[p_idx].plan_id
-      console.log(plans[p_idx].plan_detail[d_idx])
-      let result = await axios.post("http://localhost:8800/plan_detail", plans[p_idx].plan_detail[d_idx])
-      setPlans(prevPlans => {
-        const updatePlans = [...prevPlans];
+      let detail = plans[p_idx].plan_detail[d_idx];
+      if(!detail.plan_detail_id){
+        detail.travel_id = travel.travel_id
+        detail.plan_id = plans[p_idx].plan_id
+        let result = await axios.post("http://localhost:8800/plan_detail", detail)
+  
+        const updatePlans = [...plans];
         updatePlans[p_idx].plan_detail[d_idx] = {
           ...updatePlans[p_idx].plan_detail[d_idx],
-          travel_id: travel['travel_id'],
-          plan_id: plans[p_idx].plan_id,
+          plan_detail_id: result.data.insertId,
+          is_input: false
         };
-        return updatePlans
-      })
+        setPlans(updatePlans)
+      }else{
+        await axios.put("http://localhost:8800/plan_detail/" + detail.plan_detail_id, detail)
+        const updatePlans = [...plans];
+        updatePlans[p_idx].plan_detail[d_idx] = {
+          ...updatePlans[p_idx].plan_detail[d_idx],
+          is_input: false
+        };
+        setPlans(updatePlans)
+      }
     }catch(err){
       console.log(err)
     }
@@ -190,7 +213,7 @@ const Create = () => {
         <div key={p_idx} className='plan_date'>
           {!plan.is_input && 
             <label 
-              onClick={(e) => handleClickPlan(p_idx, true)}>
+              onClick={(e) => handleClickPlanLabel(p_idx)}>
               {plan.plan_date}
             </label>
           }
@@ -200,39 +223,61 @@ const Create = () => {
               name="plan_date"
               value={plan.plan_date}
               onChange={(e) => handleChangePlan(e, p_idx)}
-              // onFocus={(e) => handleClickPlan(p_idx, true)}
               onBlur={(e) => handleBlurPlan(e, p_idx)}
             />
           }
-          {/* <button onClick={(e) => handleSavePlan(e, p_idx)}>save</button> */}
-          <button onClick={(e) => handleAddDetail(e, p_idx)}>detail add</button>
+          <button onClick={() => handleClickAddDetail(p_idx)}>detail add</button>
           {plan.plan_detail.map((detail, d_idx) => (
             <div key={d_idx}>
-              <input 
-                type='time'
-                name='start_time'
-                value={detail.start_time}
-                onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
-              />
-              <input 
-                type='time'
-                name='end_time'
-                value={detail.end_time}
-                onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
-              />
-              <input 
-                type='text'
-                name='detail'
-                value={detail.detail}
-                onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
-              />
-              <input 
-                type='text'
-                name='memo'
-                value={detail.memo}
-                onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
-              />
-              <button className='btn-detail' onClick={(e) => handleSaveDetail(e, p_idx, d_idx)}>detail save</button>
+              {!detail.is_input && 
+                <div>
+                  <label 
+                    onClick={(e) => handleClickDetailLabel(p_idx, d_idx)}>
+                    {detail.start_time}
+                  </label>
+                  <label 
+                    onClick={(e) => handleClickDetailLabel(p_idx, d_idx)}>
+                    {detail.end_time}
+                  </label>
+                  <label 
+                    onClick={(e) => handleClickDetailLabel(p_idx, d_idx)}>
+                    {detail.detail}
+                  </label>
+                  <label 
+                    onClick={(e) => handleClickDetailLabel(p_idx, d_idx)}>
+                    {detail.memo}
+                  </label>
+                </div>
+              }
+              {detail.is_input && 
+                <div>
+                  <input 
+                    type='time'
+                    name='start_time'
+                    value={detail.start_time}
+                    onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
+                  />
+                  <input 
+                    type='time'
+                    name='end_time'
+                    value={detail.end_time}
+                    onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
+                  />
+                  <input 
+                    type='text'
+                    name='detail'
+                    value={detail.detail}
+                    onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
+                  />
+                  <input 
+                    type='text'
+                    name='memo'
+                    value={detail.memo}
+                    onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
+                  />
+                  <button className='btn-detail' onClick={(e) => handleSaveDetail(p_idx, d_idx)}>detail save</button>
+                </div>
+              }
             </div>
           ))}
         </div>
