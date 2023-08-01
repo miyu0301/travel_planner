@@ -22,6 +22,9 @@ const Create = () => {
     saveTravel();
   }, [])
 
+  // 
+  // TRAVEL
+  // 
   const handleChangeTravel = (e) => {
     setTravel({
       ...travel,
@@ -45,12 +48,14 @@ const Create = () => {
         ...travel,
         is_input: false
       })
-
     }catch(err){
       console.log(err)
     }
   }
   
+  // 
+  // PLAN
+  // 
   const handleClickPlan = (p_idx, is_input) => {
     const updatedPlans = [...plans];
     updatedPlans[p_idx] = {
@@ -66,11 +71,28 @@ const Create = () => {
     updatedPlans[p_idx] = {
       ...updatedPlans[p_idx],
       [name]: value,
-      // is_input: true
     };
     setPlans(updatedPlans);
   };
 
+  const handleBlurPlan = async(e, p_idx) => {
+    console.log("SAVE PLAN")
+    e.preventDefault()
+    try{
+      plans[p_idx].travel_id = travel.travel_id
+      let result = await axios.post("http://localhost:8800/plan", plans[p_idx])
+      const updatePlans = [...plans];
+      updatePlans[p_idx] = {
+        ...updatePlans[p_idx],
+        plan_id: result.data.insertId,
+        is_input: false
+      };
+      setPlans(updatePlans)
+    }catch(err){
+      console.log(err)
+    }
+  };
+  
   const handleChangeDetail = (e, p_idx, d_idx) => {
     const { name, value } = e.target;
 
@@ -83,7 +105,7 @@ const Create = () => {
     setPlans(updatedPlans)
   };
 
-  const handleAddPlan = () => {
+  const handleClickAddPlan = () => {
     const new_plan = {
       travel_id: null,
       plan_id: null,
@@ -109,27 +131,7 @@ const Create = () => {
     setPlans(updatedPlans)
   };
 
-  const handleSavePlan = async(e, p_idx) => {
-      console.log("SAVE PLAN")
-      e.preventDefault()
-    try{
-      plans[p_idx]['travel_id'] = travel['travel_id']
-      console.log(plans[p_idx])
-      let result = await axios.post("http://localhost:8800/plan", plans[p_idx])
-      setPlans(prevPlans => {
-        const updatePlans = [...prevPlans];
-        updatePlans[p_idx] = {
-          ...updatePlans[p_idx],
-          travel_id: travel['travel_id'],
-          plan_id: result.data.insertId
-        };
-        return updatePlans
-      })
-      // plans[p_idx]['plan_id'] = result.data.insertId;
-    }catch(err){
-      console.log(err)
-    }
-  };
+
   const handleSaveDetail = async(e, p_idx, d_idx) => {
     try{
       console.log("SAVE DETAIL")
@@ -172,23 +174,27 @@ const Create = () => {
       
       <br />
       <br />
+
+      <button onClick={(e) => handleClickAddPlan()}>add</button>
       {plans.map((plan, p_idx) => (
-        <div key={p_idx}>
+        <div key={p_idx} className='plan_date'>
           {!plan.is_input && 
-            <label htmlFor="" onClick={(e) => handleClickPlan(p_idx, true)}>{plan.plan_date}</label>
+            <label 
+              onClick={(e) => handleClickPlan(p_idx, true)}>
+              {plan.plan_date}
+            </label>
           }
-          {
-            plan.is_input &&
+          {plan.is_input &&
             <input
               type="date"
               name="plan_date"
               value={plan.plan_date}
               onChange={(e) => handleChangePlan(e, p_idx)}
-              onFocus={(e) => handleClickPlan(p_idx, true)}
-              onBlur={(e) => handleClickPlan(p_idx, false)}
+              // onFocus={(e) => handleClickPlan(p_idx, true)}
+              onBlur={(e) => handleBlurPlan(e, p_idx)}
             />
           }
-          <button onClick={(e) => handleSavePlan(e, p_idx)}>save</button>
+          {/* <button onClick={(e) => handleSavePlan(e, p_idx)}>save</button> */}
           <button onClick={(e) => handleAddDetail(e, p_idx)}>detail add</button>
           {plan.plan_detail.map((detail, d_idx) => (
             <div key={d_idx}>
@@ -221,7 +227,6 @@ const Create = () => {
           ))}
         </div>
       ))}
-      <button onClick={handleAddPlan}>add</button>
       
     </div>
   );
