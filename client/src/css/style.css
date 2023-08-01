@@ -6,3 +6,8 @@ input {
 .btn-detail{
   margin-bottom: 20px;
 }
+label{
+  height: 20px;
+  width: 30px;
+  background-color:antiquewhite;
+}

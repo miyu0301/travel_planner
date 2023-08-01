@@ -7,31 +7,37 @@ const Create = () => {
   const [travel, setTravel] = useState({
     travel_id: null,
     travel_name: "",
+    is_input: true
   });
   const [plans, setPlans] = useState([]);
-  // const [newPlan, setNewPlan] = useState({
-  //   travel_id: null,
-  //   plan_id: null,
-  //   plan_date: null,
-  //   plan_detail: []
-  // });
 
   const handleChangeTravel = (e) => {
     setTravel({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
+      is_input: true
     })
   }
-  const handleSaveTravel = async e => {
-    e.preventDefault()
+  const changeTravelInput = (is_input) => {
+    let newTravel = {
+      ...travel,
+      is_input: is_input
+    }
+    setTravel(newTravel)
+    console.log(travel)
+  }
+
+  const handleBlurTravel = async e => {
+      console.log("blur")
+      e.preventDefault()
     try{
       console.log("SAVE TRAVEL")
       console.log(travel)
       let result = await axios.post("http://localhost:8800/travel", travel)
       setTravel({
         ...travel,
-        travel_id: result.data.insertId
+        travel_id: result.data.insertId,
+        is_input: false
       })
-      // navigate("/")
     }catch(err){
       console.log(err)
     }
@@ -70,14 +76,6 @@ const Create = () => {
   };
 
   const handleAddPlan = () => {
-    // setPlans([...plans, newPlan]);
-    // setNewPlan({
-    //   travel_id: null,
-    //   plan_id: null,
-    //   plan_date: null,
-    //   plan_detail: []
-    // });
-
     const new_plan = {
       travel_id: null,
       plan_id: null,
@@ -101,8 +99,6 @@ const Create = () => {
     }
     updatedPlans[p_idx].plan_detail.push(new_detail)
     setPlans(updatedPlans)
-    // const details = plans[index].plan_detail;
-    // plans[index].plan_detail = [...details, new_detail]
   };
 
   const handleSavePlan = async(e, p_idx) => {
@@ -150,8 +146,23 @@ const Create = () => {
   return (
     <div>
       <h1>plan</h1>
-      <input type="text" onChange={handleChangeTravel} name='travel_name' />
-      <button onClick={handleSaveTravel}>travel name save</button>
+      {!travel.is_input &&
+        <label 
+          onChange={handleChangeTravel}
+          onClick={(e) => changeTravelInput(true)}
+          name='travel_name'>
+          {travel.travel_name}
+        </label>
+      }
+      {travel.is_input &&
+        <input 
+          type="text"
+          value={travel.travel_name}
+          onChange={handleChangeTravel} 
+          onBlur={handleBlurTravel}
+          name='travel_name' />
+      }
+      
       <br />
       <br />
       {plans.map((plan, p_idx) => (
