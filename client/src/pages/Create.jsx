@@ -80,19 +80,29 @@ const Create = () => {
     e.preventDefault()
     try{
       plans[p_idx].travel_id = travel.travel_id
-      let result = await axios.post("http://localhost:8800/plan", plans[p_idx])
-      const updatePlans = [...plans];
-      updatePlans[p_idx] = {
-        ...updatePlans[p_idx],
-        plan_id: result.data.insertId,
-        is_input: false
-      };
-      setPlans(updatePlans)
+      if(!plans[p_idx].plan_id){
+        let result = await axios.post("http://localhost:8800/plan", plans[p_idx])
+        const updatePlans = [...plans];
+        updatePlans[p_idx] = {
+          ...updatePlans[p_idx],
+          plan_id: result.data.insertId,
+          is_input: false
+        };
+        setPlans(updatePlans)  
+      }else{
+        await axios.put("http://localhost:8800/plan/" + plans[p_idx].plan_id, plans[p_idx])
+        const updatePlans = [...plans];
+        updatePlans[p_idx] = {
+          ...updatePlans[p_idx],
+          is_input: false
+        };
+        setPlans(updatePlans)  
+      }
     }catch(err){
       console.log(err)
     }
   };
-  
+
   const handleChangeDetail = (e, p_idx, d_idx) => {
     const { name, value } = e.target;
 

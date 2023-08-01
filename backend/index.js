@@ -69,6 +69,20 @@ app.post("/plan", (req, res) => {
     console.log(error)
   }
 })
+app.put("/plan/:id", (req, res) => {
+  const planId = req.params.id;
+  const q = "update plan set `plan_date` = ? where plan_id = ?";
+  const values = [ req.body.plan_date ]
+
+  try {
+    db.query(q, [...values, planId], (err, data) => {
+      if(err) throw res.json(err);
+      return res.json(data)
+    })
+  } catch (error) {
+    console.log(error)
+  }
+})
 
 // save detail table
 app.post("/plan_detail", (req, res) => {
