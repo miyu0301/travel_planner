@@ -6,8 +6,8 @@ import "../css/style.css"
 const Create = () => {
   const [travel, setTravel] = useState({
     travel_id: null,
-    travel_name: "",
-    is_input: true
+    travel_name: "TRAVEL NAME",
+    is_input: false
   });
   const [plans, setPlans] = useState([]);
 
@@ -17,35 +17,32 @@ const Create = () => {
       [e.target.name]: e.target.value,
     })
   }
-  const clickTravelLabel = () => {
-    let newTravel = {
+  const handleClickTravelLabel = () => {
+    setTravel({
       ...travel,
       is_input: true
-    }
-    setTravel(newTravel)
+    })
   }
 
-  const handleBlurTravel = async e => {
+  const handleBlurTravel = async (e) => {
       e.preventDefault()
     try{
       console.log("SAVE TRAVEL")
       console.log(travel)
-      let newTravel = {}
       if(!travel.travel_id){
         let result = await axios.post("http://localhost:8800/travel", travel)
-        newTravel = {
+        setTravel({
           ...travel,
           travel_id: result.data.insertId,
           is_input: false
-        }
+        })
       }else{
         await axios.put("http://localhost:8800/travel/" + travel.travel_id, travel)
-        newTravel = {
+        setTravel({
           ...travel,
           is_input: false
-        }
+        })
       }
-      setTravel(newTravel)
     }catch(err){
       console.log(err)
     }
@@ -156,8 +153,7 @@ const Create = () => {
       <h1>plan</h1>
       {!travel.is_input &&
         <label 
-          onChange={handleChangeTravel}
-          onClick={(e) => clickTravelLabel(e)}
+          onClick={(e) => handleClickTravelLabel(e)}
           name='travel_name'>
           {travel.travel_name}
         </label>
@@ -166,8 +162,8 @@ const Create = () => {
         <input 
           type="text"
           value={travel.travel_name}
-          onChange={handleChangeTravel} 
-          onBlur={handleBlurTravel}
+          onChange={(e) => handleChangeTravel(e)} 
+          onBlur={(e) => handleBlurTravel(e)}
           name='travel_name' />
       }
       
