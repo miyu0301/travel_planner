@@ -263,8 +263,10 @@ const Create = () => {
                 onBlur={(e) => handleBlurPlan(e, p_idx)}
               />
               }
-              <p><i class="fa-solid fa-ellipsis"></i></p>
+              {/* <p><i class="fa-solid fa-ellipsis"></i></p> */}
+              {plan.plan_date &&
               <button onClick={() => handleClickDeletePlan(p_idx)}>Del</button>
+              }
             </div>
 
 
@@ -333,7 +335,9 @@ const Create = () => {
               </div>
             </div>
             ))}
+            {plan.plan_date &&
             <button onClick={() => handleClickAddDetail(p_idx)}>+ Add</button>
+            }
           </div>
           ))}
           <div class="day-board">
