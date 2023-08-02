@@ -83,6 +83,19 @@ app.put("/plan/:id", (req, res) => {
     console.log(error)
   }
 })
+app.delete("/plan/:id", (req, res) => {
+  const planId = req.params.id;
+  const q = "delete from plan where plan_id = ?"
+  try{
+    db.query(q, [planId], (err, data) => {
+      if(err) return res.json(err)
+        return res.json(data)
+    })  
+  } catch (error) {
+    console.log(error)
+  }
+})
+
 
 // save detail table
 app.post("/plan_detail", (req, res) => {

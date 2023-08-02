@@ -86,6 +86,23 @@ const Create = () => {
     setPlans(updatedPlans);
   };
 
+  const handleClickDeletePlan = async(p_idx) => {
+    try{
+      console.log(plans[p_idx].plan_id)
+      await axios.delete("http://localhost:8800/plan/" + plans[p_idx].plan_id)
+    }catch(err){
+      console.log(err)
+    }
+    let updatedPlans = [];
+    for(let i = 0; i < plans.length; i++){
+      if(i != p_idx){
+        updatedPlans = [...updatedPlans, plans[i]]
+      }
+    }
+      setPlans(updatedPlans)
+      // setPlans(updatedPlans.splice(p_idx, 1))
+  };
+
   const handleBlurPlan = async(e, p_idx) => {
     console.log("SAVE PLAN")
     e.preventDefault()
@@ -238,6 +255,7 @@ const Create = () => {
               />
               }
               <p><i class="fa-solid fa-ellipsis"></i></p>
+              <button onClick={() => handleClickDeletePlan(p_idx)}>Del</button>
             </div>
 
 
