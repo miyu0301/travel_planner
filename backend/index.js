@@ -137,6 +137,18 @@ app.put("/plan_detail/:id", (req, res) => {
     console.log(error)
   }
 })
+app.delete("/plan_detail/:id", (req, res) => {
+  const detailId = req.params.id;
+  const q = "delete from plan_detail where plan_detail_id = ?"
+  try{
+    db.query(q, [detailId], (err, data) => {
+      if(err) return res.json(err)
+        return res.json(data)
+    })  
+  } catch (error) {
+    console.log(error)
+  }
+})
 
 app.delete("/top/:id", (req, res) => {
   const travelId = req.params.id;

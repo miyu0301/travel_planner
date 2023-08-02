@@ -168,6 +168,20 @@ const Create = () => {
     setPlans(updatedPlans)
   };
 
+  const handleClickDeleteDetail = async(p_idx, d_idx) => {
+    try{
+      const plan_detail_id = plans[p_idx].plan_detail[d_idx].plan_detail_id;
+      console.log(plan_detail_id)
+      await axios.delete("http://localhost:8800/plan_detail/" + plan_detail_id)
+    }catch(err){
+      console.log(err)
+    }
+    const updatedPlans = [...plans];
+    updatedPlans[p_idx].plan_detail.splice(d_idx, 1);
+    setPlans(updatedPlans)
+  };
+
+
   const handleSaveDetail = async(p_idx, d_idx) => {
     try{
       console.log("SAVE DETAIL")
@@ -259,6 +273,7 @@ const Create = () => {
               <div key={d_idx} class="plan">
                 {!detail.is_input && 
                   <div>
+                    <button onClick={() => handleClickDeleteDetail(p_idx, d_idx)}>Del</button>
                     <label 
                       onClick={(e) => handleClickDetailLabel(p_idx, d_idx)}>
                       {detail.start_time}
