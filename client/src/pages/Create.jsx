@@ -93,14 +93,9 @@ const Create = () => {
     }catch(err){
       console.log(err)
     }
-    let updatedPlans = [];
-    for(let i = 0; i < plans.length; i++){
-      if(i != p_idx){
-        updatedPlans = [...updatedPlans, plans[i]]
-      }
-    }
-      setPlans(updatedPlans)
-      // setPlans(updatedPlans.splice(p_idx, 1))
+    let updatedPlans = [...plans];
+    updatedPlans.splice(p_idx, 1);
+    setPlans(updatedPlans)
   };
 
   const handleBlurPlan = async(e, p_idx) => {
