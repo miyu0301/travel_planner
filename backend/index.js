@@ -1,16 +1,8 @@
 import express from "express"
-import mysql from "mysql"
 import cors from "cors"
+import db from "./dbConfig.js"
 
 const app = express()
-
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "password",
-  database: "travel_planner",
-  multipleStatements: true
-})
 
 app.use(express.json())
 app.use(cors())
