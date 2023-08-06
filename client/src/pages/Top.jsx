@@ -3,6 +3,7 @@ import axios from 'axios'
 import {Link} from 'react-router-dom'
 
 const Top = () => {
+  const [travel_name, setTravelName] = useState("")
   const [travels, setTravels] = useState([])
 
   useEffect(() => {
@@ -18,6 +19,19 @@ const Top = () => {
     fechAllTravels()
   }, [])
 
+  const changeTravel = (e) => {
+    setTravelName(e.target.value)
+  }
+
+  const clickSaveTravel = async() => {
+    let data = {
+      travel_name: travel_name
+    }
+    let result = await axios.post("http://localhost:8800/travel", data)
+
+    // history.push('/Create.jsx')
+  }
+
   const clickDeleteTravel = async (id) => {
     try{
       await axios.delete("http://localhost:8800/travel/" + id)
@@ -32,6 +46,12 @@ const Top = () => {
         <button><Link to={`/create`}>create</Link></button>
         <h1>your travels</h1>
         <div>
+          <h2>New Plan</h2>
+          <input 
+            type="text"
+            value={travel_name}
+            onChange={(e) => changeTravel(e)} />
+          <button onClick={() => {clickSaveTravel()}}>Add</button>
           {travels.map(travel => (
             <div key={travel.travel_id}>
               <h2>{travel.travel_name}</h2>
