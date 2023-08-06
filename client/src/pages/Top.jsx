@@ -8,7 +8,7 @@ const Top = () => {
   useEffect(() => {
     const fechAllTravels = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/top")
+        const res = await axios.get("http://localhost:8800/travel")
         setTravels(res.data)
         console.log(res)
       }catch(err){
@@ -18,9 +18,9 @@ const Top = () => {
     fechAllTravels()
   }, [])
 
-  const handleDelete = async (id) => {
+  const clickDeleteTravel = async (id) => {
     try{
-      await axios.delete("http://localhost:8800/top/"+id)
+      await axios.delete("http://localhost:8800/travel/" + id)
       window.location.reload()
     }catch(err){
       console.log(err)
@@ -34,9 +34,8 @@ const Top = () => {
         <div>
           {travels.map(travel => (
             <div key={travel.travel_id}>
-              {/* {travel.cover && <img src={book.cover} alt='' />} */}
               <h2>{travel.travel_name}</h2>
-              <button className="delete" onClick={() => handleDelete(travel.travel_id)}>Delete</button>
+              <button className="delete" onClick={() => clickDeleteTravel(travel.travel_id)}>Delete</button>
               <button className="update"><Link to={`/update/${travel.travel_id}`}>Update</Link></button>
             </div>
           ))}

@@ -13,16 +13,10 @@ app.get("/", (req, res) => {
   res.json("hello")
 })
 
-// app.get("/top", (req, res) => {
-//   const q = "select * from travel_information"
-//   db.query(q, (err, data) => {
-//     if(err) return res.json(err)
-//     return res.json(data)
-//   })
-// })
-
+app.get("/travel", travel.fetchTravelInformation);
 app.post("/travel", travel.insertTravelInformation);
 app.put("/travel/:id", travel.updateTravelInformation);
+app.delete("/travel/:id", travel.deleteTravelInformation);
 
 app.post("/plan", plan.insertPlan);
 app.put("/plan/:id", plan.updatePlan);
