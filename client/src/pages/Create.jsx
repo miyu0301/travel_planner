@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import "../css/style.css"
 
 const Create = () => {
+  const { id } = useParams();
   const [travel, setTravel] = useState({
     travel_id: null,
     travel_name: "TRAVEL NAME",
@@ -13,10 +14,12 @@ const Create = () => {
 
   useEffect(() => {
     const saveTravel = async () => {
-      let result = await axios.post("http://localhost:8800/travel", travel)
+      let res = await axios.get("http://localhost:8800/travel/" + id)
       setTravel({
         ...travel,
-        travel_id: result.data.insertId,
+        travel_id: res.data[0].travel_id,
+        travel_name: res.data[0].travel_name,
+        is_input: false
       })
     }
     saveTravel();

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import {Link} from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Top = () => {
   const [travel_name, setTravelName] = useState("")
   const [travels, setTravels] = useState([])
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fechAllTravels = async () => {
@@ -29,7 +30,7 @@ const Top = () => {
     }
     let result = await axios.post("http://localhost:8800/travel", data)
 
-    // history.push('/Create.jsx')
+    navigate(`/create/${result.data.insertId}`);
   }
 
   const clickDeleteTravel = async (id) => {

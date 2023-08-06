@@ -1,10 +1,23 @@
 import db from "./dbConfig.js"
 
 const dbTravelController = {
-  fetchTravelInformation : (req, res) => {
+  fetchAllTravelInformation : (req, res) => {
     const q = "select * from travel_information;"
     try{
       db.query(q, (err, data) => {
+        if(err) return res.json(err)
+        return res.json(data)
+      })
+    }catch(err){
+      console.log(error)
+    }
+  },
+
+  fetchTravelInformation : (req, res) => {
+    const travelId = req.params.id;
+    const q = "select * from travel_information where travel_id = ?;"
+    try{
+      db.query(q, [travelId], (err, data) => {
         if(err) return res.json(err)
         return res.json(data)
       })

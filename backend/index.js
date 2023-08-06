@@ -13,7 +13,8 @@ app.get("/", (req, res) => {
   res.json("hello")
 })
 
-app.get("/travel", travel.fetchTravelInformation);
+app.get("/travel", travel.fetchAllTravelInformation);
+app.get("/travel/:id", travel.fetchTravelInformation);
 app.post("/travel", travel.insertTravelInformation);
 app.put("/travel/:id", travel.updateTravelInformation);
 app.delete("/travel/:id", travel.deleteTravelInformation);
