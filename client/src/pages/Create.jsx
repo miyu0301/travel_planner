@@ -13,16 +13,18 @@ const Create = () => {
   const [plans, setPlans] = useState([]);
 
   useEffect(() => {
-    const saveTravel = async () => {
+    const getTravelPlans = async () => {
       let res = await axios.get("http://localhost:8800/travel/" + id)
-      setTravel({
-        ...travel,
-        travel_id: res.data[0].travel_id,
-        travel_name: res.data[0].travel_name,
-        is_input: false
-      })
+      console.log(res)
+      // let res = await axios.get("http://localhost:8800/travel/" + id)
+      // setTravel({
+      //   ...travel,
+      //   travel_id: res.data[0].travel_id,
+      //   travel_name: res.data[0].travel_name,
+      //   is_input: false
+      // })
     }
-    saveTravel();
+    getTravelPlans();
   }, [])
 
   // 

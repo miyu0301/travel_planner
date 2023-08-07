@@ -13,9 +13,25 @@ const dbTravelController = {
     }
   },
 
+  // fetchTravelInformation : (req, res) => {
+  //   const travelId = req.params.id;
+  //   const q = "select * from travel_information where travel_id = ?;"
+  //   try{
+  //     db.query(q, [travelId], (err, data) => {
+  //       if(err) return res.json(err)
+  //       return res.json(data)
+  //     })
+  //   }catch(err){
+  //     console.log(error)
+  //   }
+  // },
+
   fetchTravelInformation : (req, res) => {
     const travelId = req.params.id;
-    const q = "select * from travel_information where travel_id = ?;"
+    const q = "select * from travel_information " +
+              "inner join plan on travel_information.travel_id = plan.travel_id " +
+              "inner join plan_detail on plan.plan_id = plan_detail.plan_id " +
+              "where travel_information.travel_id = ?;"
     try{
       db.query(q, [travelId], (err, data) => {
         if(err) return res.json(err)

@@ -57,7 +57,7 @@ const Top = () => {
             <div key={travel.travel_id}>
               <h2>{travel.travel_name}</h2>
               <button className="delete" onClick={() => clickDeleteTravel(travel.travel_id)}>Delete</button>
-              <button className="update"><Link to={`/update/${travel.travel_id}`}>Update</Link></button>
+              <button className="update"><Link to={`/create/${travel.travel_id}`}>Update</Link></button>
             </div>
           ))}
         </div>

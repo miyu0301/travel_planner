@@ -15,6 +15,7 @@ app.get("/", (req, res) => {
 
 app.get("/travel", travel.fetchAllTravelInformation);
 app.get("/travel/:id", travel.fetchTravelInformation);
+// app.get("/travel_plans/:id", travel.fetchTravelPlans);
 app.post("/travel", travel.insertTravelInformation);
 app.put("/travel/:id", travel.updateTravelInformation);
 app.delete("/travel/:id", travel.deleteTravelInformation);
