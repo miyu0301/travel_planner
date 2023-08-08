@@ -5,24 +5,24 @@ import "../css/style.css"
 
 const Create = () => {
   const { id } = useParams();
-  const [travel, setTravel] = useState({
-    travel_id: null,
-    travel_name: "TRAVEL NAME",
-    is_input: false
-  });
+  const [travel, setTravel] = useState({});
   const [plans, setPlans] = useState([]);
 
   useEffect(() => {
     const getTravelPlans = async () => {
       let res = await axios.get("http://localhost:8800/travel/" + id)
+      console.log("travel")
       console.log(res)
-      // let res = await axios.get("http://localhost:8800/travel/" + id)
-      // setTravel({
-      //   ...travel,
-      //   travel_id: res.data[0].travel_id,
-      //   travel_name: res.data[0].travel_name,
-      //   is_input: false
-      // })
+      console.log(res.data.plan)
+      // travel data
+      setTravel({
+        travel_id: res.data.travel_id,
+        travel_name: res.data.travel_name,
+        is_input: false
+      })
+      if(res.data.plan){
+        setPlans(res.data.plan)
+      }
     }
     getTravelPlans();
   }, [])
