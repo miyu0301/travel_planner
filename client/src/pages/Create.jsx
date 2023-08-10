@@ -10,13 +10,14 @@ const Create = () => {
 
   useEffect(() => {
     const getTravelPlans = async () => {
+      console.log(id)
+      
       let res = await axios.get("http://localhost:8800/travel/" + id)
       console.log("travel")
       console.log(res)
-      console.log(res.data.plan)
       // travel data
       setTravel({
-        travel_id: res.data.travel_id,
+        travel_id: id,
         travel_name: res.data.travel_name,
         is_input: false
       })
@@ -93,6 +94,8 @@ const Create = () => {
 
   const handleClickDeletePlan = async(p_idx) => {
     try{
+      console.log(p_idx)
+      console.log(plans)
       console.log(plans[p_idx].plan_id)
       await axios.delete("http://localhost:8800/plan/" + plans[p_idx].plan_id)
     }catch(err){
@@ -110,6 +113,7 @@ const Create = () => {
       plans[p_idx].travel_id = travel.travel_id
       if(!plans[p_idx].plan_id){
         let result = await axios.post("http://localhost:8800/plan", plans[p_idx])
+        console.log(result)
         const updatePlans = [...plans];
         updatePlans[p_idx] = {
           ...updatePlans[p_idx],

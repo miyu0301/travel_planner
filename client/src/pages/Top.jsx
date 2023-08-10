@@ -29,7 +29,7 @@ const Top = () => {
       travel_name: travel_name
     }
     let result = await axios.post("http://localhost:8800/travel", data)
-
+    console.log(result)
     navigate(`/create/${result.data.insertId}`);
   }
 

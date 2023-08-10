@@ -27,46 +27,61 @@ const dbTravelController = {
   // },
 
   fetchTravelInformation : (req, res) => {
+    let result = {};
     const travelId = req.params.id;
-    const q = "select * from travel_information " +
-              "inner join plan on travel_information.travel_id = plan.travel_id " +
-              "inner join plan_detail on plan.plan_id = plan_detail.plan_id " +
-              "where travel_information.travel_id = ?;"
+    const travel_q = "select * from travel_information where travel_id = ?"
+    const plan_q = "select p.plan_id, p.travel_id, p.plan_date, " +
+                  "d.plan_detail_id, d.start_time, d.end_time, d.detail, d.map, d.memo from plan as p " +
+                  "left outer join plan_detail as d on p.plan_id = d.plan_id " +
+                  "where p.travel_id = ? " +
+                  "order by p.plan_id;"
     try{
-      db.query(q, [travelId], (err, data) => {
+      db.query(travel_q, [travelId], (err, data) => {
         if(err) return res.json(err)
-        let result = {};
-        let plan = [];
-        let plan_detail = [];
-        const datas = data;
+        result['travel_id'] = data[0].travel_id
+        result['travel_name'] = data[0].travel_name
 
-        for (let i = 0; i < datas.length; i++) {
-          let detail = {};
-          detail['travel_id'] = datas[i].travel_id;
-          detail['plan_id'] = datas[i].plan_id;
-          detail['plan_detail_id'] = datas[i].plan_detail_id;
-          detail['start_time'] = datas[i].start_time;
-          detail['end_time'] = datas[i].end_time;
-          detail['detail'] = datas[i].detail;
-          detail['map'] = datas[i].map;
-          detail['memo'] = datas[i].memo;
-          plan_detail.push(detail);
-          if((i != 0 && datas[i-1].plan_id != datas[i].plan_id) || datas.length == i-1){
-            let obj = {
-              travel_id: datas[i].travel_id,
-              plan_id: datas[i].plan_id,
-              plan_date: datas[i].plan_date,
-              plan_detail: plan_detail
+        db.query(plan_q, [travelId], (err, datas) => {
+          if(err) return res.json(err)
+          if(datas){
+            console.log("start")
+            console.log(datas)
+            let plan = [];
+            let plan_detail = [];
+            const len = datas.length;
+            for (let i = 0; i < len; i++) {
+              if(datas[i].plan_detail_id){
+                let detail = {};
+                detail['travel_id'] = datas[i].travel_id;
+                detail['plan_id'] = datas[i].plan_id;
+                detail['plan_detail_id'] = datas[i].plan_detail_id;
+                detail['start_time'] = datas[i].start_time;
+                detail['end_time'] = datas[i].end_time;
+                detail['detail'] = datas[i].detail;
+                detail['map'] = datas[i].map;
+                detail['memo'] = datas[i].memo;
+                plan_detail.push(detail);
+              }
+
+              if(len == i+1 || datas[i].plan_id != datas[i+1].plan_id){
+                let obj = {
+                  travel_id: datas[i].travel_id,
+                  plan_id: datas[i].plan_id,
+                  plan_date: datas[i].plan_date,
+                  plan_detail: plan_detail
+                }
+                plan_detail = []
+                plan.push(obj)
+              }
+
             }
-            plan_detail = []
-            plan.push(obj)
+            result['plan'] = plan
+            console.log(result)
+            return res.json(result);
           }
-        }
-        result['travel_id'] = datas[0].travel_id
-        result['travel_name'] = datas[0].travel_name
-        result['plan'] = plan
-        return res.json(result);
+        })
       })
+
     }catch(err){
       console.log(error)
     }
