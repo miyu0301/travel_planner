@@ -32,7 +32,8 @@ const dbPlanController = {
   
   deletePlan: (req, res) => {
     const planId = req.params.id;
-    const q = "delete from plan where plan_id = ?"
+    const q = "delete p, d from plan as p left join plan_detail as d " +
+              "on p.plan_id = d.plan_id where p.plan_id = ?"
     try{
       db.query(q, [planId], (err, data) => {
         if(err) return res.json(err)

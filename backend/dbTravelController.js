@@ -117,7 +117,10 @@ const dbTravelController = {
 
   deleteTravelInformation: (req, res) => {
     const travelId = req.params.id;
-    const q = "delete from travel_information where travel_id = ?"
+    const q = "delete t, p, d from travel_information as t " +
+              "left join plan as p on t.travel_id = p.travel_id " +
+              "left join plan_detail as d on p.plan_id = d.plan_id " +
+              "where t.travel_id = ?"
     try{
       db.query(q, [travelId], (err, data) => {
         if(err) return res.json(err)
