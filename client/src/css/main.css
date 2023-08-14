@@ -1,6 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Judson:wght@400;700&family=Noto+Sans:wght@100&family=Pacifico&family=Yuji+Hentaigana+Akebono&display=swap");
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+}
+
+body::before {
+  display: block;
+  content: "";
+  height: 80px;
+}
+
+body::after {
+  display: block;
+  content: "";
+  height: 80px;
 }
 
 html {
@@ -10,20 +24,49 @@ html {
 body {
   background-image: url(https://source.unsplash.com/AlEyuIKuSmc);
   background-size: cover;
+  background-attachment: fixed;
   font-family: "Source Serif Pro", serif;
   color: rgb(107, 105, 92);
 }
 
+.show-plans .plan-wrap > p, .create-plan p {
+  margin: 0 0 10px 0;
+}
+
+/* header */
+header {
+  font-family: "Pacifico", cursive;
+  font-size: 35px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(157, 220, 220);
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+header .header-content {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 20px;
+}
+
+.create-plan {
+  display: flex;
+  justify-content: center;
+}
 .create-plan p {
   font-size: 35px;
 }
+.create-plan .create-wrap {
+  display: inline-block;
+  margin: 100px 0 0 0;
+}
 .create-plan .create-box {
-  height: 300px;
+  height: auto;
   width: 650px;
   background-color: rgba(255, 244, 225, 0.7);
   border-radius: 5px;
   box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.15);
-  padding: 30px 50px;
+  padding: 50px;
 }
 .create-plan .create-box p {
   font-size: 26px;
@@ -33,32 +76,71 @@ body {
   background-color: rgb(230, 122, 122);
   color: rgb(255, 255, 255);
   font-family: "Source Serif Pro", serif;
+  border-radius: 5px;
   border: none;
+  cursor: pointer;
   display: block;
-  padding: 8px 20px;
+  padding: 15px 20px;
   margin: 8px 0 0 auto;
   font-size: 16px;
+  margin: 40px auto 0 auto;
 }
 .create-plan .create-box input {
   width: auto;
   border-radius: 5px;
   border: none;
+  outline: none;
   min-width: 100%;
   padding: 9px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+  font-family: "Source Serif Pro", serif;
   font-size: 26px;
 }
 
-.show-plans p {
+.show-plans {
+  display: flex;
+  justify-content: center;
+}
+.show-plans .plan-wrap {
+  display: inline-block;
+  margin: 70px 0 0 0;
+}
+.show-plans .plan-wrap > p {
   font-size: 35px;
 }
 .show-plans .plan-box {
-  height: 100px;
-  width: 500px;
+  height: auto;
+  width: 1000px;
   background-color: rgba(255, 244, 225, 0.7);
   border-radius: 5px;
   box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  margin: 0 0 15px 0;
 }
 .show-plans .plan-box p {
   font-size: 26px;
+  display: inline;
+  margin: 0 20px;
+}
+.show-plans .plan-box span {
+  font-size: 30px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+footer {
+  text-align: center;
+  padding: 10px;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+}
+footer p {
+  font-size: 16px;
+}
+
+.create-plan p, .show-plans .plan-wrap > p {
+  margin: 0 0 10px 0;
 }/*# sourceMappingURL=main.css.map */

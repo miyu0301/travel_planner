@@ -10,17 +10,28 @@ $font-logo: 'Pacifico', cursive;
 $font-base: "Source Serif Pro", serif;
 
 * {
-  // margin: 0;
-  // padding: 0;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
+body::before {
+  display: block;
+  content: "";
+  height: 80px;
+}
+body::after {
+  display: block;
+  content: "";
+  height: 80px;
+}
 html {
   font-size: 62.0%;
 }
 body{
   background-image: url(https://source.unsplash.com/AlEyuIKuSmc);
   background-size: cover;
+  background-attachment: fixed;
   font-family: $font-base;
   color: $color-text;
 }

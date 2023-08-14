@@ -1,19 +1,60 @@
 
 @import "components";
 
+
+
+/* header */
+header{
+  font-family: $font-logo;
+  @include font-size(large);
+  color: $color-white;
+  background-color: $color-theme;
+  position: fixed;
+  top: 0;
+  width: 100%;
+
+  .header-content{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 20px;
+    // font-size: 24px;
+    // padding: 5px 10px;
+  }
+    
+  // height: 60px
+  
+  // position: absolute;
+  // top: 0;
+  // color: var(--sub-font-color);
+  // z-index: 1;
+  // width: 100%;
+  // border-bottom: 1px solid var(--sub-font-color);
+}
+
+
 .create-plan{
+  display: flex; 
+  justify-content: center; 
+  // align-items: center;
+
   p{
-    @include font-size(large)
+    @include font-size(large);
+    @extend %label-margin;
+  }
+  .create-wrap{
+    display: inline-block;
+    margin: 100px 0 0 0;
   }
   .create-box{
-    @include boxStyle(300px, 650px);
-    padding: 30px 50px;
+    @include boxStyle(auto, 650px);
+    padding: 50px;
     p{
       @include font-size(medium)
     }
     button{
       @include buttonStyle(auto);
-      @include font-size(small)
+      @include font-size(small);
+      margin: 40px auto 0 auto;
     }
     input{
       @include inputStyle(auto);
@@ -22,18 +63,49 @@
   }
 }
 .show-plans{
-  p{
-    @include font-size(large)
+  display: flex; 
+  justify-content: center; 
+
+  .plan-wrap{
+    display: inline-block;
+    margin: 70px 0 0 0;
+
+    & > p{
+      @include font-size(large);
+      @extend %label-margin;
+    }
   }
   .plan-box{
-    @include boxStyle(100px, 500px);
+    @include boxStyle(auto, 1000px);
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin: 0 0 15px 0;
 
     p{
-      @include font-size(medium)
+      @include font-size(medium);
+      display: inline;
+      margin: 0 20px;
+    }
+    span{
+      font-size: 30px;
+      margin: 0 10px;
+      cursor: pointer;
     }
   }
 }
 
+
+footer{
+  text-align: center;
+  padding: 10px;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  p{
+    @include font-size(small);
+  }
+}
 // header
 
 // welcome
