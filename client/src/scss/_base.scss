@@ -1,0 +1,26 @@
+$color-text: rgb(107, 105, 92);
+$color-theme: rgb(157, 220, 220);
+$color-base: rgb(255, 244, 225);
+$color-accent: rgb(230, 122, 122);
+$color-white: rgb(255, 255, 255);
+
+@import url('https://fonts.googleapis.com/css2?family=Judson:wght@400;700&family=Noto+Sans:wght@100&family=Pacifico&family=Yuji+Hentaigana+Akebono&display=swap');
+
+$font-logo: 'Pacifico', cursive;
+$font-base: "Source Serif Pro", serif;
+
+* {
+  // margin: 0;
+  // padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.0%;
+}
+body{
+  background-image: url(https://source.unsplash.com/AlEyuIKuSmc);
+  background-size: cover;
+  font-family: $font-base;
+  color: $color-text;
+}

@@ -1,0 +1,49 @@
+
+@import "components";
+
+.create-plan{
+  p{
+    @include font-size(large)
+  }
+  .create-box{
+    @include boxStyle(300px, 650px);
+    padding: 30px 50px;
+    p{
+      @include font-size(medium)
+    }
+    button{
+      @include buttonStyle(auto);
+      @include font-size(small)
+    }
+    input{
+      @include inputStyle(auto);
+      @include font-size(medium)
+    }
+  }
+}
+.show-plans{
+  p{
+    @include font-size(large)
+  }
+  .plan-box{
+    @include boxStyle(100px, 500px);
+
+    p{
+      @include font-size(medium)
+    }
+  }
+}
+
+// header
+
+// welcome
+
+// about
+
+// order
+
+// gallery
+
+// contact
+
+// footer

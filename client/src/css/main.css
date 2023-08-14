@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Judson:wght@400;700&family=Noto+Sans:wght@100&family=Pacifico&family=Yuji+Hentaigana+Akebono&display=swap");
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62%;
+}
+
+body {
+  background-image: url(https://source.unsplash.com/AlEyuIKuSmc);
+  background-size: cover;
+  font-family: "Source Serif Pro", serif;
+  color: rgb(107, 105, 92);
+}
+
+.create-plan p {
+  font-size: 35px;
+}
+.create-plan .create-box {
+  height: 300px;
+  width: 650px;
+  background-color: rgba(255, 244, 225, 0.7);
+  border-radius: 5px;
+  box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.15);
+  padding: 30px 50px;
+}
+.create-plan .create-box p {
+  font-size: 26px;
+}
+.create-plan .create-box button {
+  width: auto;
+  background-color: rgb(230, 122, 122);
+  color: rgb(255, 255, 255);
+  font-family: "Source Serif Pro", serif;
+  border: none;
+  display: block;
+  padding: 8px 20px;
+  margin: 8px 0 0 auto;
+  font-size: 16px;
+}
+.create-plan .create-box input {
+  width: auto;
+  border-radius: 5px;
+  border: none;
+  min-width: 100%;
+  padding: 9px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+  font-size: 26px;
+}
+
+.show-plans p {
+  font-size: 35px;
+}
+.show-plans .plan-box {
+  height: 100px;
+  width: 500px;
+  background-color: rgba(255, 244, 225, 0.7);
+  border-radius: 5px;
+  box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.15);
+}
+.show-plans .plan-box p {
+  font-size: 26px;
+}/*# sourceMappingURL=main.css.map */
