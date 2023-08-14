@@ -4,7 +4,11 @@ $color-base: rgb(255, 244, 225);
 $color-accent: rgb(230, 122, 122);
 $color-white: rgb(255, 255, 255);
 
+// google font
 @import url('https://fonts.googleapis.com/css2?family=Judson:wght@400;700&family=Noto+Sans:wght@100&family=Pacifico&family=Yuji+Hentaigana+Akebono&display=swap');
+// google icons
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0');
+
 
 $font-logo: 'Pacifico', cursive;
 $font-base: "Source Serif Pro", serif;
@@ -15,12 +19,12 @@ $font-base: "Source Serif Pro", serif;
   box-sizing: border-box;
 }
 
-body::before {
+main::before {
   display: block;
   content: "";
   height: 80px;
 }
-body::after {
+main::after {
   display: block;
   content: "";
   height: 80px;
@@ -28,8 +32,8 @@ body::after {
 html {
   font-size: 62.0%;
 }
-body{
-  background-image: url(https://source.unsplash.com/AlEyuIKuSmc);
+main{
+  background-image: url(../images/default-image.jpg);
   background-size: cover;
   background-attachment: fixed;
   font-family: $font-base;

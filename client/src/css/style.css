@@ -26,7 +26,7 @@ main::before{
     content: '';
     position: absolute;
     z-index: -1;
-    background-image: url(https://source.unsplash.com/8UWrhU209PQ);
+    /* background-image: url(https://source.unsplash.com/8UWrhU209PQ); */
     background-size: cover;
     filter: brightness(80%) blur(2px);
     top: -3px;

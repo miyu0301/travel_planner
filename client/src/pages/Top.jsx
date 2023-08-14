@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
+import "../css/main.css"
 
 const Top = () => {
   const [travel_name, setTravelName] = useState("")
@@ -19,6 +20,8 @@ const Top = () => {
     }
     fechAllTravels()
   }, [])
+  console.log("travel")
+  console.log(travels)
 
   const changeTravel = (e) => {
     setTravelName(e.target.value)
@@ -43,26 +46,40 @@ const Top = () => {
   }
   
   return (
-      <div>
-        <button><Link to={`/create`}>create</Link></button>
-        <h1>your travels</h1>
-        <div>
-          <h2>New Plan</h2>
-          <input 
-            type="text"
-            value={travel_name}
-            onChange={(e) => changeTravel(e)} />
-          <button onClick={() => {clickSaveTravel()}}>Add</button>
+    <main>
+      <section className="create-plan">
+        <div className="create-wrap">
+          <p>Create New Plan</p>
+          <div className="create-box">
+            <p>Title</p>
+            <input 
+              type="text"
+              value={travel_name}
+              onChange={(e) => changeTravel(e)} />
+            <button onClick={() => {clickSaveTravel()}}>CREATE PLAN</button>
+          </div>
+        </div>
+      </section>
+      <section className="show-plans">
+        <div className="plan-wrap">
+          <p>All Plans</p>
           {travels.map(travel => (
-            <div key={travel.travel_id}>
-              <h2>{travel.travel_name}</h2>
-              <button className="delete" onClick={() => clickDeleteTravel(travel.travel_id)}>Delete</button>
-              <button className="update"><Link to={`/create/${travel.travel_id}`}>Update</Link></button>
-            </div>
+          <div className="plan-box" key={travel.travel_id}>
+            <span className="material-symbols-outlined" onClick={() => clickDeleteTravel(travel.travel_id)}>
+              delete
+              </span>
+            <Link to={`/create/${travel.travel_id}`}>
+              <span className="material-symbols-outlined">
+              edit
+              </span></Link>
+            
+            <p>Sut 24/7 - Fri 29/9&emsp;{travel.travel_name}</p>
+          </div>
           ))}
         </div>
-      </div>
-  )
-}
+      </section>
+    </main>
+  );
+};
 
 export default Top
