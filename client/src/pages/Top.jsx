@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
+import Header from "../components/Header"
+import Footer from "../components/Footer"
 import "../css/main.css"
 
 const Top = () => {
@@ -47,6 +49,7 @@ const Top = () => {
   
   return (
     <main>
+      <Header />
       <section className="create-plan">
         <div className="create-wrap">
           <p>Create New Plan</p>
@@ -78,6 +81,7 @@ const Top = () => {
           ))}
         </div>
       </section>
+      <Footer />
     </main>
   );
 };

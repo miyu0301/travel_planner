@@ -9,7 +9,7 @@
 main::before {
   display: block;
   content: "";
-  height: 80px;
+  height: 70px;
 }
 
 main::after {
@@ -28,13 +28,13 @@ main {
   background-attachment: fixed;
   font-family: "Source Serif Pro", serif;
   color: rgb(107, 105, 92);
+  min-height: 100vh;
 }
 
 .show-plans .plan-wrap > p, .create-plan p {
   margin: 0 0 10px 0;
 }
 
-/* header */
 header {
   font-family: "Pacifico", cursive;
   font-size: 35px;
@@ -48,6 +48,17 @@ header .header-content {
   display: flex;
   justify-content: space-between;
   margin: 0 20px;
+}
+
+footer {
+  text-align: center;
+  padding: 10px;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+}
+footer p {
+  font-size: 16px;
 }
 
 .create-plan {
@@ -131,15 +142,90 @@ header .header-content {
   cursor: pointer;
 }
 
-footer {
-  text-align: center;
-  padding: 10px;
-  bottom: 0;
-  position: fixed;
-  width: 100%;
+.plan-board-header {
+  padding: 20px 30px;
 }
-footer p {
+.plan-board-header .header-wrap {
+  font-size: 26px;
+  height: auto;
+  width: 100%;
+  background-color: rgba(255, 244, 225, 0.7);
+  border-radius: 5px;
+  box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+}
+
+.plan-board-content {
+  padding: 0 30px;
+  display: flex;
+  overflow: scroll;
+}
+.plan-board-content .day-board {
+  height: 100%;
+  width: 270px;
+  background-color: rgba(255, 244, 225, 0.7);
+  border-radius: 5px;
+  box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.15);
+  background-color: rgba(255, 255, 255, 0.4);
+  margin-right: 20px;
+  padding: 10px 20px;
+}
+.plan-board-content .day-board-header {
+  font-size: 26px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.plan-board-content .plan {
   font-size: 16px;
+  height: auto;
+  width: auto;
+  background-color: rgba(255, 244, 225, 0.7);
+  border-radius: 5px;
+  box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.15);
+  background-color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 20px;
+  padding: 15px 20px;
+}
+.plan-board-content .plan-time {
+  font-size: 26px;
+  margin-bottom: 5px;
+}
+.plan-board-content .plan-content {
+  word-wrap: break-word;
+}
+.plan-board-content .plan label {
+  display: block;
+  margin-top: 5px;
+}
+.plan-board-content .plan input + p {
+  text-align: center;
+}
+.plan-board-content .plan input,
+.plan-board-content .plan textarea {
+  width: 100%;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  min-width: 100%;
+  padding: 9px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+  font-family: "Source Serif Pro", serif;
+  padding: 9px;
+  resize: none;
+}
+.plan-board-content .plan button {
+  width: auto;
+  background-color: rgb(230, 122, 122);
+  color: rgb(255, 255, 255);
+  font-family: "Source Serif Pro", serif;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  display: block;
+  padding: 15px 20px;
+  margin: 8px 0 0 auto;
+  padding: 8px 20px;
 }
 
 .create-plan p, .show-plans .plan-wrap > p {

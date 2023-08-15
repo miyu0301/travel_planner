@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
-import "../css/style.css"
+import Header from "../components/Header"
+import Footer from "../components/Footer"
+import "../css/main.css"
 
 const Create = () => {
   const { id } = useParams();
@@ -222,140 +224,132 @@ const Create = () => {
   };
 
   return (
-    <body>
-      <header>
-        <div class="header-content">
-          <p class="site-name">Travel Planner</p>
-          {/* <p class="menu"><a href="./top.html">TOP</a></p> */}
+    <main>
+      <Header />
+      <section class="plan-board-header">
+        <div class="header-wrap">
+          {!travel.is_input &&
+            <h1 
+              onClick={(e) => handleClickTravelLabel(e)}
+              name='travel_name'>
+              {travel.travel_name}
+            </h1>
+          }
+          {travel.is_input &&
+            <input 
+              type="text"
+              value={travel.travel_name}
+              onChange={(e) => handleChangeTravel(e)} 
+              onBlur={(e) => handleBlurTravel(e)}
+              name='travel_name' />
+          }
+          <p><i class="fa-solid fa-ellipsis"></i></p>
         </div>
-        <div class="line"></div>
-      </header>
+      </section>
       
-      <main>
-        <div class="board-header-wrap">
-          <div class="board-header">
-            {!travel.is_input &&
-              <h1 
-                onClick={(e) => handleClickTravelLabel(e)}
-                name='travel_name'>
-                {travel.travel_name}
-              </h1>
+      <section class="plan-board-content">
+        {plans.map((plan, p_idx) => (
+        <div class="day-board">
+          <div key={p_idx} class="day-board-header">
+            {!plan.is_input && 
+            <label 
+              onClick={(e) => handleClickPlanLabel(p_idx)}>
+              {plan.plan_date}
+            </label>
             }
-            {travel.is_input &&
-              <input 
-                type="text"
-                value={travel.travel_name}
-                onChange={(e) => handleChangeTravel(e)} 
-                onBlur={(e) => handleBlurTravel(e)}
-                name='travel_name' />
+            {plan.is_input &&
+            <input
+              type="date"
+              name="plan_date"
+              value={plan.plan_date}
+              onChange={(e) => handleChangePlan(e, p_idx)}
+              onBlur={(e) => handleBlurPlan(e, p_idx)}
+            />
             }
-            <p><i class="fa-solid fa-ellipsis"></i></p>
-          </div>
-        </div>
-        
-        <div class="board-content">
-          {plans.map((plan, p_idx) => (
-          <div class="day-board">
-            <div key={p_idx} class="day-board-header">
-              {!plan.is_input && 
-              <label 
-                onClick={(e) => handleClickPlanLabel(p_idx)}>
-                {plan.plan_date}
-              </label>
-              }
-              {plan.is_input &&
-              <input
-                type="date"
-                name="plan_date"
-                value={plan.plan_date}
-                onChange={(e) => handleChangePlan(e, p_idx)}
-                onBlur={(e) => handleBlurPlan(e, p_idx)}
-              />
-              }
-              {/* <p><i class="fa-solid fa-ellipsis"></i></p> */}
-              {plan.plan_date &&
-              <button onClick={() => handleClickDeletePlan(p_idx)}>Del</button>
-              }
-            </div>
-
-
-            {plan.plan_detail.map((detail, d_idx) => (
-            <div class="day-board-content">
-              <div key={d_idx} class="plan">
-                {!detail.is_input && 
-                  <div>
-                    <button onClick={() => handleClickDeleteDetail(p_idx, d_idx)}>Del</button>
-                    <label 
-                      onClick={(e) => handleClickDetailLabel(p_idx, d_idx)}>
-                      {detail.start_time}
-                    </label>
-                    {detail.end_time &&
-                    <p>-</p>
-                    }
-                    <label 
-                      onClick={(e) => handleClickDetailLabel(p_idx, d_idx)}>
-                      {detail.end_time}
-                    </label>
-                    <label 
-                      onClick={(e) => handleClickDetailLabel(p_idx, d_idx)}>
-                      {detail.detail}
-                    </label>
-                    <label 
-                      onClick={(e) => handleClickDetailLabel(p_idx, d_idx)}>
-                      {detail.memo}
-                    </label>
-                  </div>
-                }
-                {detail.is_input && 
-                  <div>
-                    <label for="time-start">Time</label>
-                    <input 
-                      type='time'
-                      name='start_time'
-                      class="time-start"
-                      value={detail.start_time}
-                      onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
-                    />
-                    <p>-</p>
-                    <input 
-                      type='time'
-                      name='end_time'
-                      class="time-end"
-                      value={detail.end_time}
-                      onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
-                    />
-                    <label for="time-start">Plan</label>
-                    <input 
-                      type='text'
-                      name='detail'
-                      value={detail.detail}
-                      onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
-                    />
-                    <label for="memo">Memo</label>
-                    <input 
-                      type='text'
-                      name='memo'
-                      value={detail.memo}
-                      onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
-                    />
-                    <button className='btn-detail' onClick={(e) => handleSaveDetail(p_idx, d_idx)}>Save</button>
-                  </div>
-                }
-              </div>
-            </div>
-            ))}
+            {/* <p><i class="fa-solid fa-ellipsis"></i></p> */}
             {plan.plan_date &&
-            <button onClick={() => handleClickAddDetail(p_idx)}>+ Add</button>
+            <button onClick={() => handleClickDeletePlan(p_idx)}>Del</button>
             }
+          </div>
+
+
+          {plan.plan_detail.map((detail, d_idx) => (
+          <div class="day-board-content">
+            <div key={d_idx} class="plan">
+              {!detail.is_input && 
+                <div>
+                  <button onClick={() => handleClickDeleteDetail(p_idx, d_idx)}>Del</button>
+                  <label 
+                    onClick={(e) => handleClickDetailLabel(p_idx, d_idx)}>
+                    {detail.start_time}
+                  </label>
+                  {detail.end_time &&
+                  <p>-</p>
+                  }
+                  <label 
+                    onClick={(e) => handleClickDetailLabel(p_idx, d_idx)}>
+                    {detail.end_time}
+                  </label>
+                  <label 
+                    onClick={(e) => handleClickDetailLabel(p_idx, d_idx)}>
+                    {detail.detail}
+                  </label>
+                  <label 
+                    onClick={(e) => handleClickDetailLabel(p_idx, d_idx)}>
+                    {detail.memo}
+                  </label>
+                </div>
+              }
+              {detail.is_input && 
+                <div>
+                  <label for="time-start">Time</label>
+                  <input 
+                    type='time'
+                    name='start_time'
+                    class="time-start"
+                    value={detail.start_time}
+                    onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
+                  />
+                  <p>-</p>
+                  <input 
+                    type='time'
+                    name='end_time'
+                    class="time-end"
+                    value={detail.end_time}
+                    onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
+                  />
+                  <label for="time-start">Plan</label>
+                  <input 
+                    type='text'
+                    name='detail'
+                    value={detail.detail}
+                    onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
+                  />
+                  <label for="memo">Memo</label>
+                  <input 
+                    type='text'
+                    name='memo'
+                    value={detail.memo}
+                    onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
+                  />
+                  <button className='btn-detail' onClick={(e) => handleSaveDetail(p_idx, d_idx)}>Save</button>
+                </div>
+              }
+            </div>
           </div>
           ))}
-          <div class="day-board">
-            <button onClick={(e) => handleClickAddPlan()}>+ Add day</button>
-            {/* <p>+ Add day</p> */}
-          </div>
+          {plan.plan_date &&
+          <button onClick={() => handleClickAddDetail(p_idx)}>+ Add</button>
+          }
         </div>
-      </main>
-    </body>
+        ))}
+        <div class="day-board">
+          <button onClick={(e) => handleClickAddPlan()}>+ Add day</button>
+          {/* <p>+ Add day</p> */}
+        </div>
+      </section>
+      <Footer />
+    </main>
   );
 };
 

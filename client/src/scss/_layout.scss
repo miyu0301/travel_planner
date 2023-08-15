@@ -1,9 +1,7 @@
 
 @import "components";
 
-
-
-/* header */
+// COMMMON
 header{
   font-family: $font-logo;
   @include font-size(large);
@@ -30,8 +28,18 @@ header{
   // width: 100%;
   // border-bottom: 1px solid var(--sub-font-color);
 }
+footer{
+  text-align: center;
+  padding: 10px;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  p{
+    @include font-size(small);
+  }
+}
 
-
+// TOP PAGE
 .create-plan{
   display: flex; 
   justify-content: center; 
@@ -95,27 +103,63 @@ header{
   }
 }
 
+// CREATE PAGE
+.plan-board-header{
+  padding: 20px 30px;
 
-footer{
-  text-align: center;
-  padding: 10px;
-  bottom: 0;
-  position: fixed;
-  width: 100%;
-  p{
+  .header-wrap{
+    @include font-size(medium);
+    @include boxStyle(auto, 100%);
+    padding: 10px;
+  }  
+}
+
+.plan-board-content{
+  padding: 0 30px;
+  display: flex;
+  overflow: scroll;
+
+  .day-board{
+    @include boxStyle(100%, 270px);
+    background-color: rgba($color-white,0.4);
+    margin-right: 20px;
+    padding: 10px 20px;
+  }
+  .day-board-header{
+    @include font-size(medium);
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .plan{
     @include font-size(small);
+    @include boxStyle(auto, auto);
+    background-color: rgba($color-white,0.5);
+    margin-bottom: 20px;
+    padding: 15px 20px;
+  }
+  .plan-time{
+    @include font-size(medium);
+    margin-bottom: 5px;
+  }
+  .plan-content{
+    word-wrap: break-word;
+  }
+  .plan label{
+    display: block;
+    margin-top: 5px;
+  }
+  .plan input + p{
+    text-align: center;
+  }
+  .plan input,
+  .plan textarea{
+    @include inputStyle(100%);
+    padding: 9px;
+    resize: none;   
+  }
+  .plan button{
+    @include buttonStyle(auto);
+    padding: 8px 20px;
   }
 }
-// header
-
-// welcome
-
-// about
-
-// order
-
-// gallery
-
-// contact
-
-// footer
