@@ -124,42 +124,48 @@ footer{
     background-color: rgba($color-white,0.4);
     margin-right: 20px;
     padding: 10px 20px;
-  }
-  .day-board-header{
-    @include font-size(medium);
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
-  .plan{
-    @include font-size(small);
-    @include boxStyle(auto, auto);
-    background-color: rgba($color-white,0.5);
-    margin-bottom: 20px;
-    padding: 15px 20px;
-  }
-  .plan-time{
-    @include font-size(medium);
-    margin-bottom: 5px;
-  }
-  .plan-content{
-    word-wrap: break-word;
-  }
-  .plan label{
-    display: block;
-    margin-top: 5px;
-  }
-  .plan input + p{
-    text-align: center;
-  }
-  .plan input,
-  .plan textarea{
-    @include inputStyle(100%);
-    padding: 9px;
-    resize: none;   
-  }
-  .plan button{
-    @include buttonStyle(auto);
-    padding: 8px 20px;
+
+    .day-board-header{
+      @include font-size(medium);
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .plan{
+      @include font-size(small);
+      @include boxStyle(auto, auto);
+      background-color: rgba($color-white,0.5);
+      margin-bottom: 20px;
+      padding: 15px 20px;
+    }
+    .plan-time{
+      @include font-size(medium);
+      margin-bottom: 5px;
+    }
+    .plan-content{
+      word-wrap: break-word;
+    }
+    .plan label{
+      display: block;
+      margin-top: 5px;
+    }
+    .plan input + p{
+      text-align: center;
+    }
+    .plan input,
+    .plan textarea{
+      @include inputStyle(100%);
+      padding: 9px;
+      resize: none;   
+    }
+    .plan button{
+      @include buttonStyle(auto);
+      padding: 8px 20px;
+    }
+    .add-day,
+    .add-plan{
+      @include font-size(small);
+      cursor: pointer;
+    }
   }
 }

@@ -339,13 +339,12 @@ const Create = () => {
           </div>
           ))}
           {plan.plan_date &&
-          <button onClick={() => handleClickAddDetail(p_idx)}>+ Add</button>
+          <p class="add-plan" onClick={() => handleClickAddDetail(p_idx)}>+ Add Plan</p>
           }
         </div>
         ))}
         <div class="day-board">
-          <button onClick={(e) => handleClickAddPlan()}>+ Add day</button>
-          {/* <p>+ Add day</p> */}
+          <p class="add-day" onClick={(e) => handleClickAddPlan()}>+ Add day</p>
         </div>
       </section>
       <Footer />

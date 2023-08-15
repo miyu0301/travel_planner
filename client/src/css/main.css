@@ -170,13 +170,13 @@ footer p {
   margin-right: 20px;
   padding: 10px 20px;
 }
-.plan-board-content .day-board-header {
+.plan-board-content .day-board .day-board-header {
   font-size: 26px;
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
 }
-.plan-board-content .plan {
+.plan-board-content .day-board .plan {
   font-size: 16px;
   height: auto;
   width: auto;
@@ -187,22 +187,22 @@ footer p {
   margin-bottom: 20px;
   padding: 15px 20px;
 }
-.plan-board-content .plan-time {
+.plan-board-content .day-board .plan-time {
   font-size: 26px;
   margin-bottom: 5px;
 }
-.plan-board-content .plan-content {
+.plan-board-content .day-board .plan-content {
   word-wrap: break-word;
 }
-.plan-board-content .plan label {
+.plan-board-content .day-board .plan label {
   display: block;
   margin-top: 5px;
 }
-.plan-board-content .plan input + p {
+.plan-board-content .day-board .plan input + p {
   text-align: center;
 }
-.plan-board-content .plan input,
-.plan-board-content .plan textarea {
+.plan-board-content .day-board .plan input,
+.plan-board-content .day-board .plan textarea {
   width: 100%;
   border-radius: 5px;
   border: none;
@@ -214,7 +214,7 @@ footer p {
   padding: 9px;
   resize: none;
 }
-.plan-board-content .plan button {
+.plan-board-content .day-board .plan button {
   width: auto;
   background-color: rgb(230, 122, 122);
   color: rgb(255, 255, 255);
@@ -226,6 +226,11 @@ footer p {
   padding: 15px 20px;
   margin: 8px 0 0 auto;
   padding: 8px 20px;
+}
+.plan-board-content .day-board .add-day,
+.plan-board-content .day-board .add-plan {
+  font-size: 16px;
+  cursor: pointer;
 }
 
 .create-plan p, .show-plans .plan-wrap > p {
