@@ -35,6 +35,10 @@ main {
   margin: 0 0 10px 0;
 }
 
+span {
+  cursor: pointer;
+}
+
 header {
   font-family: "Pacifico", cursive;
   font-size: 35px;
@@ -152,7 +156,7 @@ footer p {
   background-color: rgba(255, 244, 225, 0.7);
   border-radius: 5px;
   box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.15);
-  padding: 10px;
+  padding: 10px 20px;
 }
 
 .plan-board-content {
@@ -187,9 +191,22 @@ footer p {
   margin-bottom: 20px;
   padding: 15px 20px;
 }
-.plan-board-content .day-board .plan-time {
+.plan-board-content .day-board .plan .plan-time {
   font-size: 26px;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
+}
+.plan-board-content .day-board .plan .plan-label label {
+  font-size: 20px;
+  cursor: pointer;
+  margin: 0 0 15px 0;
+}
+.plan-board-content .day-board .plan .plan-time label {
+  font-size: 26px;
+  display: inline;
+}
+.plan-board-content .day-board .plan .plan-footer {
+  display: flex;
+  justify-content: flex-end;
 }
 .plan-board-content .day-board .plan-content {
   word-wrap: break-word;
@@ -232,7 +249,16 @@ footer p {
   font-size: 16px;
   cursor: pointer;
 }
+.plan-board-content .day-board .day-board-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 .create-plan p, .show-plans .plan-wrap > p {
   margin: 0 0 10px 0;
+}
+
+span {
+  cursor: pointer;
 }/*# sourceMappingURL=main.css.map */

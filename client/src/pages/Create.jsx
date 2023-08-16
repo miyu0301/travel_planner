@@ -223,6 +223,14 @@ const Create = () => {
     }
   };
 
+  const displayDate = (date_string) => {
+    return new Date(date_string).toLocaleDateString('en-ca', { weekday:"short", day:"numeric", month:"short"})
+  }
+  const displayTime = (time_string) => {
+    const array = time_string.split(":")
+    return array[0] + ":" + array[1];
+  }
+
   return (
     <main>
       <Header />
@@ -254,7 +262,7 @@ const Create = () => {
             {!plan.is_input && 
             <label 
               onClick={(e) => handleClickPlanLabel(p_idx)}>
-              {plan.plan_date}
+              {displayDate(plan.plan_date)}
             </label>
             }
             {plan.is_input &&
@@ -266,10 +274,6 @@ const Create = () => {
               onBlur={(e) => handleBlurPlan(e, p_idx)}
             />
             }
-            {/* <p><i class="fa-solid fa-ellipsis"></i></p> */}
-            {plan.plan_date &&
-            <button onClick={() => handleClickDeletePlan(p_idx)}>Del</button>
-            }
           </div>
 
 
@@ -277,19 +281,21 @@ const Create = () => {
           <div class="day-board-content">
             <div key={d_idx} class="plan">
               {!detail.is_input && 
-                <div>
-                  <button onClick={() => handleClickDeleteDetail(p_idx, d_idx)}>Del</button>
-                  <label 
-                    onClick={(e) => handleClickDetailLabel(p_idx, d_idx)}>
-                    {detail.start_time}
-                  </label>
-                  {detail.end_time &&
-                  <p>-</p>
-                  }
-                  <label 
-                    onClick={(e) => handleClickDetailLabel(p_idx, d_idx)}>
-                    {detail.end_time}
-                  </label>
+                <div class="plan-label">
+                  <div class="plan-time">
+                    {detail.start_time &&
+                      <label 
+                      onClick={(e) => handleClickDetailLabel(p_idx, d_idx)}>
+                      {displayTime(detail.start_time)}
+                      </label>
+                    }
+                    {detail.end_time &&
+                      <label 
+                      onClick={(e) => handleClickDetailLabel(p_idx, d_idx)}>
+                      {" - " + displayTime(detail.end_time)}
+                      </label>
+                    }
+                  </div>
                   <label 
                     onClick={(e) => handleClickDetailLabel(p_idx, d_idx)}>
                     {detail.detail}
@@ -298,10 +304,15 @@ const Create = () => {
                     onClick={(e) => handleClickDetailLabel(p_idx, d_idx)}>
                     {detail.memo}
                   </label>
+                  <div class="plan-footer">
+                    <span className="material-symbols-outlined" onClick={() => handleClickDeleteDetail(p_idx, d_idx)}>
+                    delete
+                    </span>
+                  </div>
                 </div>
               }
               {detail.is_input && 
-                <div>
+                <div class="plan-input">
                   <label for="time-start">Time</label>
                   <input 
                     type='time'
@@ -339,7 +350,12 @@ const Create = () => {
           </div>
           ))}
           {plan.plan_date &&
-          <p class="add-plan" onClick={() => handleClickAddDetail(p_idx)}>+ Add Plan</p>
+          <div class="day-board-footer">
+            <p class="add-plan" onClick={() => handleClickAddDetail(p_idx)}>+ Add Plan</p>
+            <span className="material-symbols-outlined" onClick={() => handleClickDeletePlan(p_idx)}>
+            delete
+            </span>
+          </div>
           }
         </div>
         ))}
