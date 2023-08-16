@@ -237,11 +237,11 @@ const Create = () => {
       <section class="plan-board-header">
         <div class="header-wrap">
           {!travel.is_input &&
-            <h1 
+            <label 
               onClick={(e) => handleClickTravelLabel(e)}
               name='travel_name'>
               {travel.travel_name}
-            </h1>
+            </label>
           }
           {travel.is_input &&
             <input 
@@ -249,7 +249,8 @@ const Create = () => {
               value={travel.travel_name}
               onChange={(e) => handleChangeTravel(e)} 
               onBlur={(e) => handleBlurTravel(e)}
-              name='travel_name' />
+              name='travel_name'
+              autoFocus />
           }
           <p><i class="fa-solid fa-ellipsis"></i></p>
         </div>
@@ -272,7 +273,7 @@ const Create = () => {
               value={plan.plan_date}
               onChange={(e) => handleChangePlan(e, p_idx)}
               onBlur={(e) => handleBlurPlan(e, p_idx)}
-            />
+              autoFocus />
             }
           </div>
 
@@ -320,7 +321,7 @@ const Create = () => {
                     class="time-start"
                     value={detail.start_time}
                     onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
-                  />
+                    autoFocus />
                   <p>-</p>
                   <input 
                     type='time'
@@ -328,21 +329,21 @@ const Create = () => {
                     class="time-end"
                     value={detail.end_time}
                     onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
-                  />
+                    autoFocus />
                   <label for="time-start">Plan</label>
                   <input 
                     type='text'
                     name='detail'
                     value={detail.detail}
                     onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
-                  />
+                    autoFocus />
                   <label for="memo">Memo</label>
                   <input 
                     type='text'
                     name='memo'
                     value={detail.memo}
                     onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
-                  />
+                    autoFocus />
                   <button className='btn-detail' onClick={(e) => handleSaveDetail(p_idx, d_idx)}>Save</button>
                 </div>
               }

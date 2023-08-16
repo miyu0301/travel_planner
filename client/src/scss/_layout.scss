@@ -108,9 +108,21 @@ footer{
   padding: 20px 30px;
 
   .header-wrap{
-    @include font-size(medium);
+    @include font-size(large);
     @include boxStyle(auto, 100%);
     padding: 10px 20px;
+
+    input{
+      @include font-size(large);
+      background-color: transparent;
+      border: none;
+      outline: none;
+      font-family: $font-base;
+    
+    }
+    label{
+      cursor: pointer;
+    }
   }  
 }
 
@@ -130,6 +142,13 @@ footer{
       display: flex;
       justify-content: space-between;
       margin-bottom: 10px;
+
+      input{
+        @include inputStyle(100%);
+      }
+      label{
+        cursor: pointer;
+      }
     }
     .plan{
       @include font-size(small);

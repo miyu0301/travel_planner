@@ -150,13 +150,23 @@ footer p {
   padding: 20px 30px;
 }
 .plan-board-header .header-wrap {
-  font-size: 26px;
+  font-size: 35px;
   height: auto;
   width: 100%;
   background-color: rgba(255, 244, 225, 0.7);
   border-radius: 5px;
   box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.15);
   padding: 10px 20px;
+}
+.plan-board-header .header-wrap input {
+  font-size: 35px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-family: "Source Serif Pro", serif;
+}
+.plan-board-header .header-wrap label {
+  cursor: pointer;
 }
 
 .plan-board-content {
@@ -179,6 +189,19 @@ footer p {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+}
+.plan-board-content .day-board .day-board-header input {
+  width: 100%;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  min-width: 100%;
+  padding: 9px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+  font-family: "Source Serif Pro", serif;
+}
+.plan-board-content .day-board .day-board-header label {
+  cursor: pointer;
 }
 .plan-board-content .day-board .plan {
   font-size: 16px;
