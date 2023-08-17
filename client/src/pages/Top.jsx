@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import "../css/main.css"
+import common from './Common.jsx';
 
 const Top = () => {
   const [travel_name, setTravelName] = useState("")
@@ -29,21 +30,24 @@ const Top = () => {
     setTravelName(e.target.value)
   }
 
-  const clickSaveTravel = async() => {
+  const clickSaveTravel = async(e) => {
+    e.preventDefault();
     let data = {
-      travel_name: travel_name
+      travel_name: travel_name ? travel_name : common.unTitledTravelName
     }
     let result = await axios.post("http://localhost:8800/travel", data)
-    console.log(result)
     navigate(`/create/${result.data.insertId}`);
+    e.preventDefault();
   }
 
   const clickDeleteTravel = async (id) => {
-    try{
-      await axios.delete("http://localhost:8800/travel/" + id)
-      window.location.reload()
-    }catch(err){
-      console.log(err)
+    if (common.showDeleteAlert()) {
+      try{
+        await axios.delete("http://localhost:8800/travel/" + id)
+        window.location.reload()
+      }catch(err){
+        console.log(err)
+      }
     }
   }
   
@@ -59,7 +63,7 @@ const Top = () => {
               type="text"
               value={travel_name}
               onChange={(e) => changeTravel(e)} />
-            <button onClick={() => {clickSaveTravel()}}>CREATE PLAN</button>
+            <button onClick={(e) => {clickSaveTravel(e)}}>CREATE PLAN</button>
           </div>
         </div>
       </section>

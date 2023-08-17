@@ -4,6 +4,7 @@ import axios from 'axios'
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import "../css/main.css"
+import common from './Common.jsx';
 
 const Create = () => {
   const { id } = useParams();
@@ -47,18 +48,21 @@ const Create = () => {
   }
 
   const handleBlurTravel = async (e) => {
-      e.preventDefault()
+    // e.preventDefault()
     try{
-      console.log("SAVE TRAVEL")
-      console.log(travel)
-      await axios.put("http://localhost:8800/travel/" + travel.travel_id, travel)
+      let data = {
+        travel_name: travel.travel_name ? travel.travel_name : common.unTitledTravelName
+      }  
+      await axios.put("http://localhost:8800/travel/" + travel.travel_id, data)
       setTravel({
         ...travel,
+        travel_name: data.travel_name,
         is_input: false
       })
     }catch(err){
       console.log(err)
     }
+
   }
   
   // 
@@ -95,45 +99,45 @@ const Create = () => {
   };
 
   const handleClickDeletePlan = async(p_idx) => {
-    try{
-      console.log(p_idx)
-      console.log(plans)
-      console.log(plans[p_idx].plan_id)
-      await axios.delete("http://localhost:8800/plan/" + plans[p_idx].plan_id)
-    }catch(err){
-      console.log(err)
+    if (common.showDeleteAlert()){
+      try{
+        await axios.delete("http://localhost:8800/plan/" + plans[p_idx].plan_id)
+      }catch(err){
+        console.log(err)
+      }
+      let updatedPlans = [...plans];
+      updatedPlans.splice(p_idx, 1);
+      setPlans(updatedPlans)
     }
-    let updatedPlans = [...plans];
-    updatedPlans.splice(p_idx, 1);
-    setPlans(updatedPlans)
   };
 
   const handleBlurPlan = async(e, p_idx) => {
-    console.log("SAVE PLAN")
-    e.preventDefault()
-    try{
-      plans[p_idx].travel_id = travel.travel_id
-      if(!plans[p_idx].plan_id){
-        let result = await axios.post("http://localhost:8800/plan", plans[p_idx])
-        console.log(result)
-        const updatePlans = [...plans];
-        updatePlans[p_idx] = {
-          ...updatePlans[p_idx],
-          plan_id: result.data.insertId,
-          is_input: false
-        };
-        setPlans(updatePlans)  
-      }else{
-        await axios.put("http://localhost:8800/plan/" + plans[p_idx].plan_id, plans[p_idx])
-        const updatePlans = [...plans];
-        updatePlans[p_idx] = {
-          ...updatePlans[p_idx],
-          is_input: false
-        };
-        setPlans(updatePlans)  
+    // e.preventDefault()
+    if(e.target.value){
+      try{
+        plans[p_idx].travel_id = travel.travel_id
+        if(!plans[p_idx].plan_id){
+          let result = await axios.post("http://localhost:8800/plan", plans[p_idx])
+          console.log(result)
+          const updatePlans = [...plans];
+          updatePlans[p_idx] = {
+            ...updatePlans[p_idx],
+            plan_id: result.data.insertId,
+            is_input: false
+          };
+          setPlans(updatePlans)  
+        }else{
+          await axios.put("http://localhost:8800/plan/" + plans[p_idx].plan_id, plans[p_idx])
+          const updatePlans = [...plans];
+          updatePlans[p_idx] = {
+            ...updatePlans[p_idx],
+            is_input: false
+          };
+          setPlans(updatePlans)  
+        }
+      }catch(err){
+        console.log(err)
       }
-    }catch(err){
-      console.log(err)
     }
   };
 
@@ -180,23 +184,27 @@ const Create = () => {
   };
 
   const handleClickDeleteDetail = async(p_idx, d_idx) => {
-    try{
-      const plan_detail_id = plans[p_idx].plan_detail[d_idx].plan_detail_id;
-      console.log(plan_detail_id)
-      await axios.delete("http://localhost:8800/plan_detail/" + plan_detail_id)
-    }catch(err){
-      console.log(err)
-    }
-    const updatedPlans = [...plans];
-    updatedPlans[p_idx].plan_detail.splice(d_idx, 1);
-    setPlans(updatedPlans)
+    if (common.showDeleteAlert()){
+      try{
+        const plan_detail_id = plans[p_idx].plan_detail[d_idx].plan_detail_id;
+        await axios.delete("http://localhost:8800/plan_detail/" + plan_detail_id)
+      }catch(err){
+        console.log(err)
+      }
+      const updatedPlans = [...plans];
+      updatedPlans[p_idx].plan_detail.splice(d_idx, 1);
+      setPlans(updatedPlans)
+    }    
   };
-
 
   const handleSaveDetail = async(p_idx, d_idx) => {
     try{
-      console.log("SAVE DETAIL")
       let detail = plans[p_idx].plan_detail[d_idx];
+
+      if(!detail.start_time && !detail.end_time &&
+          !detail.detail && !detail.memo){
+            detail.detail = common.notWritten;
+      }
       if(!detail.plan_detail_id){
         detail.travel_id = travel.travel_id
         detail.plan_id = plans[p_idx].plan_id
@@ -223,13 +231,6 @@ const Create = () => {
     }
   };
 
-  const displayDate = (date_string) => {
-    return new Date(date_string).toLocaleDateString('en-ca', { weekday:"short", day:"numeric", month:"short"})
-  }
-  const displayTime = (time_string) => {
-    const array = time_string.split(":")
-    return array[0] + ":" + array[1];
-  }
 
   return (
     <main>
@@ -244,13 +245,16 @@ const Create = () => {
             </label>
           }
           {travel.is_input &&
+          <form novalidate>
             <input 
               type="text"
               value={travel.travel_name}
               onChange={(e) => handleChangeTravel(e)} 
               onBlur={(e) => handleBlurTravel(e)}
               name='travel_name'
+              required
               autoFocus />
+          </form>
           }
           <p><i class="fa-solid fa-ellipsis"></i></p>
         </div>
@@ -263,7 +267,7 @@ const Create = () => {
             {!plan.is_input && 
             <label 
               onClick={(e) => handleClickPlanLabel(p_idx)}>
-              {displayDate(plan.plan_date)}
+              {common.displayDate(plan.plan_date)}
             </label>
             }
             {plan.is_input &&
@@ -287,13 +291,13 @@ const Create = () => {
                     {detail.start_time &&
                       <label 
                       onClick={(e) => handleClickDetailLabel(p_idx, d_idx)}>
-                      {displayTime(detail.start_time)}
+                      {common.displayTime(detail.start_time)}
                       </label>
                     }
                     {detail.end_time &&
                       <label 
                       onClick={(e) => handleClickDetailLabel(p_idx, d_idx)}>
-                      {" - " + displayTime(detail.end_time)}
+                      {" - " + common.displayTime(detail.end_time)}
                       </label>
                     }
                   </div>
@@ -329,21 +333,21 @@ const Create = () => {
                     class="time-end"
                     value={detail.end_time}
                     onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
-                    autoFocus />
+                     />
                   <label for="time-start">Plan</label>
                   <input 
                     type='text'
-                    name='detail'
+                    class='detail'
                     value={detail.detail}
                     onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
-                    autoFocus />
+                     />
                   <label for="memo">Memo</label>
                   <input 
                     type='text'
-                    name='memo'
+                    class='memo'
                     value={detail.memo}
                     onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
-                    autoFocus />
+                     />
                   <button className='btn-detail' onClick={(e) => handleSaveDetail(p_idx, d_idx)}>Save</button>
                 </div>
               }
