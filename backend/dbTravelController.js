@@ -2,9 +2,11 @@ import db from "./dbConfig.js"
 
 const dbTravelController = {
   fetchAllTravelInformation : (req, res) => {
-    const q = "select * from travel_information where user_id = ?;"
+    const q = "select * from travel_information where user_id = ?;";
+    // const q = "select t.travel_id, t.travel_name, p.plan_date " +
+    //           "from travel_information as t left outer join plan as p " +
+    //           "on t.travel_id = p.travel_id where t.user_id = ?;"
     const userId = [ req.params.id ]
-    console.log(userId)
     try{
       db.query(q, [userId], (err, data) => {
         if(err) return res.json(err)
@@ -41,6 +43,7 @@ const dbTravelController = {
     try{
       db.query(travel_q, [travelId], (err, data) => {
         if(err) return res.json(err)
+        result['user_id'] = data[0].user_id
         result['travel_id'] = data[0].travel_id
         result['travel_name'] = data[0].travel_name
 

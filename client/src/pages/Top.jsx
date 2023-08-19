@@ -56,7 +56,7 @@ const Top = () => {
   
   return (
     <main>
-      <Header />
+      <Header userId={id} />
       <section className="create-plan">
         <div className="create-wrap">
           <p>Create New Plan</p>

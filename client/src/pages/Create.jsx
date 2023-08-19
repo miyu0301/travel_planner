@@ -8,6 +8,7 @@ import common from './Common.jsx';
 
 const Create = () => {
   const { id } = useParams();
+  const [userId, setUserId] = useState();
   const [travel, setTravel] = useState({});
   const [plans, setPlans] = useState([]);
 
@@ -18,6 +19,7 @@ const Create = () => {
       let res = await axios.get("http://localhost:8800/travel/" + id)
       console.log("travel")
       console.log(res)
+      setUserId(res.data.user_id)
       // travel data
       setTravel({
         travel_id: id,
@@ -234,7 +236,7 @@ const Create = () => {
 
   return (
     <main>
-      <Header />
+      <Header userId={userId} />
       <section class="plan-board-header">
         <div class="header-wrap">
           {!travel.is_input &&
