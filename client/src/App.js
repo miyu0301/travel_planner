@@ -4,6 +4,7 @@ import {
   Routes,
 } from "react-router-dom";
 import Top from "./pages/Top";
+import Login from "./pages/Login";
 import Create from "./pages/Create";
 import Update from "./pages/Update";
 
@@ -12,7 +13,8 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Top/>}/>
+          <Route path="/:id" element={<Top/>}/>
+          <Route path="/login" element={<Login/>}/>
           <Route path="/create/:id" element={<Create/>}/>
           <Route path="/update/:id" element={<Update/>}/>
         </Routes>      

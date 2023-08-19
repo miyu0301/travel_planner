@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import "../css/main.css"
 import common from './Common.jsx';
 
 const Top = () => {
+  const { id } = useParams();
   const [travel_name, setTravelName] = useState("")
   const [travels, setTravels] = useState([])
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(id)
     const fechAllTravels = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/travel")
+        const res = await axios.get("http://localhost:8800/travels/" + id)
+        console.log(res.data)
         setTravels(res.data)
-        console.log(res)
       }catch(err){
         console.log(err)
       }
@@ -33,6 +35,7 @@ const Top = () => {
   const clickSaveTravel = async(e) => {
     e.preventDefault();
     let data = {
+      user_id: id,
       travel_name: travel_name ? travel_name : common.unTitledTravelName
     }
     let result = await axios.post("http://localhost:8800/travel", data)

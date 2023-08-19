@@ -1,5 +1,6 @@
 import express from "express"
 import cors from "cors"
+import user from "./dbUserController.js"
 import travel from "./dbTravelController.js"
 import plan from "./dbPlanController.js"
 import detail from "./dbPlanDetailController.js"
@@ -13,7 +14,9 @@ app.get("/", (req, res) => {
   res.json("hello")
 })
 
-app.get("/travel", travel.fetchAllTravelInformation);
+app.post("/login", user.validateLogin);
+
+app.get("/travels/:id", travel.fetchAllTravelInformation);
 app.get("/travel/:id", travel.fetchTravelInformation);
 // app.get("/travel_plans/:id", travel.fetchTravelPlans);
 app.post("/travel", travel.insertTravelInformation);

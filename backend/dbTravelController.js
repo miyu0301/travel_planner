@@ -2,10 +2,13 @@ import db from "./dbConfig.js"
 
 const dbTravelController = {
   fetchAllTravelInformation : (req, res) => {
-    const q = "select * from travel_information;"
+    const q = "select * from travel_information where user_id = ?;"
+    const userId = [ req.params.id ]
+    console.log(userId)
     try{
-      db.query(q, (err, data) => {
+      db.query(q, [userId], (err, data) => {
         if(err) return res.json(err)
+        console.log(data)
         return res.json(data)
       })
     }catch(err){
@@ -88,8 +91,8 @@ const dbTravelController = {
   },
 
   insertTravelInformation : (req, res) => {
-    const q = "insert into travel_information (`travel_name`) values (?);"
-    const values = [ req.body.travel_name ]
+    const q = "insert into travel_information (`user_id`, `travel_name`) values (?);"
+    const values = [ req.body.user_id, req.body.travel_name ]
     try {
       db.query(q, [values], (err, data) => {
         if(err) throw res.json(err);
