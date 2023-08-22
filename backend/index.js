@@ -31,7 +31,7 @@ app.post("/plan_detail", detail.insertPlanDetail);
 app.put("/plan_detail/:id", detail.updatePlanDetail);
 app.delete("/plan_detail/:id", detail.deletePlanDetail);
 
-
-app.listen(3000, '0.0.0.0', () => {
+const port = process.env.PORT || 3000;
+app.listen(port, "0.0.0.0", () => {
   console.log("connected to backend!!")
 })
