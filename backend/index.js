@@ -32,6 +32,6 @@ app.put("/plan_detail/:id", detail.updatePlanDetail);
 app.delete("/plan_detail/:id", detail.deletePlanDetail);
 
 
-app.listen(8800, '0.0.0.0', () => {
+app.listen(3000, '0.0.0.0', () => {
   console.log("connected to backend!!")
 })
