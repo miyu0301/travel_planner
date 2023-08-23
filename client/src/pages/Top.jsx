@@ -16,7 +16,7 @@ const Top = () => {
     console.log(id)
     const fechAllTravels = async () => {
       try {
-        const res = await axios.get(process.env.REACT_APP_API + "/travels/" + id)
+        const res = await axios.get(common.api + "/travels/" + id)
         console.log(res.data)
         setTravels(res.data)
       }catch(err){

@@ -1,5 +1,5 @@
 const common = {
-  api: process.env.REACT_APP_API,
+  api: process.env.REACT_APP_API || "http://localhost:8800",
   unTitledTravelName: "Untitled Travel Name",
   notWritten : "Not written",
 
