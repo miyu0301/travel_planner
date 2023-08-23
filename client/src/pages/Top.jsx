@@ -16,7 +16,7 @@ const Top = () => {
     console.log(id)
     const fechAllTravels = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/travels/" + id)
+        const res = await axios.get(process.env.REACT_APP_API + "/travels/" + id)
         console.log(res.data)
         setTravels(res.data)
       }catch(err){
@@ -38,7 +38,7 @@ const Top = () => {
       user_id: id,
       travel_name: travel_name ? travel_name : common.unTitledTravelName
     }
-    let result = await axios.post("http://localhost:8800/travel", data)
+    let result = await axios.post(common.api + "/travel", data)
     navigate(`/create/${result.data.insertId}`);
     e.preventDefault();
   }
@@ -46,7 +46,7 @@ const Top = () => {
   const clickDeleteTravel = async (id) => {
     if (common.showDeleteAlert()) {
       try{
-        await axios.delete("http://localhost:8800/travel/" + id)
+        await axios.delete(common.api + "/travel/" + id)
         window.location.reload()
       }catch(err){
         console.log(err)

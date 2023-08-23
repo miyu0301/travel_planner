@@ -1,4 +1,5 @@
 const common = {
+  api: process.env.REACT_APP_API,
   unTitledTravelName: "Untitled Travel Name",
   notWritten : "Not written",
 

@@ -16,7 +16,7 @@ const Create = () => {
     const getTravelPlans = async () => {
       console.log(id)
       
-      let res = await axios.get("http://localhost:8800/travel/" + id)
+      let res = await axios.get(common.api + "/travel/" + id)
       console.log("travel")
       console.log(res)
       setUserId(res.data.user_id)
@@ -55,7 +55,7 @@ const Create = () => {
       let data = {
         travel_name: travel.travel_name ? travel.travel_name : common.unTitledTravelName
       }  
-      await axios.put("http://localhost:8800/travel/" + travel.travel_id, data)
+      await axios.put(common.api + "/travel/" + travel.travel_id, data)
       setTravel({
         ...travel,
         travel_name: data.travel_name,
@@ -103,7 +103,7 @@ const Create = () => {
   const handleClickDeletePlan = async(p_idx) => {
     if (common.showDeleteAlert()){
       try{
-        await axios.delete("http://localhost:8800/plan/" + plans[p_idx].plan_id)
+        await axios.delete(common.api + "/plan/" + plans[p_idx].plan_id)
       }catch(err){
         console.log(err)
       }
@@ -119,7 +119,7 @@ const Create = () => {
       try{
         plans[p_idx].travel_id = travel.travel_id
         if(!plans[p_idx].plan_id){
-          let result = await axios.post("http://localhost:8800/plan", plans[p_idx])
+          let result = await axios.post(common.api + "/plan", plans[p_idx])
           console.log(result)
           const updatePlans = [...plans];
           updatePlans[p_idx] = {
@@ -129,7 +129,7 @@ const Create = () => {
           };
           setPlans(updatePlans)  
         }else{
-          await axios.put("http://localhost:8800/plan/" + plans[p_idx].plan_id, plans[p_idx])
+          await axios.put(common.api + "/plan/" + plans[p_idx].plan_id, plans[p_idx])
           const updatePlans = [...plans];
           updatePlans[p_idx] = {
             ...updatePlans[p_idx],
@@ -189,7 +189,7 @@ const Create = () => {
     if (common.showDeleteAlert()){
       try{
         const plan_detail_id = plans[p_idx].plan_detail[d_idx].plan_detail_id;
-        await axios.delete("http://localhost:8800/plan_detail/" + plan_detail_id)
+        await axios.delete(common.api + "/plan_detail/" + plan_detail_id)
       }catch(err){
         console.log(err)
       }
@@ -210,7 +210,7 @@ const Create = () => {
       if(!detail.plan_detail_id){
         detail.travel_id = travel.travel_id
         detail.plan_id = plans[p_idx].plan_id
-        let result = await axios.post("http://localhost:8800/plan_detail", detail)
+        let result = await axios.post(common.api + "/plan_detail", detail)
   
         const updatePlans = [...plans];
         updatePlans[p_idx].plan_detail[d_idx] = {
@@ -220,7 +220,7 @@ const Create = () => {
         };
         setPlans(updatePlans)
       }else{
-        await axios.put("http://localhost:8800/plan_detail/" + detail.plan_detail_id, detail)
+        await axios.put(common.api + "/plan_detail/" + detail.plan_detail_id, detail)
         const updatePlans = [...plans];
         updatePlans[p_idx].plan_detail[d_idx] = {
           ...updatePlans[p_idx].plan_detail[d_idx],
