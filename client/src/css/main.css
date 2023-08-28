@@ -31,7 +31,7 @@ main {
   min-height: 100vh;
 }
 
-.show-plans .plan-wrap > p, .create-plan p {
+.show-plans .plan-wrap > p, .create-plan p, .login-container .login-wrap .form-wrap input, .login-container .login-wrap .form-wrap p, .login-container .login-wrap p {
   margin: 0 0 10px 0;
 }
 
@@ -67,6 +67,62 @@ footer {
 }
 footer p {
   font-size: 16px;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+}
+.login-container .login-wrap {
+  margin: 100px 0 0 0;
+}
+.login-container .login-wrap p {
+  font-size: 35px;
+}
+.login-container .login-wrap .form-wrap {
+  height: auto;
+  width: 650px;
+  background-color: rgba(255, 244, 225, 0.7);
+  border-radius: 5px;
+  box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.15);
+  padding: 50px;
+}
+.login-container .login-wrap .form-wrap p {
+  font-size: 26px;
+}
+.login-container .login-wrap .form-wrap input {
+  width: auto;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  min-width: 100%;
+  padding: 9px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+  font-family: "Source Serif Pro", serif;
+  font-size: 26px;
+}
+.login-container .login-wrap .form-wrap .button-group {
+  display: flex;
+  gap: 10px;
+  margin: 20px auto 0 auto;
+}
+.login-container .login-wrap .form-wrap .button-group button {
+  width: 100%;
+  background-color: rgb(230, 122, 122);
+  color: rgb(255, 255, 255);
+  font-family: "Source Serif Pro", serif;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  display: block;
+  padding: 15px 20px;
+  margin: 8px 0 0 auto;
+  font-size: 16px;
+}
+.login-container .login-wrap .form-wrap .button-group button.register {
+  background-color: transparent;
+  color: rgb(230, 122, 122);
+  border: 1px solid rgb(230, 122, 122);
 }
 
 .create-plan {
@@ -283,7 +339,7 @@ footer p {
   align-items: center;
 }
 
-.create-plan p, .show-plans .plan-wrap > p {
+.login-container .login-wrap p, .login-container .login-wrap .form-wrap p, .login-container .login-wrap .form-wrap input, .create-plan p, .show-plans .plan-wrap > p {
   margin: 0 0 10px 0;
 }
 

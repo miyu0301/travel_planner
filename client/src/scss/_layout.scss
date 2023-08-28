@@ -43,6 +43,53 @@ footer{
   }
 }
 
+// LOGIN PAGE
+.login-container{
+  display: flex; 
+  justify-content: center; 
+
+  .login-wrap{
+    margin: 100px 0 0 0;
+
+    p{
+      @include font-size(large);
+      @extend %label-margin;
+    }
+    .form-wrap{
+      @include boxStyle(auto, 650px);
+      padding: 50px;
+    
+      p{
+        @include font-size(medium);
+        @extend %label-margin;
+      }
+      input{
+        @include inputStyle(auto);
+        @include font-size(medium);
+        @extend %label-margin;
+      }
+      .button-group{
+        display: flex; 
+        gap: 10px;
+        margin: 20px auto 0 auto;
+      
+        button{
+          @include buttonStyle(100%);
+          @include font-size(small);
+          
+          &.register{
+            background-color: transparent;
+            color: $color-accent;
+            border: 1px solid $color-accent;
+          }
+        }
+
+      }
+      
+    }  
+  }
+  
+}
 // TOP PAGE
 .create-plan{
   display: flex; 
