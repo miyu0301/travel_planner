@@ -7,8 +7,11 @@ const dbUserController = {
     try{
       db.query(q, [values], (err, data) => {
         if(err) return res.json(err);
-        console.log(data[0].user_id)
-        return  res.json({ success: true, user_id: data[0].user_id });
+        if(data.length != 0){
+          return  res.json({ success: true, user_id: data[0].user_id });
+        }else{
+          return  res.json({ success: false, user_id: null });
+        }
       })
     }catch(err){
       console.log(error)
