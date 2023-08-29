@@ -43,3 +43,9 @@ main{
   color: $color-text;
   min-height: 100vh;
 }
+
+@mixin mobileView {
+  @media screen and (max-width: 767px) {
+    @content;
+  }
+}

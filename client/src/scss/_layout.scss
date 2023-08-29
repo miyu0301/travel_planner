@@ -19,18 +19,7 @@ header{
       color: inherit;
       text-decoration: none;
     }
-  // font-size: 24px;
-    // padding: 5px 10px;
   }
-    
-  // height: 60px
-  
-  // position: absolute;
-  // top: 0;
-  // color: var(--sub-font-color);
-  // z-index: 1;
-  // width: 100%;
-  // border-bottom: 1px solid var(--sub-font-color);
 }
 footer{
   text-align: center;
@@ -47,10 +36,16 @@ footer{
 .login-container{
   display: flex; 
   justify-content: center; 
+  @include mobileView {
+    display: inline;
+  }
 
   .login-wrap{
     margin: 100px 0 0 0;
-
+    @include mobileView {
+      width: 100%;
+      padding: 0 30px
+    }
     p{
       @include font-size(large);
       @extend %label-margin;
@@ -58,13 +53,17 @@ footer{
     .form-wrap{
       @include boxStyle(auto, 650px);
       padding: 50px;
-    
+      @include mobileView {
+        width: 100%;
+        padding: 30px;
+      }
+      
       p{
         @include font-size(medium);
         @extend %label-margin;
       }
       input{
-        @include inputStyle(auto);
+        @include inputStyle(100%);
         @include font-size(medium);
         @extend %label-margin;
       }
@@ -94,8 +93,9 @@ footer{
 .create-plan{
   display: flex; 
   justify-content: center; 
-  // align-items: center;
-
+  @include mobileView {
+    display: inline;
+  }
   p{
     @include font-size(large);
     @extend %label-margin;
@@ -103,10 +103,19 @@ footer{
   .create-wrap{
     display: inline-block;
     margin: 100px 0 0 0;
+    @include mobileView {
+      width: 100%;
+      padding: 0 30px
+    }
+  
   }
   .create-box{
     @include boxStyle(auto, 650px);
     padding: 50px;
+    @include mobileView {
+      width: 100%;
+      padding: 30px;
+    }
     p{
       @include font-size(medium)
     }
@@ -116,7 +125,7 @@ footer{
       margin: 40px auto 0 auto;
     }
     input{
-      @include inputStyle(auto);
+      @include inputStyle(100%);
       @include font-size(medium)
     }
   }
@@ -124,10 +133,16 @@ footer{
 .show-plans{
   display: flex; 
   justify-content: center; 
+  @include mobileView {
+    display: inline;
+  }
 
   .plan-wrap{
     display: inline-block;
     margin: 70px 0 0 0;
+    @include mobileView {
+      padding: 0 30px
+    }
 
     & > p{
       @include font-size(large);
@@ -140,6 +155,11 @@ footer{
     align-items: center;
     padding: 15px;
     margin: 0 0 15px 0;
+    @include mobileView {
+      width: 100%;
+      // padding: 30px;
+    }
+
 
     p{
       @include font-size(medium);

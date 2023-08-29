@@ -73,8 +73,19 @@ footer p {
   display: flex;
   justify-content: center;
 }
+@media screen and (max-width: 767px) {
+  .login-container {
+    display: inline;
+  }
+}
 .login-container .login-wrap {
   margin: 100px 0 0 0;
+}
+@media screen and (max-width: 767px) {
+  .login-container .login-wrap {
+    width: 100%;
+    padding: 0 30px;
+  }
 }
 .login-container .login-wrap p {
   font-size: 35px;
@@ -87,11 +98,17 @@ footer p {
   box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.15);
   padding: 50px;
 }
+@media screen and (max-width: 767px) {
+  .login-container .login-wrap .form-wrap {
+    width: 100%;
+    padding: 30px;
+  }
+}
 .login-container .login-wrap .form-wrap p {
   font-size: 26px;
 }
 .login-container .login-wrap .form-wrap input {
-  width: auto;
+  width: 100%;
   border-radius: 5px;
   border: none;
   outline: none;
@@ -129,12 +146,23 @@ footer p {
   display: flex;
   justify-content: center;
 }
+@media screen and (max-width: 767px) {
+  .create-plan {
+    display: inline;
+  }
+}
 .create-plan p {
   font-size: 35px;
 }
 .create-plan .create-wrap {
   display: inline-block;
   margin: 100px 0 0 0;
+}
+@media screen and (max-width: 767px) {
+  .create-plan .create-wrap {
+    width: 100%;
+    padding: 0 30px;
+  }
 }
 .create-plan .create-box {
   height: auto;
@@ -143,6 +171,12 @@ footer p {
   border-radius: 5px;
   box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.15);
   padding: 50px;
+}
+@media screen and (max-width: 767px) {
+  .create-plan .create-box {
+    width: 100%;
+    padding: 30px;
+  }
 }
 .create-plan .create-box p {
   font-size: 26px;
@@ -162,7 +196,7 @@ footer p {
   margin: 40px auto 0 auto;
 }
 .create-plan .create-box input {
-  width: auto;
+  width: 100%;
   border-radius: 5px;
   border: none;
   outline: none;
@@ -177,9 +211,19 @@ footer p {
   display: flex;
   justify-content: center;
 }
+@media screen and (max-width: 767px) {
+  .show-plans {
+    display: inline;
+  }
+}
 .show-plans .plan-wrap {
   display: inline-block;
   margin: 70px 0 0 0;
+}
+@media screen and (max-width: 767px) {
+  .show-plans .plan-wrap {
+    padding: 0 30px;
+  }
 }
 .show-plans .plan-wrap > p {
   font-size: 35px;
@@ -194,6 +238,11 @@ footer p {
   align-items: center;
   padding: 15px;
   margin: 0 0 15px 0;
+}
+@media screen and (max-width: 767px) {
+  .show-plans .plan-box {
+    width: 100%;
+  }
 }
 .show-plans .plan-box p {
   font-size: 26px;
