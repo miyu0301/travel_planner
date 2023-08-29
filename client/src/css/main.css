@@ -48,6 +48,11 @@ header {
   top: 0;
   width: 100%;
 }
+@media screen and (max-width: 767px) {
+  header {
+    font-size: 26px;
+  }
+}
 header .header-content {
   display: flex;
   justify-content: space-between;
@@ -67,6 +72,11 @@ footer {
 }
 footer p {
   font-size: 16px;
+}
+@media screen and (max-width: 767px) {
+  footer p {
+    font-size: 10px;
+  }
 }
 
 .login-container {
@@ -90,6 +100,11 @@ footer p {
 .login-container .login-wrap p {
   font-size: 35px;
 }
+@media screen and (max-width: 767px) {
+  .login-container .login-wrap p {
+    font-size: 26px;
+  }
+}
 .login-container .login-wrap .form-wrap {
   height: auto;
   width: 650px;
@@ -107,6 +122,11 @@ footer p {
 .login-container .login-wrap .form-wrap p {
   font-size: 26px;
 }
+@media screen and (max-width: 767px) {
+  .login-container .login-wrap .form-wrap p {
+    font-size: 20px;
+  }
+}
 .login-container .login-wrap .form-wrap input {
   width: 100%;
   border-radius: 5px;
@@ -117,6 +137,11 @@ footer p {
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
   font-family: "Source Serif Pro", serif;
   font-size: 26px;
+}
+@media screen and (max-width: 767px) {
+  .login-container .login-wrap .form-wrap input {
+    font-size: 20px;
+  }
 }
 .login-container .login-wrap .form-wrap .button-group {
   display: flex;
@@ -136,6 +161,11 @@ footer p {
   margin: 8px 0 0 auto;
   font-size: 16px;
 }
+@media screen and (max-width: 767px) {
+  .login-container .login-wrap .form-wrap .button-group button {
+    font-size: 10px;
+  }
+}
 .login-container .login-wrap .form-wrap .button-group button.register {
   background-color: transparent;
   color: rgb(230, 122, 122);
@@ -153,6 +183,11 @@ footer p {
 }
 .create-plan p {
   font-size: 35px;
+}
+@media screen and (max-width: 767px) {
+  .create-plan p {
+    font-size: 26px;
+  }
 }
 .create-plan .create-wrap {
   display: inline-block;
@@ -181,6 +216,11 @@ footer p {
 .create-plan .create-box p {
   font-size: 26px;
 }
+@media screen and (max-width: 767px) {
+  .create-plan .create-box p {
+    font-size: 20px;
+  }
+}
 .create-plan .create-box button {
   width: auto;
   background-color: rgb(230, 122, 122);
@@ -195,6 +235,11 @@ footer p {
   font-size: 16px;
   margin: 40px auto 0 auto;
 }
+@media screen and (max-width: 767px) {
+  .create-plan .create-box button {
+    font-size: 10px;
+  }
+}
 .create-plan .create-box input {
   width: 100%;
   border-radius: 5px;
@@ -205,6 +250,11 @@ footer p {
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
   font-family: "Source Serif Pro", serif;
   font-size: 26px;
+}
+@media screen and (max-width: 767px) {
+  .create-plan .create-box input {
+    font-size: 20px;
+  }
 }
 
 .show-plans {
@@ -228,6 +278,11 @@ footer p {
 .show-plans .plan-wrap > p {
   font-size: 35px;
 }
+@media screen and (max-width: 767px) {
+  .show-plans .plan-wrap > p {
+    font-size: 26px;
+  }
+}
 .show-plans .plan-box {
   height: auto;
   width: 1000px;
@@ -249,6 +304,11 @@ footer p {
   display: inline;
   margin: 0 20px;
 }
+@media screen and (max-width: 767px) {
+  .show-plans .plan-box p {
+    font-size: 20px;
+  }
+}
 .show-plans .plan-box span {
   font-size: 30px;
   margin: 0 10px;
@@ -267,12 +327,22 @@ footer p {
   box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.15);
   padding: 10px 20px;
 }
+@media screen and (max-width: 767px) {
+  .plan-board-header .header-wrap {
+    font-size: 26px;
+  }
+}
 .plan-board-header .header-wrap input {
   font-size: 35px;
   background-color: transparent;
   border: none;
   outline: none;
   font-family: "Source Serif Pro", serif;
+}
+@media screen and (max-width: 767px) {
+  .plan-board-header .header-wrap input {
+    font-size: 26px;
+  }
 }
 .plan-board-header .header-wrap label {
   cursor: pointer;
@@ -300,6 +370,11 @@ footer p {
   justify-content: space-between;
   margin-bottom: 10px;
 }
+@media screen and (max-width: 767px) {
+  .plan-board-content .day-board .day-board-header {
+    font-size: 20px;
+  }
+}
 .plan-board-content .day-board .day-board-header input {
   width: 100%;
   border-radius: 5px;
@@ -324,18 +399,38 @@ footer p {
   margin-bottom: 20px;
   padding: 15px 20px;
 }
+@media screen and (max-width: 767px) {
+  .plan-board-content .day-board .plan {
+    font-size: 10px;
+  }
+}
 .plan-board-content .day-board .plan .plan-time {
   font-size: 26px;
   margin-bottom: 15px;
+}
+@media screen and (max-width: 767px) {
+  .plan-board-content .day-board .plan .plan-time {
+    font-size: 20px;
+  }
 }
 .plan-board-content .day-board .plan .plan-label label {
   font-size: 20px;
   cursor: pointer;
   margin: 0 0 15px 0;
 }
+@media screen and (max-width: 767px) {
+  .plan-board-content .day-board .plan .plan-label label {
+    font-size: 16px;
+  }
+}
 .plan-board-content .day-board .plan .plan-time label {
   font-size: 26px;
   display: inline;
+}
+@media screen and (max-width: 767px) {
+  .plan-board-content .day-board .plan .plan-time label {
+    font-size: 20px;
+  }
 }
 .plan-board-content .day-board .plan .plan-footer {
   display: flex;
@@ -381,6 +476,12 @@ footer p {
 .plan-board-content .day-board .add-plan {
   font-size: 16px;
   cursor: pointer;
+}
+@media screen and (max-width: 767px) {
+  .plan-board-content .day-board .add-day,
+  .plan-board-content .day-board .add-plan {
+    font-size: 10px;
+  }
 }
 .plan-board-content .day-board .day-board-footer {
   display: flex;

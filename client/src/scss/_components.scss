@@ -42,12 +42,25 @@
       font-size: 35px;
   } @else if $size == medium{
       font-size: 26px;
+  } @else if $size == mid-small{
+      font-size: 20px;
   } @else if $size == small{
     font-size: 16px;
-  } @else if $size == mid-small{
-    font-size: 20px;
   } @else{
       // font-size: 10px;
+  }
+  @include mobileView {
+    @if $size == large{
+      font-size: 26px;
+    } @else if $size == medium{
+        font-size: 20px;
+    } @else if $size == mid-small{
+        font-size: 16px;
+    } @else if $size == small{
+      font-size: 10px;
+    } @else{
+        // font-size: 10px;
+    }
   }
 }
 
