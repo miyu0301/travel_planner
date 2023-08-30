@@ -40,7 +40,6 @@ const Top = () => {
     }
     let result = await axios.post(common.api + "/travel", data)
     navigate(`/create/${result.data.insertId}`);
-    e.preventDefault();
   }
 
   const clickDeleteTravel = async (id) => {
@@ -83,7 +82,17 @@ const Top = () => {
               edit
               </span></Link>
             
-            <p>Sut 24/7 - Fri 29/9&emsp;{travel.travel_name}</p>
+            {(travel.min_date != travel.max_date) &&
+              <p>{common.displayDate(travel.min_date)} - {common.displayDate(travel.max_date)}</p>
+            }
+            {(travel.min_date && travel.max_date) &&
+              (travel.min_date == travel.max_date) &&
+              <p>{common.displayDate(travel.min_date)}</p>
+            }
+            {/* {(!travel.min_date && !travel.max_date) &&
+              <p>To Be Determined</p>
+            } */}
+            <p>{travel.travel_name}</p>
           </div>
           ))}
         </div>

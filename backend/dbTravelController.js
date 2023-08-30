@@ -2,15 +2,15 @@ import db from "./dbConfig.js"
 
 const dbTravelController = {
   fetchAllTravelInformation : (req, res) => {
-    const q = "select * from travel_information where user_id = ?;";
-    // const q = "select t.travel_id, t.travel_name, p.plan_date " +
-    //           "from travel_information as t left outer join plan as p " +
-    //           "on t.travel_id = p.travel_id where t.user_id = ?;"
+    const q = "select t.travel_id, t.travel_name, " +
+              "min(p.plan_date) as min_date, max(p.plan_date) as max_date " +
+              "from travel_information as t left outer join plan as p " +
+              "on t.travel_id = p.travel_id where t.user_id = ? " +
+              "group by t.travel_id, t.travel_name;"
     const userId = [ req.params.id ]
     try{
       db.query(q, [userId], (err, data) => {
         if(err) return res.json(err)
-        console.log(data)
         return res.json(data)
       })
     }catch(err){
