@@ -312,6 +312,7 @@ footer p {
 .show-plans .plan-box span {
   font-size: 30px;
   margin: 0 10px;
+  color: rgb(107, 105, 92);
   cursor: pointer;
 }
 
