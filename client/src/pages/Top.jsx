@@ -42,14 +42,16 @@ const Top = () => {
     navigate(`/create/${result.data.insertId}`);
   }
 
-  const clickDeleteTravel = async (id) => {
+  const clickDeleteTravel = async (idx, travel_id) => {
     if (common.showDeleteAlert()) {
       try{
-        await axios.delete(common.api + "/travel/" + id)
-        window.location.reload()
+        await axios.delete(common.api + "/travel/" + travel_id)
       }catch(err){
         console.log(err)
       }
+      let updatedTravels = [...travels];
+      updatedTravels.splice(idx, 1);
+      setTravels(updatedTravels)
     }
   }
   
@@ -72,9 +74,9 @@ const Top = () => {
       <section className="show-plans">
         <div className="plan-wrap">
           <p>All Plans</p>
-          {travels.map(travel => (
+          {travels.map((travel, idx) => (
           <div className="plan-box" key={travel.travel_id}>
-            <span className="material-symbols-outlined" onClick={() => clickDeleteTravel(travel.travel_id)}>
+            <span className="material-symbols-outlined" onClick={() => clickDeleteTravel(idx, travel.travel_id)}>
               delete
               </span>
             <Link to={`/create/${travel.travel_id}`}>
