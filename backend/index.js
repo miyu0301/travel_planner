@@ -19,7 +19,6 @@ app.post("/login", user.validateLogin);
 
 app.get("/travels/:id", travel.fetchAllTravelInformation);
 app.get("/travel/:id", travel.fetchTravelInformation);
-// app.get("/travel_plans/:id", travel.fetchTravelPlans);
 app.post("/travel", travel.insertTravelInformation);
 app.put("/travel/:id", travel.updateTravelInformation);
 app.delete("/travel/:id", travel.deleteTravelInformation);
@@ -31,7 +30,6 @@ app.delete("/plan/:id", plan.deletePlan);
 app.post("/plan_detail", detail.insertPlanDetail);
 app.put("/plan_detail/:id", detail.updatePlanDetail);
 app.delete("/plan_detail/:id", detail.deletePlanDetail);
-
 
 app.listen(8800, '0.0.0.0', () => {
   console.log("connected to backend!!")

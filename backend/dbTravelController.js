@@ -18,19 +18,6 @@ const dbTravelController = {
     }
   },
 
-  // fetchTravelInformation : (req, res) => {
-  //   const travelId = req.params.id;
-  //   const q = "select * from travel_information where travel_id = ?;"
-  //   try{
-  //     db.query(q, [travelId], (err, data) => {
-  //       if(err) return res.json(err)
-  //       return res.json(data)
-  //     })
-  //   }catch(err){
-  //     console.log(error)
-  //   }
-  // },
-
   fetchTravelInformation : (req, res) => {
     let result = {};
     const travelId = req.params.id;
@@ -50,8 +37,6 @@ const dbTravelController = {
         db.query(plan_q, [travelId], (err, datas) => {
           if(err) return res.json(err)
           if(datas){
-            console.log("start")
-            console.log(datas)
             let plan = [];
             let plan_detail = [];
             const len = datas.length;
@@ -82,7 +67,6 @@ const dbTravelController = {
 
             }
             result['plan'] = plan
-            console.log(result)
             return res.json(result);
           }
         })

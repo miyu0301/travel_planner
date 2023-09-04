@@ -13,11 +13,9 @@ const Top = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(id)
     const fechAllTravels = async () => {
       try {
         const res = await axios.get(common.api + "/travels/" + id)
-        console.log(res.data)
         setTravels(res.data)
       }catch(err){
         console.log(err)
@@ -25,8 +23,6 @@ const Top = () => {
     }
     fechAllTravels()
   }, [])
-  console.log("travel")
-  console.log(travels)
 
   const changeTravel = (e) => {
     setTravelName(e.target.value)
@@ -91,9 +87,6 @@ const Top = () => {
               (travel.min_date == travel.max_date) &&
               <p>{common.displayDate(travel.min_date)}</p>
             }
-            {/* {(!travel.min_date && !travel.max_date) &&
-              <p>To Be Determined</p>
-            } */}
             <p>{travel.travel_name}</p>
           </div>
           ))}

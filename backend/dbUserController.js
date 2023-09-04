@@ -17,20 +17,6 @@ const dbUserController = {
       console.log(error)
     }
   },
-
-  // insertPlan: (req, res) => {
-  //   const q = "insert into plan (`travel_id`, `plan_date`) values (?);"
-  //   const values = [ req.body.travel_id, req.body.plan_date ]
-  
-  //   try {
-  //     db.query(q, [values], (err, data) => {
-  //       if(err) throw res.json(err);
-  //       return res.json(data)
-  //     })
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // },
 }
 
 export default dbUserController;

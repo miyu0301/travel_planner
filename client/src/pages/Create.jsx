@@ -14,11 +14,7 @@ const Create = () => {
 
   useEffect(() => {
     const getTravelPlans = async () => {
-      console.log(id)
-      
       let res = await axios.get(common.api + "/travel/" + id)
-      console.log("travel")
-      console.log(res)
       setUserId(res.data.user_id)
       // travel data
       setTravel({
@@ -50,7 +46,6 @@ const Create = () => {
   }
 
   const handleBlurTravel = async (e) => {
-    // e.preventDefault()
     try{
       let data = {
         travel_name: travel.travel_name ? travel.travel_name : common.unTitledTravelName
@@ -64,7 +59,6 @@ const Create = () => {
     }catch(err){
       console.log(err)
     }
-
   }
   
   // 
@@ -114,7 +108,6 @@ const Create = () => {
   };
 
   const handleBlurPlan = async(e, p_idx) => {
-    // e.preventDefault()
     if(e.target.value){
       try{
         plans[p_idx].travel_id = travel.travel_id
@@ -163,7 +156,6 @@ const Create = () => {
     setPlans(updatedPlans)
   };
 
-
   const handleClickDetailLabel = (p_idx, d_idx) => {
     const updatedPlans = [...plans];
     updatedPlans[p_idx].plan_detail[d_idx] = {
@@ -175,13 +167,11 @@ const Create = () => {
 
   const handleChangeDetail = (e, p_idx, d_idx) => {
     const { name, value } = e.target;
-
     const updatedPlans = [...plans];
     updatedPlans[p_idx].plan_detail[d_idx] = {
       ...updatedPlans[p_idx].plan_detail[d_idx],
       [name]: value
     };
-    console.log(updatedPlans[p_idx].plan_detail[d_idx])
     setPlans(updatedPlans)
   };
 
@@ -232,7 +222,6 @@ const Create = () => {
       console.log(err)
     }
   };
-
 
   return (
     <main>
