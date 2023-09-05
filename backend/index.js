@@ -5,11 +5,24 @@ import travel from "./dbTravelController.js"
 import plan from "./dbPlanController.js"
 import detail from "./dbPlanDetailController.js"
 import dotenv from 'dotenv';
+import session from 'express-session';
+
+const ses_opt = {
+  secret: 'my secret',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 60 * 60 * 1000 }
+};
 
 dotenv.config();
 const app = express()
 app.use(express.json())
 app.use(cors())
+
+app.use(session(ses_opt));
+app.use(express.urlencoded());
+// app.use(express.static(path.join(__dirname, 'public')));
+// console.log(path.join(__dirname, 'public'))
 
 app.get("/", (req, res) => {
   res.json("hello")
