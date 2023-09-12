@@ -1,5 +1,12 @@
 import React from "react";
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+import common from '../pages/Common.jsx';
+
+axios.defaults.withCredentials = true;
+const logout = async() => {
+  await axios.get(common.api + "/logout");
+}
 
 function Header(props) {
   return (
@@ -7,7 +14,8 @@ function Header(props) {
       <div class="header-content">
         <Link to={`/${props.userId}`}><p class="site-name">Travel Planner</p></Link>
       </div>
-  </header>
+      <button onClick={() => logout()}>logout</button>
+    </header>
   );
 }
 

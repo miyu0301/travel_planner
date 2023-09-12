@@ -6,6 +6,8 @@ import Footer from "../components/Footer"
 import "../css/main.css"
 import common from './Common.jsx';
 
+axios.defaults.withCredentials = true;
+
 const Top = () => {
   const { id } = useParams();
   const [travel_name, setTravelName] = useState("")
@@ -15,6 +17,9 @@ const Top = () => {
   useEffect(() => {
     const fechAllTravels = async () => {
       try {
+        const test = await axios.get(common.api + "/")
+        console.log("test")
+        console.log(test)
         const res = await axios.get(common.api + "/travels/" + id)
         setTravels(res.data)
       }catch(err){

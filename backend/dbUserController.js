@@ -2,7 +2,7 @@ import db from "./dbConfig.js"
 import bcrypt from 'bcrypt';
 
 const dbUserController = {
-  validateLogin : (req, res) => {
+  login : (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     const q = "select * from user where email = ?;"
@@ -14,8 +14,9 @@ const dbUserController = {
         if(data.length != 0){
           const compared = await bcrypt.compare(password, data[0].password);
           if(compared){
-            req.session.login = data[0].email;
-            console.log(req.session);
+            res.cookie('user_id', data[0].user_id, { maxAge: 60000, httpOnly: false });
+            console.log("req")
+            console.log(req.cookies)
             return  res.json({ success: true, user_id: data[0].user_id });
           }else{
             return  res.json({ success: false, user_id: null });
@@ -28,6 +29,11 @@ const dbUserController = {
       console.log(error)
     }
   },
+  logout : (req, res) => {
+    res.clearCookie('user_id', { maxAge: 60000, httpOnly: false });
+    return res.json("test");
+  },
+
 }
 
 export default dbUserController;

@@ -5,30 +5,34 @@ import travel from "./dbTravelController.js"
 import plan from "./dbPlanController.js"
 import detail from "./dbPlanDetailController.js"
 import dotenv from 'dotenv';
-import session from 'express-session';
-
-const ses_opt = {
-  secret: 'my secret',
-  resave: false,
-  saveUninitialized: false,
-  cookie: { maxAge: 60 * 60 * 1000 }
-};
+import cookieParser from 'cookie-parser';
 
 dotenv.config();
 const app = express()
 app.use(express.json())
-app.use(cors())
-
-app.use(session(ses_opt));
-app.use(express.urlencoded());
-// app.use(express.static(path.join(__dirname, 'public')));
-// console.log(path.join(__dirname, 'public'))
+// app.use(cors())
+app.use(cors({
+  origin: ["http://localhost:3000"],
+  methods: ["GET", "POST"],
+  credentials: true
+}))
+app.use(cookieParser())
 
 app.get("/", (req, res) => {
   res.json("hello")
 })
 
-app.post("/login", user.validateLogin);
+app.post("/login", user.login);
+app.get("/logout", user.logout);
+
+app.use((req, res, next) => {
+  console.log(req.cookies)
+  if (!req.cookies.user_id) {
+    console.log("NOT LOGINED")
+  }
+  console.log("LOGINED")
+  next();
+});
 
 app.get("/travels/:id", travel.fetchAllTravelInformation);
 app.get("/travel/:id", travel.fetchTravelInformation);

@@ -6,6 +6,7 @@ import Header from "../components/Header"
 import Footer from "../components/Footer"
 import "../css/main.css"
 
+axios.defaults.withCredentials = true;
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,6 +29,7 @@ const Login = () => {
         email: email,
         password: password,
       });
+      console.log("LOGIN RES")
       console.log(response)
 
       if (response.data.success) {
