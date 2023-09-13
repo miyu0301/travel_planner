@@ -8,11 +8,11 @@ const logout = async() => {
   await axios.get(common.api + "/logout");
 }
 
-function Header(props) {
+function Header() {
   return (
     <header>
       <div class="header-content">
-        <Link to={`/${props.userId}`}><p class="site-name">Travel Planner</p></Link>
+        <Link to={`/`}><p class="site-name">Travel Planner</p></Link>
       </div>
       <button onClick={() => logout()}>logout</button>
     </header>

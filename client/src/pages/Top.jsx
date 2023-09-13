@@ -9,7 +9,7 @@ import common from './Common.jsx';
 axios.defaults.withCredentials = true;
 
 const Top = () => {
-  const { id } = useParams();
+  const [user_id, setUserId] = useState("")
   const [travel_name, setTravelName] = useState("")
   const [travels, setTravels] = useState([])
   const navigate = useNavigate();
@@ -17,9 +17,8 @@ const Top = () => {
   useEffect(() => {
     const fechAllTravels = async () => {
       try {
-        const test = await axios.get(common.api + "/")
-        console.log("test")
-        console.log(test)
+        const id = document.cookie.split('=')[1];
+        setUserId(id)
         const res = await axios.get(common.api + "/travels/" + id)
         setTravels(res.data)
       }catch(err){
@@ -36,7 +35,7 @@ const Top = () => {
   const clickSaveTravel = async(e) => {
     e.preventDefault();
     let data = {
-      user_id: id,
+      user_id: user_id,
       travel_name: travel_name ? travel_name : common.unTitledTravelName
     }
     let result = await axios.post(common.api + "/travel", data)
@@ -58,7 +57,7 @@ const Top = () => {
   
   return (
     <main>
-      <Header userId={id} />
+      <Header />
       <section className="create-plan">
         <div className="create-wrap">
           <p>Create New Plan</p>

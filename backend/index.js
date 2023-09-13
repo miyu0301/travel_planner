@@ -10,13 +10,12 @@ import cookieParser from 'cookie-parser';
 dotenv.config();
 const app = express()
 app.use(express.json())
-// app.use(cors())
+app.use(cookieParser())
 app.use(cors({
   origin: ["http://localhost:3000"],
-  methods: ["GET", "POST"],
+  methods: ["GET", "POST", "PUT"],
   credentials: true
 }))
-app.use(cookieParser())
 
 app.get("/", (req, res) => {
   res.json("hello")
@@ -26,7 +25,6 @@ app.post("/login", user.login);
 app.get("/logout", user.logout);
 
 app.use((req, res, next) => {
-  console.log(req.cookies)
   if (!req.cookies.user_id) {
     console.log("NOT LOGINED")
   }

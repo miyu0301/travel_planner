@@ -34,7 +34,7 @@ const Login = () => {
 
       if (response.data.success) {
         console.log('Login successful');
-        navigate(`/${response.data.user_id}`);
+        navigate(`/`);
       } else {
         setError('Invalid email or password');
       }
@@ -45,7 +45,7 @@ const Login = () => {
 
   return (
     <main>
-      <Header userId="" />
+      <Header />
       <section className="login-container">
         <div className='login-wrap'>
           <p>Login</p>

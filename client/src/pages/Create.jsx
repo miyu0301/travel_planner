@@ -225,7 +225,7 @@ const Create = () => {
 
   return (
     <main>
-      <Header userId={userId} />
+      <Header />
       <section class="plan-board-header">
         <div class="header-wrap">
           {!travel.is_input &&
