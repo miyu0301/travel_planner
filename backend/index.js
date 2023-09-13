@@ -14,7 +14,7 @@ app.use(cookieParser())
 app.use(cors({
   origin: ["http://localhost:3000"],
   methods: ["GET", "POST", "PUT"],
-  credentials: true
+  credentials: true,
 }))
 
 app.get("/", (req, res) => {
@@ -23,14 +23,6 @@ app.get("/", (req, res) => {
 
 app.post("/login", user.login);
 app.get("/logout", user.logout);
-
-app.use((req, res, next) => {
-  if (!req.cookies.user_id) {
-    console.log("NOT LOGINED")
-  }
-  console.log("LOGINED")
-  next();
-});
 
 app.get("/travels/:id", travel.fetchAllTravelInformation);
 app.get("/travel/:id", travel.fetchTravelInformation);

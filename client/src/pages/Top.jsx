@@ -25,9 +25,13 @@ const Top = () => {
         console.log(err)
       }
     }
+    if(!document.cookie){
+      navigate(`/login`);
+    }
     fechAllTravels()
   }, [])
 
+  
   const changeTravel = (e) => {
     setTravelName(e.target.value)
   }

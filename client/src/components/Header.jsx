@@ -1,14 +1,21 @@
 import React from "react";
-import { Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
 import common from '../pages/Common.jsx';
 
 axios.defaults.withCredentials = true;
-const logout = async() => {
-  await axios.get(common.api + "/logout");
-}
 
 function Header() {
+  const navigate = useNavigate();
+  const logout = async() => {
+    try {
+      await axios.get(common.api + "/logout");
+      navigate(`/login`);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  
   return (
     <header>
       <div class="header-content">

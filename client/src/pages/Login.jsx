@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import common from './Common.jsx';
@@ -13,6 +13,12 @@ const Login = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if(!document.cookie){
+      navigate(`/login`);
+    }
+  }, [])
+
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -26,8 +32,8 @@ const Login = () => {
 
     try {
       const response = await axios.post(common.api + '/login', {
-        email: email,
-        password: password,
+        email: "test",
+        password: "test",
       });
       console.log("LOGIN RES")
       console.log(response)
@@ -58,7 +64,7 @@ const Login = () => {
                   id="email"
                   value={email}
                   onChange={handleEmailChange}
-                  required
+                  // required
                 />
               </div>
               <div className="form-group">
@@ -68,7 +74,7 @@ const Login = () => {
                   id="password"
                   value={password}
                   onChange={handlePasswordChange}
-                  required
+                  // required
                 />
               </div>
               {error && <p className="error-message">{error}</p>}

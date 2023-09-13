@@ -8,14 +8,13 @@ import common from './Common.jsx';
 
 const Create = () => {
   const { id } = useParams();
-  const [userId, setUserId] = useState();
   const [travel, setTravel] = useState({});
   const [plans, setPlans] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getTravelPlans = async () => {
       let res = await axios.get(common.api + "/travel/" + id)
-      setUserId(res.data.user_id)
       // travel data
       setTravel({
         travel_id: id,
@@ -25,6 +24,9 @@ const Create = () => {
       if(res.data.plan){
         setPlans(res.data.plan)
       }
+    }
+    if(!document.cookie){
+      navigate(`/login`);
     }
     getTravelPlans();
   }, [])

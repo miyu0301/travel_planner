@@ -28,8 +28,12 @@ const dbUserController = {
     }
   },
   logout : (req, res) => {
-    res.clearCookie('user_id');
-    return res.json("test");
+    try{
+      res.clearCookie('user_id');
+      return res.json();
+    }catch(err){
+      console.log(err);
+    }
   },
 
 }
