@@ -7,35 +7,27 @@ import Footer from "../components/Footer"
 import "../css/main.css"
 
 axios.defaults.withCredentials = true;
-const Login = () => {
+const Register = () => {
+  const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirtmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if(!document.cookie){
-      navigate(`/login`);
-    }
-  }, [])
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    if(password !== confirtmPassword){
+      setError('The password and confirmation password do not match');
+      return;
+    }
     try {
-      const response = await axios.post(common.api + '/login', {
+      const res = await axios.post(common.api + '/register', {
+        userName: userName,
         email: email,
         password: password,
       });
-      console.log("LOGIN RES")
-      console.log(response)
-
-      if (response.data.success) {
-        console.log('Login successful');
-        navigate(`/`);
-      } else {
-        setError('Invalid email or password');
-      }
+      navigate(`/`);
     } catch (error) {
       setError('An error occurred');
     }
@@ -44,11 +36,21 @@ const Login = () => {
   return (
     <main>
       <Header />
-      <section className="login-container">
-        <div className='login-wrap'>
-          <p>Login</p>
+      <section className="register-container">
+        <div className='register-wrap'>
+          <p>Register</p>
           <div className='form-wrap'>
             <form onSubmit={handleSubmit} action='/'>
+            <div className="form-group">
+                <p htmlFor="user-name">User Name</p>
+                <input
+                  type="text"
+                  id="userName"
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
+                  required
+                />
+              </div>
               <div className="form-group">
                 <p htmlFor="email">Email</p>
                 <input
@@ -69,10 +71,19 @@ const Login = () => {
                   required
                 />
               </div>
+              <div className="form-group">
+                <p htmlFor="confirtm-password">Confirm Password</p>
+                <input
+                  type="password"
+                  id="confirtm-password"
+                  value={confirtmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                />
+              </div>
               {error && <p className="error-message">{error}</p>}
               <div className='button-group'>
-                <button className='login' type="submit">Login</button>
-                <button className='toregister' type="button">Register</button>
+                <button className='register' type="submit">Register</button>
               </div>
             </form>
           </div>
@@ -83,4 +94,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

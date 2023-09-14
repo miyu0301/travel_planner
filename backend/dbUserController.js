@@ -35,7 +35,24 @@ const dbUserController = {
       console.log(err);
     }
   },
-
+  register : async(req, res) => {
+    let hashedPassword = await bcrypt.hash(req.body.password, 10)
+    const q = "insert into user (`user_name`, `email`, `password`) values (?);"
+    const values = [
+      req.body.userName,
+      req.body.email,
+      hashedPassword
+    ]
+    try {
+      db.query(q, [values], (err, data) => {
+        if(err) throw res.json(err);
+        res.cookie('user_id', data['insertId'], { maxAge: 60 * 60 * 1000, httpOnly: false });
+        return res.json(data)
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  },
 }
 
 export default dbUserController;

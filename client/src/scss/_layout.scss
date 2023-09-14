@@ -32,15 +32,18 @@ footer{
   }
 }
 
+// REGISTER PAGE
 // LOGIN PAGE
-.login-container{
+.login-container,
+.register-container{
   display: flex; 
   justify-content: center; 
   @include mobileView {
     display: inline;
   }
 
-  .login-wrap{
+  .login-wrap,
+  .register-wrap{
     margin: 100px 0 0 0;
     @include mobileView {
       width: 100%;
@@ -76,10 +79,14 @@ footer{
           @include buttonStyle(100%);
           @include font-size(small);
           
-          &.register{
+          &.toregister{
             background-color: transparent;
             color: $color-accent;
             border: 1px solid $color-accent;
+          }
+          &.register{
+            @include buttonStyle(auto);
+            margin: 0 auto;
           }
         }
 
