@@ -43,7 +43,7 @@ const Login = () => {
 
   return (
     <main>
-      <Header />
+      <Header logined={false} />
       <section className="login-container">
         <div className='login-wrap'>
           <p>Login</p>

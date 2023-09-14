@@ -5,7 +5,7 @@ import common from '../pages/Common.jsx';
 
 axios.defaults.withCredentials = true;
 
-function Header() {
+function Header(prop) {
   const navigate = useNavigate();
   const logout = async() => {
     try {
@@ -20,8 +20,27 @@ function Header() {
     <header>
       <div class="header-content">
         <Link to={`/`}><p class="site-name">Travel Planner</p></Link>
+        {prop.logined &&
+        <div className="dropdown">
+          <span class="material-symbols-outlined">
+           account_circle
+          </span>
+          <div className="dropdown-content">
+            <span onClick={() => logout()}>Logout</span>
+          </div>
+        </div>
+        }
+        {/* {prop.logined &&
+        <div className="dropdown">
+          <span class="material-symbols-outlined" onClick={() => logout()}>
+            account_circle
+          </span>
+          <div className="dropdown-content">
+            <p>Logout</p>
+          </div>
+        </div>
+        } */}
       </div>
-      <button onClick={() => logout()}>logout</button>
     </header>
   );
 }

@@ -35,7 +35,7 @@ const Register = () => {
 
   return (
     <main>
-      <Header />
+      <Header logined={false}/>
       <section className="register-container">
         <div className='register-wrap'>
           <p>Register</p>

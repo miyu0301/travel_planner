@@ -61,7 +61,7 @@ const Top = () => {
   
   return (
     <main>
-      <Header />
+      <Header logined={true}/>
       <section className="create-plan">
         <div className="create-wrap">
           <p>Create New Plan</p>

@@ -67,6 +67,37 @@ header .header-content {
   justify-content: space-between;
   margin: 0 20px;
 }
+header .header-content .dropdown {
+  position: relative;
+  display: inline-block;
+  padding-top: 5px;
+}
+header .header-content .dropdown > span {
+  font-size: 40px;
+  margin: auto 0;
+}
+header .header-content .dropdown-content {
+  display: none;
+  position: absolute;
+  height: auto;
+  width: auto;
+  background-color: rgba(255, 244, 225, 0.7);
+  border-radius: 5px;
+  box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  right: 0;
+  color: rgb(107, 105, 92);
+  font-family: "Source Serif Pro", serif;
+  font-size: 26px;
+}
+@media screen and (max-width: 767px) {
+  header .header-content .dropdown-content {
+    font-size: 20px;
+  }
+}
+header .header-content .dropdown:hover .dropdown-content {
+  display: block;
+}
 header .header-content a {
   color: inherit;
   text-decoration: none;
