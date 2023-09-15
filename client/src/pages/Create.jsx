@@ -311,7 +311,7 @@ const Create = () => {
               }
               {detail.is_input && 
                 <div className="plan-input">
-                  <label for="time-start">Time</label>
+                  <label>Time</label>
                   <input 
                     type='time'
                     name='start_time'
@@ -327,7 +327,7 @@ const Create = () => {
                     value={detail.end_time}
                     onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
                      />
-                  <label for="time-start">Plan</label>
+                  <label>Plan</label>
                   <input 
                     type='text'
                     name='detail'
@@ -335,7 +335,7 @@ const Create = () => {
                     value={detail.detail}
                     onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
                      />
-                  <label for="memo">Memo</label>
+                  <label>Memo</label>
                   <input 
                     type='text'
                     name='memo'
