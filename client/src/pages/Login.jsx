@@ -41,6 +41,10 @@ const Login = () => {
     }
   };
 
+  const toRegister = () => {
+    navigate(`/register`);
+  }
+
   return (
     <main>
       <Header logined={false} />
@@ -72,7 +76,7 @@ const Login = () => {
               {error && <p className="error-message">{error}</p>}
               <div className='button-group'>
                 <button className='login' type="submit">Login</button>
-                <button className='toregister' type="button">Register</button>
+                <button className='toregister' type="button" onClick={toRegister}>Register</button>
               </div>
             </form>
           </div>
