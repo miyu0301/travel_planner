@@ -18,11 +18,11 @@ function Header(prop) {
   
   return (
     <header>
-      <div class="header-content">
-        <Link to={`/`}><p class="site-name">Travel Planner</p></Link>
+      <div className="header-content">
+        <Link to={`/`}><p className="site-name">Travel Planner</p></Link>
         {prop.logined &&
         <div className="dropdown">
-          <span class="material-symbols-outlined">
+          <span className="material-symbols-outlined">
            account_circle
           </span>
           <div className="dropdown-content">
@@ -30,16 +30,6 @@ function Header(prop) {
           </div>
         </div>
         }
-        {/* {prop.logined &&
-        <div className="dropdown">
-          <span class="material-symbols-outlined" onClick={() => logout()}>
-            account_circle
-          </span>
-          <div className="dropdown-content">
-            <p>Logout</p>
-          </div>
-        </div>
-        } */}
       </div>
     </header>
   );

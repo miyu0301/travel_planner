@@ -228,8 +228,8 @@ const Create = () => {
   return (
     <main>
       <Header logined={true}/>
-      <section class="plan-board-header">
-        <div class="header-wrap">
+      <section className="plan-board-header">
+        <div className="header-wrap">
           {!travel.is_input &&
             <label 
               onClick={(e) => handleClickTravelLabel(e)}
@@ -249,14 +249,14 @@ const Create = () => {
               autoFocus />
           </form>
           }
-          <p><i class="fa-solid fa-ellipsis"></i></p>
+          <p><i className="fa-solid fa-ellipsis"></i></p>
         </div>
       </section>
       
-      <section class="plan-board-content">
+      <section className="plan-board-content">
         {plans.map((plan, p_idx) => (
-        <div class="day-board">
-          <div key={p_idx} class="day-board-header">
+        <div className="day-board">
+          <div key={p_idx} className="day-board-header">
             {!plan.is_input && 
             <label 
               onClick={(e) => handleClickPlanLabel(p_idx)}>
@@ -276,11 +276,11 @@ const Create = () => {
 
 
           {plan.plan_detail.map((detail, d_idx) => (
-          <div class="day-board-content">
-            <div key={d_idx} class="plan">
+          <div className="day-board-content">
+            <div key={d_idx} className="plan">
               {!detail.is_input && 
-                <div class="plan-label">
-                  <div class="plan-time">
+                <div className="plan-label">
+                  <div className="plan-time">
                     {detail.start_time &&
                       <label 
                       onClick={(e) => handleClickDetailLabel(p_idx, d_idx)}>
@@ -302,7 +302,7 @@ const Create = () => {
                     onClick={(e) => handleClickDetailLabel(p_idx, d_idx)}>
                     {detail.memo}
                   </label>
-                  <div class="plan-footer">
+                  <div className="plan-footer">
                     <span className="material-symbols-outlined" onClick={() => handleClickDeleteDetail(p_idx, d_idx)}>
                     delete
                     </span>
@@ -310,12 +310,12 @@ const Create = () => {
                 </div>
               }
               {detail.is_input && 
-                <div class="plan-input">
+                <div className="plan-input">
                   <label for="time-start">Time</label>
                   <input 
                     type='time'
                     name='start_time'
-                    class="time-start"
+                    className="time-start"
                     value={detail.start_time}
                     onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
                     autoFocus />
@@ -323,7 +323,7 @@ const Create = () => {
                   <input 
                     type='time'
                     name='end_time'
-                    class="time-end"
+                    className="time-end"
                     value={detail.end_time}
                     onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
                      />
@@ -331,7 +331,7 @@ const Create = () => {
                   <input 
                     type='text'
                     name='detail'
-                    class='detail'
+                    className='detail'
                     value={detail.detail}
                     onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
                      />
@@ -339,7 +339,7 @@ const Create = () => {
                   <input 
                     type='text'
                     name='memo'
-                    class='memo'
+                    className='memo'
                     value={detail.memo}
                     onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
                      />
@@ -350,8 +350,8 @@ const Create = () => {
           </div>
           ))}
           {plan.plan_date &&
-          <div class="day-board-footer">
-            <p class="add-plan" onClick={() => handleClickAddDetail(p_idx)}>+ Add Plan</p>
+          <div className="day-board-footer">
+            <p className="add-plan" onClick={() => handleClickAddDetail(p_idx)}>+ Add Plan</p>
             <span className="material-symbols-outlined" onClick={() => handleClickDeletePlan(p_idx)}>
             delete
             </span>
@@ -359,8 +359,8 @@ const Create = () => {
           }
         </div>
         ))}
-        <div class="day-board">
-          <p class="add-day" onClick={(e) => handleClickAddPlan()}>+ Add day</p>
+        <div className="day-board">
+          <p className="add-day" onClick={(e) => handleClickAddPlan()}>+ Add day</p>
         </div>
       </section>
       <Footer />
