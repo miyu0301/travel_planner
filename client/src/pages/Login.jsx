@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios';
 import common from './Common.jsx';
 import Header from "../components/Header"
@@ -11,11 +11,13 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [commonError, setCommonError] = useState('');
   const navigate = useNavigate();
 
+  const location = useLocation();
   useEffect(() => {
-    if(!document.cookie){
-      navigate(`/login`);
+    if(location.state){
+      setCommonError('An error occurred. Please try login later.')
     }
   }, [])
 
@@ -27,20 +29,17 @@ const Login = () => {
         email: email,
         password: password,
       });
-      console.log("LOGIN RES")
-      console.log(response)
 
       if (response.data.success) {
-        console.log('Login successful');
         navigate(`/`);
       } else {
         setError('Invalid email or password');
       }
     } catch (error) {
-      setError('An error occurred');
+      console.log(error)
+      setCommonError('An error occurred. Please try login later.')
     }
   };
-
   const toRegister = () => {
     navigate(`/register`);
   }
@@ -50,6 +49,7 @@ const Login = () => {
       <Header logined={false} />
       <section className="login-container">
         <div className='login-wrap'>
+        {commonError && <p className="common-error-message">{commonError}</p>}
           <p>Login</p>
           <div className='form-wrap'>
             <form onSubmit={handleSubmit} action='/'>

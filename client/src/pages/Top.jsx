@@ -23,6 +23,7 @@ const Top = () => {
         setTravels(res.data)
       }catch(err){
         console.log(err)
+        navigate(`/login`, { state: { err: true }});
       }
     }
     if(!document.cookie){
@@ -32,18 +33,19 @@ const Top = () => {
   }, [])
 
   
-  const changeTravel = (e) => {
-    setTravelName(e.target.value)
-  }
-
   const clickSaveTravel = async(e) => {
     e.preventDefault();
     let data = {
       user_id: user_id,
       travel_name: travel_name ? travel_name : common.unTitledTravelName
     }
-    let result = await axios.post(common.api + "/travel", data)
-    navigate(`/create/${result.data.insertId}`);
+    try {
+      let result = await axios.post(common.api + "/travel", data)
+      navigate(`/create/${result.data.insertId}`);
+    } catch (error) {
+      console.log(error)
+      navigate(`/login`, { state: { err: true }});
+    }
   }
 
   const clickDeleteTravel = async (idx, travel_id) => {
@@ -52,6 +54,7 @@ const Top = () => {
         await axios.delete(common.api + "/travel/" + travel_id)
       }catch(err){
         console.log(err)
+        navigate(`/login`, { state: { err: true }});
       }
       let updatedTravels = [...travels];
       updatedTravels.splice(idx, 1);
@@ -70,7 +73,7 @@ const Top = () => {
             <input 
               type="text"
               value={travel_name}
-              onChange={(e) => changeTravel(e)} />
+              onChange={(e) => setTravelName(e.target.value)} />
             <button onClick={(e) => {clickSaveTravel(e)}}>CREATE PLAN</button>
           </div>
         </div>

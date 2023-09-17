@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import common from './Common.jsx';
@@ -22,14 +22,15 @@ const Register = () => {
       return;
     }
     try {
-      const res = await axios.post(common.api + '/register', {
+      await axios.post(common.api + '/register', {
         userName: userName,
         email: email,
         password: password,
       });
       navigate(`/`);
     } catch (error) {
-      setError('An error occurred');
+      console.log(error);
+      navigate(`/login`, { state: { err: true }});
     }
   };
 

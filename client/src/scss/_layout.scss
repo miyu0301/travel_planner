@@ -73,6 +73,13 @@ footer{
       width: 100%;
       padding: 0 30px
     }
+    .common-error-message{
+      @include boxStyle(auto, auto);
+      @include font-size(medium);
+      background-color: rgba($color-accent, 0.40) ;
+      text-align: center;
+      padding: 5px
+    }
     p{
       @include font-size(large);
       @extend %label-margin;
@@ -114,6 +121,10 @@ footer{
           }
         }
 
+      }
+      .error-message{
+        @include font-size(small);
+        color: $color-accent;
       }
       
     }  

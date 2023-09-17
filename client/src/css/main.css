@@ -145,6 +145,28 @@ footer p {
     padding: 0 30px;
   }
 }
+.login-container .login-wrap .common-error-message,
+.login-container .register-wrap .common-error-message,
+.register-container .login-wrap .common-error-message,
+.register-container .register-wrap .common-error-message {
+  height: auto;
+  width: auto;
+  background-color: rgba(255, 244, 225, 0.7);
+  border-radius: 5px;
+  box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.15);
+  font-size: 26px;
+  background-color: rgba(230, 122, 122, 0.4);
+  text-align: center;
+  padding: 5px;
+}
+@media screen and (max-width: 767px) {
+  .login-container .login-wrap .common-error-message,
+  .login-container .register-wrap .common-error-message,
+  .register-container .login-wrap .common-error-message,
+  .register-container .register-wrap .common-error-message {
+    font-size: 20px;
+  }
+}
 .login-container .login-wrap p,
 .login-container .register-wrap p,
 .register-container .login-wrap p,
@@ -270,6 +292,21 @@ footer p {
   padding: 15px 20px;
   margin: 8px 0 0 auto;
   margin: 0 auto;
+}
+.login-container .login-wrap .form-wrap .error-message,
+.login-container .register-wrap .form-wrap .error-message,
+.register-container .login-wrap .form-wrap .error-message,
+.register-container .register-wrap .form-wrap .error-message {
+  font-size: 16px;
+  color: rgb(230, 122, 122);
+}
+@media screen and (max-width: 767px) {
+  .login-container .login-wrap .form-wrap .error-message,
+  .login-container .register-wrap .form-wrap .error-message,
+  .register-container .login-wrap .form-wrap .error-message,
+  .register-container .register-wrap .form-wrap .error-message {
+    font-size: 10px;
+  }
 }
 
 .create-plan {

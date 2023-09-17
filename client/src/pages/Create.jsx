@@ -14,15 +14,20 @@ const Create = () => {
 
   useEffect(() => {
     const getTravelPlans = async () => {
-      let res = await axios.get(common.api + "/travel/" + id)
-      // travel data
-      setTravel({
-        travel_id: id,
-        travel_name: res.data.travel_name,
-        is_input: false
-      })
-      if(res.data.plan){
-        setPlans(res.data.plan)
+      try {
+        let res = await axios.get(common.api + "/travel/" + id)
+        // travel data
+        setTravel({
+          travel_id: id,
+          travel_name: res.data.travel_name,
+          is_input: false
+        })
+        if(res.data.plan){
+          setPlans(res.data.plan)
+        }
+      } catch (error) {
+        console.log(error);
+        navigate(`/login`, { state: { err: true }});
       }
     }
     if(!document.cookie){
@@ -60,6 +65,7 @@ const Create = () => {
       })
     }catch(err){
       console.log(err)
+      navigate(`/login`, { state: { err: true }});
     }
   }
   
@@ -102,6 +108,7 @@ const Create = () => {
         await axios.delete(common.api + "/plan/" + plans[p_idx].plan_id)
       }catch(err){
         console.log(err)
+        navigate(`/login`, { state: { err: true }});
       }
       let updatedPlans = [...plans];
       updatedPlans.splice(p_idx, 1);
@@ -134,6 +141,7 @@ const Create = () => {
         }
       }catch(err){
         console.log(err)
+        navigate(`/login`, { state: { err: true }});
       }
     }
   };
@@ -184,6 +192,7 @@ const Create = () => {
         await axios.delete(common.api + "/plan_detail/" + plan_detail_id)
       }catch(err){
         console.log(err)
+        navigate(`/login`, { state: { err: true }});
       }
       const updatedPlans = [...plans];
       updatedPlans[p_idx].plan_detail.splice(d_idx, 1);
@@ -222,6 +231,7 @@ const Create = () => {
       }
     }catch(err){
       console.log(err)
+      navigate(`/login`, { state: { err: true }});
     }
   };
 
