@@ -14,7 +14,7 @@ const dbUserController = {
         if(data.length != 0){
           const compared = await bcrypt.compare(password, data[0].password);
           if(compared){
-            res.cookie('user_id', data[0].user_id, { maxAge: 60 * 60 * 1000, httpOnly: false });
+            res.cookie('user_id', data[0].user_id);
             return  res.json({ success: true, user_id: data[0].user_id });
           }else{
             return  res.json({ success: false, user_id: null });
@@ -23,16 +23,16 @@ const dbUserController = {
           return  res.json({ success: false, user_id: null });
         }
       })
-    }catch(err){
-      console.log(err)
+    }catch(error){
+      console.log(error)
     }
   },
   logout : (req, res) => {
     try{
       res.clearCookie('user_id');
       return res.json();
-    }catch(err){
-      console.log(err);
+    }catch(error){
+      console.log(error);
     }
   },
   register : async(req, res) => {
@@ -46,7 +46,7 @@ const dbUserController = {
     try {
       db.query(q, [values], (err, data) => {
         if(err) throw res.json(err);
-        res.cookie('user_id', data['insertId'], { maxAge: 60 * 60 * 1000, httpOnly: false });
+        res.cookie('user_id', data['insertId']);
         return res.json(data)
       })
     } catch (error) {

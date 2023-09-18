@@ -13,7 +13,7 @@ const dbTravelController = {
         if(err) return res.json(err)
         return res.json(data)
       })
-    }catch(err){
+    }catch(error){
       console.log(error)
     }
   },
@@ -64,7 +64,6 @@ const dbTravelController = {
                 plan_detail = []
                 plan.push(obj)
               }
-
             }
             result['plan'] = plan
             return res.json(result);
@@ -72,7 +71,7 @@ const dbTravelController = {
         })
       })
 
-    }catch(err){
+    }catch(error){
       console.log(error)
     }
   },

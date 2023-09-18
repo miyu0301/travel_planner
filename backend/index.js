@@ -10,9 +10,12 @@ import cookieParser from 'cookie-parser';
 dotenv.config();
 const app = express()
 app.use(express.json())
-app.use(cookieParser())
+app.use(cookieParser({
+  maxAge: 60 * 60 * 1000,
+  httpOnly: false
+}))
 app.use(cors({
-  origin: ["http://localhost:3000"],
+  origin: [process.env.CLIENT_API],
   methods: ["GET", "POST", "PUT"],
   credentials: true,
 }))
