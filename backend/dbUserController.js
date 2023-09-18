@@ -1,5 +1,7 @@
 import db from "./dbConfig.js"
 import bcrypt from 'bcrypt';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const dbUserController = {
   login : (req, res) => {
@@ -35,8 +37,25 @@ const dbUserController = {
       console.log(error);
     }
   },
+  user : (req, res) => {
+    const q = "select * from user where email = ?;"
+    const values = [ req.body.email ]
+    try{
+      db.query(q, [values], async(err, data) => {
+        if(err) return res.json(err);
+      
+        if(data.length > 0){
+          return  res.json({ existUser: true });
+        }else{
+          return  res.json({ existUser: false });
+        }
+      })
+    }catch(error){
+      console.log(error)
+    }
+  },
   register : async(req, res) => {
-    let hashedPassword = await bcrypt.hash(req.body.password, 10)
+    let hashedPassword = await bcrypt.hash(req.body.password, Number(process.env.SALT_ROUNDS))
     const q = "insert into user (`user_name`, `email`, `password`) values (?);"
     const values = [
       req.body.userName,

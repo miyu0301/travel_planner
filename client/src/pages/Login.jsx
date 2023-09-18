@@ -56,7 +56,7 @@ const Login = () => {
               <div className="form-group">
                 <p htmlFor="email">Email</p>
                 <input
-                  type="text"
+                  type="email"
                   id="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}

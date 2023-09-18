@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
+import passwordValidator from 'password-validator';
 import common from './Common.jsx';
 import Header from "../components/Header"
 import Footer from "../components/Footer"
@@ -17,11 +18,28 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    var validate = new passwordValidator();
+    validate.is().min(8);
+    if(!validate.validate(password)){
+      setError('The password must be at least 8 characters.');
+      return;
+    }
+    validate.is().has().uppercase().has().lowercase().has().digits(1);
+    if(!validate.validate(password)){
+      setError('The password must contain at least one lowercase and uppercase letter, and one digit.');
+      return;
+    }
     if(password !== confirtmPassword){
-      setError('The password and confirmation password do not match');
+      setError('The password and confirmation password do not match.');
       return;
     }
     try {
+      const res = await axios.post(common.api + '/user', { email: email });
+      if (res.data.existUser) {
+        setError('This email is already registered.');
+        return;
+      }
+
       await axios.post(common.api + '/register', {
         userName: userName,
         email: email,
@@ -55,7 +73,7 @@ const Register = () => {
               <div className="form-group">
                 <p htmlFor="email">Email</p>
                 <input
-                  type="text"
+                  type="email"
                   id="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}

@@ -26,6 +26,7 @@ app.get("/", (req, res) => {
 
 app.post("/login", user.login);
 app.get("/logout", user.logout);
+app.post("/user", user.user);
 app.post("/register", user.register);
 
 app.get("/travels/:id", travel.fetchAllTravelInformation);
