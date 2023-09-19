@@ -23,7 +23,7 @@ const Create = () => {
           is_input: false
         })
         if(res.data.plan){
-          setPlans(res.data.plan)
+          setPlans(sortPlans(res.data.plan, true))
         }
       } catch (error) {
         console.log(error);
@@ -36,6 +36,33 @@ const Create = () => {
     getTravelPlans();
   }, [])
 
+  const sortPlans = (plans, shouldSortDetail) => {
+    if(shouldSortDetail){
+      plans.map(plan => (
+        sortDetails(plan.plan_detail)
+      ));
+    }
+    plans.sort((a, b) => {
+      if (a.plan_date < b.plan_date) {
+        return -1;
+      }
+      if (a.plan_date > b.plan_date) {
+        return 1;
+      }
+    })
+    return plans;
+  }
+  const sortDetails = (details) => {
+    details.sort((a, b) => {
+      if (a.start_time < b.start_time) {
+        return -1;
+      }
+      if (a.start_time > b.start_time) {
+        return 1;
+      }
+    })
+    return details;
+  }
   // 
   // TRAVEL
   // 
@@ -129,7 +156,7 @@ const Create = () => {
             plan_id: result.data.insertId,
             is_input: false
           };
-          setPlans(updatePlans)  
+          setPlans(sortPlans(updatePlans, false))
         }else{
           await axios.put(common.api + "/plan/" + plans[p_idx].plan_id, plans[p_idx])
           const updatePlans = [...plans];
@@ -137,7 +164,7 @@ const Create = () => {
             ...updatePlans[p_idx],
             is_input: false
           };
-          setPlans(updatePlans)  
+          setPlans(sortPlans(updatePlans, false))
         }
       }catch(err){
         console.log(err)
@@ -206,7 +233,7 @@ const Create = () => {
 
       if(!detail.start_time && !detail.end_time &&
           !detail.detail && !detail.memo){
-            detail.detail = common.notWritten;
+        detail.detail = common.notWritten;
       }
       if(!detail.plan_detail_id){
         detail.travel_id = travel.travel_id
@@ -219,7 +246,8 @@ const Create = () => {
           plan_detail_id: result.data.insertId,
           is_input: false
         };
-        setPlans(updatePlans)
+        updatePlans[p_idx].plan_detail = sortDetails(updatePlans[p_idx].plan_detail)
+        setPlans(sortDetails(updatePlans))
       }else{
         await axios.put(common.api + "/plan_detail/" + detail.plan_detail_id, detail)
         const updatePlans = [...plans];
@@ -227,6 +255,7 @@ const Create = () => {
           ...updatePlans[p_idx].plan_detail[d_idx],
           is_input: false
         };
+        updatePlans[p_idx].plan_detail = sortDetails(updatePlans[p_idx].plan_detail)
         setPlans(updatePlans)
       }
     }catch(err){
