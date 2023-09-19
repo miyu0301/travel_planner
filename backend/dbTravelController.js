@@ -3,7 +3,7 @@ import db from "./dbConfig.js"
 const dbTravelController = {
   fetchAllTravelInformation : (req, res) => {
     const q = "select t.travel_id, t.travel_name, " +
-              "min(p.plan_date) as min_date, max(p.plan_date) as max_date " +
+              'DATE_FORMAT(min(p.plan_date), "%Y-%m-%d") as min_date, DATE_FORMAT(max(p.plan_date), "%Y-%m-%d") as max_date ' +
               "from travel_information as t left outer join plan as p " +
               "on t.travel_id = p.travel_id where t.user_id = ? " +
               "group by t.travel_id, t.travel_name;"
@@ -22,7 +22,7 @@ const dbTravelController = {
     let result = {};
     const travelId = req.params.id;
     const travel_q = "select * from travel_information where travel_id = ?"
-    const plan_q = "select p.plan_id, p.travel_id, p.plan_date, " +
+    const plan_q = 'select p.plan_id, p.travel_id, DATE_FORMAT(p.plan_date, "%Y-%m-%d") as plan_date, ' +
                   "d.plan_detail_id, d.start_time, d.end_time, d.detail, d.map, d.memo from plan as p " +
                   "left outer join plan_detail as d on p.plan_id = d.plan_id " +
                   "where p.travel_id = ? " +

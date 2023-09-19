@@ -4,7 +4,7 @@ const common = {
   notWritten : "Not written",
 
   displayDate: (date_string) => {
-    return new Date(date_string).toLocaleDateString('en-ca', { weekday:"short", day:"numeric", month:"short"})
+    return new Date(date_string + " 00:00:00").toLocaleDateString('en-ca', { weekday:"short", day:"numeric", month:"short"})
   },
   displayTime: (time_string) => {
     const array = time_string.split(":")

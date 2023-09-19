@@ -36,33 +36,6 @@ const Create = () => {
     getTravelPlans();
   }, [])
 
-  const sortPlans = (plans, shouldSortDetail) => {
-    if(shouldSortDetail){
-      plans.map(plan => (
-        sortDetails(plan.plan_detail)
-      ));
-    }
-    plans.sort((a, b) => {
-      if (a.plan_date < b.plan_date) {
-        return -1;
-      }
-      if (a.plan_date > b.plan_date) {
-        return 1;
-      }
-    })
-    return plans;
-  }
-  const sortDetails = (details) => {
-    details.sort((a, b) => {
-      if (a.start_time < b.start_time) {
-        return -1;
-      }
-      if (a.start_time > b.start_time) {
-        return 1;
-      }
-    })
-    return details;
-  }
   // 
   // TRAVEL
   // 
@@ -146,10 +119,10 @@ const Create = () => {
   const handleBlurPlan = async(e, p_idx) => {
     if(e.target.value){
       try{
-        plans[p_idx].travel_id = travel.travel_id
+        let plan = {...plans[p_idx]};
+        plan.travel_id = travel.travel_id
         if(!plans[p_idx].plan_id){
-          let result = await axios.post(common.api + "/plan", plans[p_idx])
-          console.log(result)
+          let result = await axios.post(common.api + "/plan", plan)
           const updatePlans = [...plans];
           updatePlans[p_idx] = {
             ...updatePlans[p_idx],
@@ -158,7 +131,7 @@ const Create = () => {
           };
           setPlans(sortPlans(updatePlans, false))
         }else{
-          await axios.put(common.api + "/plan/" + plans[p_idx].plan_id, plans[p_idx])
+          await axios.put(common.api + "/plan/" + plans[p_idx].plan_id, plan)
           const updatePlans = [...plans];
           updatePlans[p_idx] = {
             ...updatePlans[p_idx],
@@ -229,7 +202,7 @@ const Create = () => {
 
   const handleSaveDetail = async(p_idx, d_idx) => {
     try{
-      let detail = plans[p_idx].plan_detail[d_idx];
+      let detail = {...plans[p_idx].plan_detail[d_idx]};
 
       if(!detail.start_time && !detail.end_time &&
           !detail.detail && !detail.memo){
@@ -263,6 +236,34 @@ const Create = () => {
       navigate(`/login`, { state: { err: true }});
     }
   };
+
+  const sortPlans = (plans, shouldSortDetail) => {
+    if(shouldSortDetail){
+      plans.map(plan => (
+        sortDetails(plan.plan_detail)
+      ));
+    }
+    plans.sort((a, b) => {
+      if (a.plan_date < b.plan_date) {
+        return -1;
+      }
+      if (a.plan_date > b.plan_date) {
+        return 1;
+      }
+    })
+    return plans;
+  }
+  const sortDetails = (details) => {
+    details.sort((a, b) => {
+      if (a.start_time < b.start_time) {
+        return -1;
+      }
+      if (a.start_time > b.start_time) {
+        return 1;
+      }
+    })
+    return details;
+  }
 
   return (
     <main>

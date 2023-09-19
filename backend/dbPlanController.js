@@ -16,6 +16,8 @@ const dbPlanController = {
   },
 
   updatePlan: (req, res) => {
+    console.log(req.params)
+    console.log(req.body)
     const planId = req.params.id;
     const q = "update plan set `plan_date` = ? where plan_id = ?";
     const values = [ req.body.plan_date ]
