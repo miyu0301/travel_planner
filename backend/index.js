@@ -18,7 +18,7 @@ app.use(cookieParser({
 app.use(cors({
   origin: process.env.CLIENT_API,
   methods: ["GET", "POST", "PUT"],
-  credentials: true,
+  credentials: 'include',
 }))
 
 app.get("/", (req, res) => {
