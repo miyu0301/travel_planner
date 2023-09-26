@@ -17,7 +17,9 @@ const Top = () => {
   useEffect(() => {
     const fechAllTravels = async () => {
       try {
-        const id = document.cookie.split('=')[1];
+        const id = document.cookie.split('; ')
+                                  .find(row => row.startsWith('user_id='))
+                                  ?.split('=')[1];
         setUserId(id)
         const res = await axios.get(common.api + "/travels/" + id)
         setTravels(res.data)
