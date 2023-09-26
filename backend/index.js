@@ -12,7 +12,8 @@ const app = express()
 app.use(express.json())
 app.use(cookieParser({
   maxAge: 60 * 60 * 1000,
-  httpOnly: false
+  httpOnly: false,
+  secure: true
 }))
 app.use(cors({
   origin: process.env.CLIENT_API,
