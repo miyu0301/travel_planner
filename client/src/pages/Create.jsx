@@ -6,6 +6,7 @@ import Footer from "../components/Footer"
 import "../css/main.css"
 import common from './Common.jsx';
 
+axios.defaults.withCredentials = true;
 const Create = () => {
   const { id } = useParams();
   const [travel, setTravel] = useState({});
