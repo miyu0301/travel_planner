@@ -8,9 +8,11 @@ const dbTravelController = {
               "on t.travel_id = p.travel_id where t.user_id = ? " +
               "group by t.travel_id, t.travel_name;"
     const userId = [ req.params.id ]
+    console.log(userId);
     try{
       db.query(q, [userId], (err, data) => {
         if(err) return res.json(err)
+        console.log(data)
         return res.json(data)
       })
     }catch(error){

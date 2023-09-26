@@ -20,8 +20,10 @@ const Top = () => {
         const id = document.cookie.split('; ')
                                   .find(row => row.startsWith('user_id='))
                                   ?.split('=')[1];
+        console.log(id)
         setUserId(id)
         const res = await axios.get(common.api + "/travels/" + id)
+        console.log(res.data)
         setTravels(res.data)
       }catch(err){
         console.log(err)
