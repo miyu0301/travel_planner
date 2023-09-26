@@ -17,6 +17,7 @@ const Top = () => {
   useEffect(() => {
     const fechAllTravels = async () => {
       try {
+        console.log(document.cookie)
         const id = document.cookie.split('; ')
                                   .find(row => row.startsWith('user_id='))
                                   ?.split('=')[1];
