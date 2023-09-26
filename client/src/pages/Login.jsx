@@ -70,6 +70,7 @@ const Login = () => {
                   id="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  autoComplete='on'
                   required
                 />
               </div>
