@@ -3,6 +3,12 @@ import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 dotenv.config();
 
+const cookieConfig = {
+  maxAge: 60 * 60 * 1000,
+  httpOnly: false,
+  secure: true,
+  sameSite: 'lax'
+}
 const dbUserController = {
   login : (req, res) => {
     const email = req.body.email;
@@ -16,7 +22,7 @@ const dbUserController = {
         if(data.length != 0){
           const compared = await bcrypt.compare(password, data[0].password);
           if(compared){
-            res.cookie('user_id', data[0].user_id);
+            res.cookie('user_id', data[0].user_id, cookieConfig);
             console.log('res', res)
             return  res.json({ success: true, user_id: data[0].user_id });
           }else{

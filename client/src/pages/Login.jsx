@@ -28,6 +28,10 @@ const Login = () => {
       const response = await axios.post(common.api + '/login', {
         email: email,
         password: password,
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
       });
 
       if (response.data.success) {
