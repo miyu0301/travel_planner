@@ -38,6 +38,7 @@ const corsConfig2 = {
   credentials: true
 };
 app.use(cors(corsConfig2));
+app.use(express.urlencoded({ extended: true }));
 app.get("/token", (_, res) => {
   const token = `Bearer ${Math.random()}`
   res.cookie('jwt', token, cookieConfig).json({ success: true, user_id: 12 });
