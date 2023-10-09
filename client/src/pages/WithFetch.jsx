@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
+import common from './Common.jsx';
 
-const commonTmp = { api: "https://testback-tau.vercel.app" }
+// const commonTmp = { api: "https://testback-tau.vercel.app" }
 
-const dataGetWithFetch = async () => await fetch(`${commonTmp.api}/test`, { credentials: 'include' }).then(res => res.json());
+const dataGetWithFetch = async () => await fetch(`${common.api}/test`, { credentials: 'include' }).then(res => res.json());
 const dataPostWithFetch = async () => {
     //initial call to server to get token
-    await fetch(`${commonTmp.api}/token`, { credentials: 'include' }).then(res => res.json());
+    await fetch(`${common.api}/token`, { credentials: 'include' }).then(res => res.json());
     //token is passed to the next request header
     return await dataGetWithFetch()
 }

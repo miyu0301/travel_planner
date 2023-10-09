@@ -1,18 +1,19 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import common from './Common.jsx';
 
-const commonTmp = { api: "https://testback-tau.vercel.app" }
+// const commonTmp = { api: "https://testback-tau.vercel.app" }
 axios.defaults.withCredentials = true;
 
-const dataGet = async () => await axios.get(`${commonTmp.api}/test`, {
+const dataGet = async () => await axios.get(`${common.api}/test`, {
     headers: {
         'Content-Type': 'application/json'
     },
 });
 const dataPost = async () => {
     //initial call to server to get token
-    await axios.get(`${commonTmp.api}/token`, {
+    await axios.get(`${common.api}/token`, {
         headers: {
             'Content-Type': 'application/json'
         },
