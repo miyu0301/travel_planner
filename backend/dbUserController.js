@@ -23,6 +23,7 @@ const dbUserController = {
           const compared = await bcrypt.compare(password, data[0].password);
           if(compared){
             res.cookie('user_id', data[0].user_id, cookieConfig);
+            res.header('Access-Control-Allow-Origin', process.env.CLIENT_API);
             console.log('res', res)
             return  res.json({ success: true, user_id: data[0].user_id });
           }else{
