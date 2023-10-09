@@ -16,14 +16,36 @@ app.use(express.json())
 //   secure: true
 // }))
 app.use(cookieParser())
-app.use(cors({
-  origin: process.env.CLIENT_API,
-  methods: ["GET", "POST", "PUT"],
-  credentials: true,
-}))
+// app.use(cors({
+//   origin: process.env.CLIENT_API,
+//   methods: ["GET", "POST", "PUT"],
+//   credentials: true,
+// }))
 
 app.get("/", (req, res) => {
   res.json("hello")
+})
+
+// test
+const cookieConfig = {
+  httpOnly: false,
+  secure: true,
+  sameSite: 'lax',
+  maxAge: 30 * 24 * 60 * 60 * 1000, //30days
+}
+const corsConfig2 = {
+  origin: process.env.CLIENT_API,
+  credentials: true
+};
+app.use(cors(corsConfig2));
+app.get("/token", (_, res) => {
+  const token = `Bearer ${Math.random()}`
+  res.cookie('jwt', token, cookieConfig).json({ success: true, user_id: 12 });
+})
+app.get('/test', (req,res) => {
+  console.log("test")
+  const reqCookies = req.cookies.jwt;
+  res.cookie('jwt', reqCookies, cookieConfig).json({ cookie: req.cookies });
 })
 
 app.post("/login", user.login);

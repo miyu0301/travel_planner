@@ -25,6 +25,34 @@ const Login = () => {
     e.preventDefault();
 
     try {
+      console.log("test-axios")
+      const dataGet = async () => await axios.get(`${common.api}/test`, {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+      });
+      const dataPost = async () => {
+        //initial call to server to get token
+        await axios.get(`${common.api}/token`, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+        //token is passed to the next request header
+        return await dataGet()
+      }
+      console.log("axios", dataPost())
+      console.log("test-fetch")
+      const dataGetWithFetch = async () => await fetch(`${common.api}/test`, { credentials: 'include' }).then(res => res.json());
+      const dataPostWithFetch = async () => {
+          //initial call to server to get token
+          await fetch(`${common.api}/token`, { credentials: 'include' }).then(res => res.json());
+          //token is passed to the next request header
+          return await dataGetWithFetch()
+      }
+      console.log("dataGetWithFetch", dataPostWithFetch())
+
+
       const response = await axios.post(common.api + '/login', {
         email: email,
         password: password,
