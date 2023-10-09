@@ -28,9 +28,9 @@ app.get("/", (req, res) => {
 
 // test
 const cookieConfig = {
-  httpOnly: false,
-  secure: true,
-  sameSite: 'none',
+  httpOnly: process.env.NODE_ENV !== 'development' ? false : true,
+  secure: process.env.NODE_ENV !== 'development',
+  sameSite: process.env.NODE_ENV === 'development' ? 'lax' : 'none',
   maxAge: 30 * 24 * 60 * 60 * 1000, //30days
 }
 const corsConfig2 = {
@@ -68,6 +68,6 @@ app.post("/plan_detail", detail.insertPlanDetail);
 app.put("/plan_detail/:id", detail.updatePlanDetail);
 app.delete("/plan_detail/:id", detail.deletePlanDetail);
 
-app.listen(8800, '0.0.0.0', () => {
+app.listen(8800, () => {
   console.log("connected to backend!!")
 })
