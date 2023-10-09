@@ -25,29 +25,29 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      // const response = await axios.post(common.api + '/login', {
-      //   email: email,
-      //   password: password,
-      // }, {
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   },
-      // });
-
-      const response = await fetch(`${common.api}/login`, {
-        method: 'POST',
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
+      const response = await axios.post(common.api + '/login', {
+        email: email,
+        password: password,
+      }, {
         headers: {
           'Content-Type': 'application/json'
         },
-        credentials: 'include'
-      }).then(res => res.json())
+      });
+
+      // const response = await fetch(`${common.api}/login`, {
+      //   method: 'POST',
+      //   body: JSON.stringify({
+      //     email: email,
+      //     password: password,
+      //   }),
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   },
+      //   credentials: 'include'
+      // }).then(res => res.json())
 
       console.log(response)
-      if (response.success) {
+      if (response.data.success) {
         navigate(`/`);
       } else {
         setError('Invalid email or password');
