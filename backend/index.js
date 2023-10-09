@@ -34,7 +34,7 @@ const cookieConfig = {
   maxAge: 30 * 24 * 60 * 60 * 1000, //30days
 }
 const corsConfig2 = {
-  origin: process.env.CLIENT_API,
+  origin: 'https://testfront-gamma.vercel.app',
   credentials: true
 };
 app.use(cors(corsConfig2));
