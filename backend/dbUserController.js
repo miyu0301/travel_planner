@@ -3,12 +3,19 @@ import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 dotenv.config();
 
+// const cookieConfig = {
+//   maxAge: 60 * 60 * 1000,
+//   httpOnly: false,
+//   secure: true,
+//   sameSite: 'lax'
+// }
 const cookieConfig = {
-  maxAge: 60 * 60 * 1000,
-  httpOnly: false,
-  secure: true,
-  sameSite: 'lax'
+  httpOnly: process.env.NODE_ENV !== 'development' ? false : true,
+  secure: process.env.NODE_ENV !== 'development',
+  sameSite: process.env.NODE_ENV === 'development' ? 'lax' : 'none',
+  maxAge: 30 * 24 * 60 * 60 * 1000, //30days
 }
+
 const dbUserController = {
   login : (req, res) => {
     const email = req.body.email;
