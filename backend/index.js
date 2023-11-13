@@ -16,10 +16,10 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    httpOnly: process.env.NODE_ENV !== 'dev' ? false : true,
-    secure: process.env.NODE_ENV !== 'dev',
-    sameSite: process.env.NODE_ENV === 'dev' ? 'lax' : 'none',
-    maxAge: 10 * 24 * 60 * 60 * 1000  // 10 days
+    httpOnly: false,
+    secure: true,
+    sameSite: 'none',
+    maxAge: 30 * 24 * 60 * 60 * 1000, //30days
   }
 }));
 
@@ -32,7 +32,7 @@ const corsConfig2 = {
   credentials: true
 };
 app.use(cors(corsConfig2));
-// app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 
 const isAuthenticated = (req, res, next) => {
   if (req.session && req.session.isAuthenticated) {
