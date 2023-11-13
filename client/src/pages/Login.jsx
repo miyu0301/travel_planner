@@ -1,22 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import common from "./Common.jsx";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "../css/main.css";
+import UserContext from "../context/UserContext.jsx";
 
 axios.defaults.withCredentials = true;
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [commonError, setCommonError] = useState("");
+  const { setUserId } = useContext(UserContext);
   const navigate = useNavigate();
-
   const location = useLocation();
+
   useEffect(() => {
-    console.log(location.state);
     if (location.state) {
       setCommonError("An error occurred. Please try login later.");
     }
@@ -24,37 +26,14 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await axios.post(
-        common.api + "/login",
-        {
-          email: email,
-          password: password,
-        }
-        // {
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   withCredentials: true,
-        // }
-      );
-
-      // const response = await fetch(`${common.api}/login`, {
-      //   method: 'POST',
-      //   body: JSON.stringify({
-      //     email: email,
-      //     password: password,
-      //   }),
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   },
-      //   credentials: 'include'
-      // }).then(res => res.json())
-
-      console.log(response);
+      const response = await axios.post(common.api + "/login", {
+        email: email,
+        password: password,
+      });
       if (response.data.success) {
         console.log("login succeed");
+        setUserId(response.data.user_id);
         navigate(`/`);
       } else {
         setError("Invalid email or password");

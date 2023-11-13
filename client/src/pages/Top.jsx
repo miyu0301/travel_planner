@@ -1,44 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "../css/main.css";
 import common from "./Common.jsx";
+import UserContext from "../context/UserContext.jsx";
 
 axios.defaults.withCredentials = true;
 
 const Top = () => {
-  const [user_id, setUserId] = useState("");
   const [travel_name, setTravelName] = useState("");
   const [travels, setTravels] = useState([]);
+  const { userId } = useContext(UserContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fechAllTravels = async () => {
-      try {
-        const id = 2;
-        setUserId(id);
-        const res = await axios.get(common.api + "/travels/" + id);
-        // const res = await axios.get(common.api + "/travels/" + id, {
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   withCredentials: true,
-        // });
-        setTravels(res.data);
-      } catch (err) {
-        console.log(err);
-        navigate(`/login`, { state: { err: true } });
-      }
-    };
-    fechAllTravels();
+    console.log("userId", userId);
+    if (userId.length === 0) {
+      navigate(`/login`);
+    } else {
+      const fechAllTravels = async () => {
+        try {
+          const res = await axios.get(common.api + "/travels/" + userId);
+          setTravels(res.data);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      fechAllTravels();
+    }
   }, []);
 
   const clickSaveTravel = async (e) => {
     e.preventDefault();
     let data = {
-      user_id: user_id,
+      user_id: userId,
       travel_name: travel_name ? travel_name : common.unTitledTravelName,
     };
     try {
@@ -71,7 +68,7 @@ const Top = () => {
         <div className="create-wrap">
           <p>Create New Plan</p>
           <div className="create-box">
-            <p>TTitle</p>
+            <p>Title</p>
             <input
               type="text"
               value={travel_name}

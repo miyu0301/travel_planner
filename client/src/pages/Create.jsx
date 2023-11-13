@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "../css/main.css";
 import common from "./Common.jsx";
+import UserContext from "../context/UserContext.jsx";
 
 axios.defaults.withCredentials = true;
 const Create = () => {
@@ -31,9 +32,6 @@ const Create = () => {
         navigate(`/login`, { state: { err: true } });
       }
     };
-    // if(!document.cookie){
-    //   navigate(`/login`);
-    // }
     getTravelPlans();
   }, []);
 

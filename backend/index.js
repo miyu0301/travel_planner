@@ -6,15 +6,13 @@ import plan from "./dbPlanController.js"
 import detail from "./dbPlanDetailController.js"
 import dotenv from 'dotenv';
 import session from "express-session";
-// import cookieParser from 'cookie-parser';
 
 dotenv.config();
 const app = express()
 app.set("trust proxy", 1);
 app.use(express.json())
-// app.use(cookieParser())
 app.use(session({
-  secret: 'your-secret-key',
+  secret: process.env.SESSION_SECRET_KEY,
   resave: false,
   saveUninitialized: false,
   cookie: {
@@ -24,21 +22,16 @@ app.use(session({
     maxAge: 10 * 24 * 60 * 60 * 1000, //10days
   }
 }));
+app.use(cors({
+  origin: process.env.CLIENT_API,
+  credentials: true
+}));
 
 app.get("/", (req, res) => {
   res.json("hello")
 })
 
-const corsConfig2 = {
-  origin: process.env.CLIENT_API,
-  credentials: true
-};
-app.use(cors(corsConfig2));
-// app.use(express.urlencoded({ extended: true }));
-
 const isAuthenticated = (req, res, next) => {
-  console.log("req", req)
-  console.log("res", res)
   if (req.session && req.session.isAuthenticated) {
     return next();
   } else {

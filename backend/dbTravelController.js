@@ -2,19 +2,15 @@ import db from "./dbConfig.js"
 
 const dbTravelController = {
   fetchAllTravelInformation : (req, res) => {
-    console.log("top req", req)
-
     const q = "select t.travel_id, t.travel_name, " +
               'DATE_FORMAT(min(p.plan_date), "%Y-%m-%d") as min_date, DATE_FORMAT(max(p.plan_date), "%Y-%m-%d") as max_date ' +
               "from travel_information as t left outer join plan as p " +
               "on t.travel_id = p.travel_id where t.user_id = ? " +
               "group by t.travel_id, t.travel_name;"
     const userId = [ req.params.id ]
-    // console.log(userId);
     try{
       db.query(q, [userId], (err, data) => {
         if(err) return res.json(err)
-        console.log("top res", res)
         return res.json(data)
       })
     }catch(error){
@@ -23,8 +19,6 @@ const dbTravelController = {
   },
 
   fetchTravelInformation : (req, res) => {
-    console.log("edit req", req.session)
-
     let result = {};
     const travelId = req.params.id;
     const travel_q = "select * from travel_information where travel_id = ?"
@@ -72,7 +66,6 @@ const dbTravelController = {
               }
             }
             result['plan'] = plan
-            console.log("edit res", res.session)
             return res.json(result);
           }
         })
