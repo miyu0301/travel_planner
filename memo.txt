@@ -1,0 +1,14 @@
+how to connect mysql
+railway link
+railway connect MySQL
+
+select * from mysql.user where user="root"\G
+
+alter user 'root'@'%' identified with mysql_native_password by 'QKDv5zRzT2qAgBUWCc6R'
+
+
+// start up
+// backend
+nodemon index.js
+// front
+npm start

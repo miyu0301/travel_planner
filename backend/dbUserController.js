@@ -3,21 +3,9 @@ import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 dotenv.config();
 
-// const cookieConfig = {
-//   maxAge: 60 * 60 * 1000,
-//   httpOnly: false,
-//   secure: true,
-//   sameSite: 'lax'
-// }
-const cookieConfig = {
-  httpOnly: process.env.NODE_ENV !== 'development' ? false : true,
-  secure: process.env.NODE_ENV !== 'development',
-  sameSite: process.env.NODE_ENV === 'development' ? 'lax' : 'none',
-  maxAge: 30 * 24 * 60 * 60 * 1000, //30days
-}
-
 const dbUserController = {
   login : (req, res) => {
+    console.log('login');
     const email = req.body.email;
     const password = req.body.password;
     const q = "select * from user where email = ?;"
@@ -29,9 +17,7 @@ const dbUserController = {
         if(data.length != 0){
           const compared = await bcrypt.compare(password, data[0].password);
           if(compared){
-            res.cookie('user_id', data[0].user_id, cookieConfig);
-            res.header('Access-Control-Allow-Origin', process.env.CLIENT_API);
-            console.log('res', res)
+            req.session.isAuthenticated = true;
             return  res.json({ success: true, user_id: data[0].user_id });
           }else{
             return  res.json({ success: false, user_id: null });
@@ -46,7 +32,8 @@ const dbUserController = {
   },
   logout : (req, res) => {
     try{
-      res.clearCookie('user_id');
+      // res.clearCookie('user_id');
+      req.session.destroy()
       return res.json();
     }catch(error){
       console.log(error);

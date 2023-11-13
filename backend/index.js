@@ -5,68 +5,61 @@ import travel from "./dbTravelController.js"
 import plan from "./dbPlanController.js"
 import detail from "./dbPlanDetailController.js"
 import dotenv from 'dotenv';
+import session from "express-session";
 import cookieParser from 'cookie-parser';
 
 dotenv.config();
 const app = express()
 app.use(express.json())
-// app.use(cookieParser({
-//   maxAge: 60 * 60 * 1000,
-//   httpOnly: false,
-//   secure: true
-// }))
-app.use(cookieParser())
-// app.use(cors({
-//   origin: process.env.CLIENT_API,
-//   methods: ["GET", "POST", "PUT"],
-//   credentials: true,
-// }))
+app.use(session({
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true, 
+    secure: process.env.NODE_ENV !== 'dev',
+    sameSite: process.env.NODE_ENV === 'dev' ? 'lax' : 'none',
+    maxAge: 10 * 24 * 60 * 60 * 1000  // 10 days
+  }
+}));
 
 app.get("/", (req, res) => {
   res.json("hello")
 })
 
-// test
-const cookieConfig = {
-  httpOnly: false,
-  secure: true,
-  sameSite: 'none',
-  maxAge: 30 * 24 * 60 * 60 * 1000, //30days
-}
 const corsConfig2 = {
   origin: process.env.CLIENT_API,
   credentials: true
 };
 app.use(cors(corsConfig2));
-app.use(express.urlencoded({ extended: true }));
-app.get("/token", (_, res) => {
-  const token = `Bearer ${Math.random()}`
-  res.cookie('jwt', token, cookieConfig).json({ success: true, user_id: 12 });
-})
-app.get('/test', (req,res) => {
-  console.log("test")
-  const reqCookies = req.cookies.jwt;
-  res.cookie('jwt', reqCookies, cookieConfig).json({ cookie: req.cookies });
-})
+// app.use(express.urlencoded({ extended: true }));
+
+const isAuthenticated = (req, res, next) => {
+  if (req.session && req.session.isAuthenticated) {
+    return next();
+  } else {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
+};
 
 app.post("/login", user.login);
 app.get("/logout", user.logout);
 app.post("/user", user.user);
 app.post("/register", user.register);
 
-app.get("/travels/:id", travel.fetchAllTravelInformation);
-app.get("/travel/:id", travel.fetchTravelInformation);
-app.post("/travel", travel.insertTravelInformation);
-app.put("/travel/:id", travel.updateTravelInformation);
-app.delete("/travel/:id", travel.deleteTravelInformation);
+app.get("/travels/:id", isAuthenticated, travel.fetchAllTravelInformation);
+app.get("/travel/:id", isAuthenticated, travel.fetchTravelInformation);
+app.post("/travel", isAuthenticated, travel.insertTravelInformation);
+app.put("/travel/:id", isAuthenticated, travel.updateTravelInformation);
+app.delete("/travel/:id", isAuthenticated, travel.deleteTravelInformation);
 
-app.post("/plan", plan.insertPlan);
-app.put("/plan/:id", plan.updatePlan);
-app.delete("/plan/:id", plan.deletePlan);
+app.post("/plan", isAuthenticated, plan.insertPlan);
+app.put("/plan/:id", isAuthenticated, plan.updatePlan);
+app.delete("/plan/:id", isAuthenticated, plan.deletePlan);
 
-app.post("/plan_detail", detail.insertPlanDetail);
-app.put("/plan_detail/:id", detail.updatePlanDetail);
-app.delete("/plan_detail/:id", detail.deletePlanDetail);
+app.post("/plan_detail", isAuthenticated, detail.insertPlanDetail);
+app.put("/plan_detail/:id", isAuthenticated, detail.updatePlanDetail);
+app.delete("/plan_detail/:id", isAuthenticated, detail.deletePlanDetail);
 
 app.listen(8800, () => {
   console.log("connected to backend!!")
