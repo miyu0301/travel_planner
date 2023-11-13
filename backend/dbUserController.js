@@ -19,6 +19,9 @@ const dbUserController = {
           if(compared){
             req.session.isAuthenticated = true;
             req.session.save();
+            const sessionId = req.sessionID;
+            res.setHeader('Set-Cookie', `sessionId=${sessionId}`);
+
             console.log("login res", res)
             return  res.json({ success: true, user_id: data[0].user_id });
           }else{
