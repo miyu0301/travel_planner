@@ -35,6 +35,8 @@ app.use(cors(corsConfig2));
 app.use(express.urlencoded({ extended: true }));
 
 const isAuthenticated = (req, res, next) => {
+  console.log("req", req)
+  console.log("res", res)
   if (req.session && req.session.isAuthenticated) {
     return next();
   } else {
