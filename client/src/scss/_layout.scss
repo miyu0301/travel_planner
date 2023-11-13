@@ -46,6 +46,7 @@ header{
   }
 }
 footer{
+  color: $color-text;
   text-align: center;
   padding: 10px;
   bottom: 0;
@@ -232,10 +233,11 @@ footer{
       border: none;
       outline: none;
       font-family: $font-base;
-    
+      width: 100%;
     }
     label{
       cursor: pointer;
+      display: block;
     }
   }  
 }

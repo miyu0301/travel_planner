@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import common from "./Common.jsx";
 import Header from "../components/Header";
-import Footer from "../components/Footer";
 import "../css/main.css";
 import UserContext from "../context/UserContext.jsx";
 
@@ -94,7 +93,6 @@ const Login = () => {
           </div>
         </div>
       </section>
-      <Footer />
     </main>
   );
 };

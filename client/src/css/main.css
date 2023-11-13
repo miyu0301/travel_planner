@@ -105,6 +105,7 @@ header .header-content a {
 }
 
 footer {
+  color: rgb(107, 105, 92);
   text-align: center;
   padding: 10px;
   bottom: 0;
@@ -477,6 +478,7 @@ footer p {
   border: none;
   outline: none;
   font-family: "Source Serif Pro", serif;
+  width: 100%;
 }
 @media screen and (max-width: 767px) {
   .plan-board-header .header-wrap input {
@@ -485,6 +487,7 @@ footer p {
 }
 .plan-board-header .header-wrap label {
   cursor: pointer;
+  display: block;
 }
 
 .plan-board-content {

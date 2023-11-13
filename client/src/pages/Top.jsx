@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header";
-import Footer from "../components/Footer";
 import "../css/main.css";
 import common from "./Common.jsx";
 import UserContext from "../context/UserContext.jsx";
@@ -16,7 +15,6 @@ const Top = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("userId", userId);
     if (userId.length === 0) {
       navigate(`/login`);
     } else {
@@ -115,7 +113,6 @@ const Top = () => {
           ))}
         </div>
       </section>
-      <Footer />
     </main>
   );
 };

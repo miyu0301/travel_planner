@@ -2,10 +2,9 @@ import React, { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Header from "../components/Header";
-import Footer from "../components/Footer";
 import "../css/main.css";
 import common from "./Common.jsx";
-import UserContext from "../context/UserContext.jsx";
+import CreateDayBoard from "./CreateDayBoard";
 
 axios.defaults.withCredentials = true;
 const Create = () => {
@@ -35,9 +34,6 @@ const Create = () => {
     getTravelPlans();
   }, []);
 
-  //
-  // TRAVEL
-  //
   const handleChangeTravel = (e) => {
     setTravel({
       ...travel,
@@ -70,9 +66,6 @@ const Create = () => {
     }
   };
 
-  //
-  // PLAN
-  //
   const handleClickAddPlan = () => {
     const new_plan = {
       travel_id: null,
@@ -82,197 +75,6 @@ const Create = () => {
       plan_detail: [],
     };
     setPlans([...plans, new_plan]);
-  };
-
-  const handleClickPlanLabel = (p_idx) => {
-    const updatedPlans = [...plans];
-    updatedPlans[p_idx] = {
-      ...updatedPlans[p_idx],
-      is_input: true,
-    };
-    setPlans(updatedPlans);
-  };
-
-  const handleChangePlan = (e, p_idx) => {
-    const { name, value } = e.target;
-    const updatedPlans = [...plans];
-    updatedPlans[p_idx] = {
-      ...updatedPlans[p_idx],
-      [name]: value,
-    };
-    setPlans(updatedPlans);
-  };
-
-  const handleClickDeletePlan = async (p_idx) => {
-    if (common.showDeleteAlert()) {
-      try {
-        await axios.delete(common.api + "/plan/" + plans[p_idx].plan_id);
-      } catch (err) {
-        console.log(err);
-        navigate(`/login`, { state: { err: true } });
-      }
-      let updatedPlans = [...plans];
-      updatedPlans.splice(p_idx, 1);
-      setPlans(updatedPlans);
-    }
-  };
-
-  const handleBlurPlan = async (e, p_idx) => {
-    if (e.target.value) {
-      try {
-        let plan = { ...plans[p_idx] };
-        plan.travel_id = travel.travel_id;
-        if (!plans[p_idx].plan_id) {
-          let result = await axios.post(common.api + "/plan", plan);
-          const updatePlans = [...plans];
-          updatePlans[p_idx] = {
-            ...updatePlans[p_idx],
-            plan_id: result.data.insertId,
-            is_input: false,
-          };
-          setPlans(sortPlans(updatePlans, false));
-        } else {
-          await axios.put(common.api + "/plan/" + plans[p_idx].plan_id, plan);
-          const updatePlans = [...plans];
-          updatePlans[p_idx] = {
-            ...updatePlans[p_idx],
-            is_input: false,
-          };
-          setPlans(sortPlans(updatePlans, false));
-        }
-      } catch (err) {
-        console.log(err);
-        navigate(`/login`, { state: { err: true } });
-      }
-    }
-  };
-
-  //
-  // DETAIL
-  //
-  const handleClickAddDetail = (p_idx) => {
-    const updatedPlans = [...plans];
-    const new_detail = {
-      plan_detail_id: null,
-      travel_id: null,
-      plan_id: null,
-      start_time: null,
-      end_time: null,
-      detail: null,
-      map: null,
-      memo: null,
-      is_input: true,
-    };
-    updatedPlans[p_idx].plan_detail.push(new_detail);
-    setPlans(updatedPlans);
-  };
-
-  const handleClickDetailLabel = (p_idx, d_idx) => {
-    const updatedPlans = [...plans];
-    updatedPlans[p_idx].plan_detail[d_idx] = {
-      ...updatedPlans[p_idx].plan_detail[d_idx],
-      is_input: true,
-    };
-    setPlans(updatedPlans);
-  };
-
-  const handleChangeDetail = (e, p_idx, d_idx) => {
-    const { name, value } = e.target;
-    const updatedPlans = [...plans];
-    updatedPlans[p_idx].plan_detail[d_idx] = {
-      ...updatedPlans[p_idx].plan_detail[d_idx],
-      [name]: value,
-    };
-    setPlans(updatedPlans);
-  };
-
-  const handleClickDeleteDetail = async (p_idx, d_idx) => {
-    if (common.showDeleteAlert()) {
-      try {
-        const plan_detail_id = plans[p_idx].plan_detail[d_idx].plan_detail_id;
-        await axios.delete(common.api + "/plan_detail/" + plan_detail_id);
-      } catch (err) {
-        console.log(err);
-        navigate(`/login`, { state: { err: true } });
-      }
-      const updatedPlans = [...plans];
-      updatedPlans[p_idx].plan_detail.splice(d_idx, 1);
-      setPlans(updatedPlans);
-    }
-  };
-
-  const handleSaveDetail = async (p_idx, d_idx) => {
-    try {
-      let detail = { ...plans[p_idx].plan_detail[d_idx] };
-
-      if (
-        !detail.start_time &&
-        !detail.end_time &&
-        !detail.detail &&
-        !detail.memo
-      ) {
-        detail.detail = common.notWritten;
-      }
-      if (!detail.plan_detail_id) {
-        detail.travel_id = travel.travel_id;
-        detail.plan_id = plans[p_idx].plan_id;
-        let result = await axios.post(common.api + "/plan_detail", detail);
-
-        const updatePlans = [...plans];
-        updatePlans[p_idx].plan_detail[d_idx] = {
-          ...updatePlans[p_idx].plan_detail[d_idx],
-          plan_detail_id: result.data.insertId,
-          is_input: false,
-        };
-        updatePlans[p_idx].plan_detail = sortDetails(
-          updatePlans[p_idx].plan_detail
-        );
-        setPlans(sortDetails(updatePlans));
-      } else {
-        await axios.put(
-          common.api + "/plan_detail/" + detail.plan_detail_id,
-          detail
-        );
-        const updatePlans = [...plans];
-        updatePlans[p_idx].plan_detail[d_idx] = {
-          ...updatePlans[p_idx].plan_detail[d_idx],
-          is_input: false,
-        };
-        updatePlans[p_idx].plan_detail = sortDetails(
-          updatePlans[p_idx].plan_detail
-        );
-        setPlans(updatePlans);
-      }
-    } catch (err) {
-      console.log(err);
-      navigate(`/login`, { state: { err: true } });
-    }
-  };
-
-  const sortPlans = (plans, shouldSortDetail) => {
-    if (shouldSortDetail) {
-      plans.map((plan) => sortDetails(plan.plan_detail));
-    }
-    plans.sort((a, b) => {
-      if (a.plan_date < b.plan_date) {
-        return -1;
-      }
-      if (a.plan_date > b.plan_date) {
-        return 1;
-      }
-    });
-    return plans;
-  };
-  const sortDetails = (details) => {
-    details.sort((a, b) => {
-      if (a.start_time < b.start_time) {
-        return -1;
-      }
-      if (a.start_time > b.start_time) {
-        return 1;
-      }
-    });
-    return details;
   };
 
   return (
@@ -301,141 +103,21 @@ const Create = () => {
               />
             </form>
           )}
-          <p>
+          {/* <p>
             <i className="fa-solid fa-ellipsis"></i>
-          </p>
+          </p> */}
         </div>
       </section>
 
       <section className="plan-board-content">
         {plans.map((plan, p_idx) => (
-          <div className="day-board">
-            <div key={p_idx} className="day-board-header">
-              {!plan.is_input && (
-                <label onClick={(e) => handleClickPlanLabel(p_idx)}>
-                  {common.displayDate(plan.plan_date)}
-                </label>
-              )}
-              {plan.is_input && (
-                <input
-                  type="date"
-                  name="plan_date"
-                  value={plan.plan_date}
-                  onChange={(e) => handleChangePlan(e, p_idx)}
-                  onBlur={(e) => handleBlurPlan(e, p_idx)}
-                  autoFocus
-                />
-              )}
-            </div>
-
-            {plan.plan_detail.map((detail, d_idx) => (
-              <div className="day-board-content">
-                <div key={d_idx} className="plan">
-                  {!detail.is_input && (
-                    <div className="plan-label">
-                      <div className="plan-time">
-                        {detail.start_time && (
-                          <label
-                            onClick={(e) =>
-                              handleClickDetailLabel(p_idx, d_idx)
-                            }
-                          >
-                            {common.displayTime(detail.start_time)}
-                          </label>
-                        )}
-                        {detail.end_time && (
-                          <label
-                            onClick={(e) =>
-                              handleClickDetailLabel(p_idx, d_idx)
-                            }
-                          >
-                            {" - " + common.displayTime(detail.end_time)}
-                          </label>
-                        )}
-                      </div>
-                      <label
-                        onClick={(e) => handleClickDetailLabel(p_idx, d_idx)}
-                      >
-                        {detail.detail}
-                      </label>
-                      <label
-                        onClick={(e) => handleClickDetailLabel(p_idx, d_idx)}
-                      >
-                        {detail.memo}
-                      </label>
-                      <div className="plan-footer">
-                        <span
-                          className="material-symbols-outlined"
-                          onClick={() => handleClickDeleteDetail(p_idx, d_idx)}
-                        >
-                          delete
-                        </span>
-                      </div>
-                    </div>
-                  )}
-                  {detail.is_input && (
-                    <div className="plan-input">
-                      <label>Time</label>
-                      <input
-                        type="time"
-                        name="start_time"
-                        className="time-start"
-                        value={detail.start_time}
-                        onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
-                        autoFocus
-                      />
-                      <p>-</p>
-                      <input
-                        type="time"
-                        name="end_time"
-                        className="time-end"
-                        value={detail.end_time}
-                        onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
-                      />
-                      <label>Plan</label>
-                      <input
-                        type="text"
-                        name="detail"
-                        className="detail"
-                        value={detail.detail}
-                        onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
-                      />
-                      <label>Memo</label>
-                      <input
-                        type="text"
-                        name="memo"
-                        className="memo"
-                        value={detail.memo}
-                        onChange={(e) => handleChangeDetail(e, p_idx, d_idx)}
-                      />
-                      <button
-                        className="btn-detail"
-                        onClick={(e) => handleSaveDetail(p_idx, d_idx)}
-                      >
-                        Save
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
-            ))}
-            {plan.plan_date && (
-              <div className="day-board-footer">
-                <p
-                  className="add-plan"
-                  onClick={() => handleClickAddDetail(p_idx)}
-                >
-                  + Add Plan
-                </p>
-                <span
-                  className="material-symbols-outlined"
-                  onClick={() => handleClickDeletePlan(p_idx)}
-                >
-                  delete
-                </span>
-              </div>
-            )}
-          </div>
+          <CreateDayBoard
+            plan={plan}
+            p_idx={p_idx}
+            travel={travel}
+            plans={plans}
+            setPlans={setPlans}
+          />
         ))}
         <div className="day-board">
           <p className="add-day" onClick={(e) => handleClickAddPlan()}>
@@ -443,9 +125,34 @@ const Create = () => {
           </p>
         </div>
       </section>
-      <Footer />
     </main>
   );
+};
+
+export const sortPlans = (plans, shouldSortDetail) => {
+  if (shouldSortDetail) {
+    plans.map((plan) => sortDetails(plan.plan_detail));
+  }
+  plans.sort((a, b) => {
+    if (a.plan_date < b.plan_date) {
+      return -1;
+    }
+    if (a.plan_date > b.plan_date) {
+      return 1;
+    }
+  });
+  return plans;
+};
+export const sortDetails = (details) => {
+  details.sort((a, b) => {
+    if (a.start_time < b.start_time) {
+      return -1;
+    }
+    if (a.start_time > b.start_time) {
+      return 1;
+    }
+  });
+  return details;
 };
 
 export default Create;

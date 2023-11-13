@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Create from "./pages/Create";
 import UserContextProvider from "./context/UserContextProvider";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
               <Route path="/" element={<Top/>}/>
               <Route path="/register" element={<Register/>}/>
               <Route path="/create/:id" element={<Create/>}/>
-            </Routes>      
+            </Routes>    
+            <Footer />
         </BrowserRouter>
       </UserContextProvider>
     </div>
