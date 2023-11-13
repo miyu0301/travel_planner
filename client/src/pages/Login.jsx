@@ -31,10 +31,10 @@ const Login = () => {
         {
           email: email,
           password: password,
-        },
-        {
-          withCredentials: true,
         }
+        // {
+        //   withCredentials: true,
+        // }
       );
 
       // const response = await fetch(`${common.api}/login`, {

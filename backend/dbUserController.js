@@ -19,6 +19,7 @@ const dbUserController = {
           if(compared){
             req.session.isAuthenticated = true;
             req.session.save();
+            console.log("login res", res)
             return  res.json({ success: true, user_id: data[0].user_id });
           }else{
             return  res.json({ success: false, user_id: null });
