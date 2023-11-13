@@ -19,7 +19,9 @@ const Top = () => {
       try {
         const id = 2;
         setUserId(id);
-        const res = await axios.get(common.api + "/travels/" + id);
+        const res = await axios.get(common.api + "/travels/" + id, {
+          withCredentials: true,
+        });
         console.log(res.data);
         setTravels(res.data);
       } catch (err) {
