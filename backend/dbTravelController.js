@@ -2,7 +2,7 @@ import db from "./dbConfig.js"
 
 const dbTravelController = {
   fetchAllTravelInformation : (req, res) => {
-    console.log("top req", req.session)
+    console.log("top req", req)
 
     const q = "select t.travel_id, t.travel_name, " +
               'DATE_FORMAT(min(p.plan_date), "%Y-%m-%d") as min_date, DATE_FORMAT(max(p.plan_date), "%Y-%m-%d") as max_date ' +
@@ -14,7 +14,7 @@ const dbTravelController = {
     try{
       db.query(q, [userId], (err, data) => {
         if(err) return res.json(err)
-        console.log(res.session)
+        console.log("top res", res)
         return res.json(data)
       })
     }catch(error){
