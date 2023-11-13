@@ -28,8 +28,7 @@ app.get("/", (req, res) => {
 })
 
 const corsConfig2 = {
-  // origin: process.env.CLIENT_API,
-  origin: '*',
+  origin: process.env.CLIENT_API,
   credentials: true
 };
 app.use(cors(corsConfig2));
