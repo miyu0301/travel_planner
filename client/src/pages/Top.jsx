@@ -19,18 +19,17 @@ const Top = () => {
       try {
         const id = 2;
         setUserId(id);
-        const res = await axios.get(common.api + "/travels/" + id, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        });
-        console.log(res.data);
+        const res = await axios.get(common.api + "/travels/" + id);
+        // const res = await axios.get(common.api + "/travels/" + id, {
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   withCredentials: true,
+        // });
         setTravels(res.data);
       } catch (err) {
-        console.log("top err");
         console.log(err);
-        // navigate(`/login`, { state: { err: true } });
+        navigate(`/login`, { state: { err: true } });
       }
     };
     fechAllTravels();

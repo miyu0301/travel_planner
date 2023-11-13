@@ -31,13 +31,13 @@ const Login = () => {
         {
           email: email,
           password: password,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
         }
+        // {
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   withCredentials: true,
+        // }
       );
 
       // const response = await fetch(`${common.api}/login`, {
