@@ -20,6 +20,9 @@ const Top = () => {
         const id = 2;
         setUserId(id);
         const res = await axios.get(common.api + "/travels/" + id, {
+          headers: {
+            "Content-Type": "application/json",
+          },
           withCredentials: true,
         });
         console.log(res.data);
@@ -69,7 +72,7 @@ const Top = () => {
         <div className="create-wrap">
           <p>Create New Plan</p>
           <div className="create-box">
-            <p>Title</p>
+            <p>TTitle</p>
             <input
               type="text"
               value={travel_name}
