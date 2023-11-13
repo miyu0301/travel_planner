@@ -16,7 +16,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    httpOnly: true, 
+    httpOnly: process.env.NODE_ENV !== 'dev' ? false : true,
     secure: process.env.NODE_ENV !== 'dev',
     sameSite: process.env.NODE_ENV === 'dev' ? 'lax' : 'none',
     maxAge: 10 * 24 * 60 * 60 * 1000  // 10 days
