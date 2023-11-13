@@ -26,16 +26,10 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        common.api + "/login",
-        {
-          email: email,
-          password: password,
-        },
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await axios.post(common.api + "/login", {
+        email: email,
+        password: password,
+      });
 
       // const response = await fetch(`${common.api}/login`, {
       //   method: 'POST',
