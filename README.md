@@ -1,6 +1,6 @@
 # Travel Planner
 
-Welcome to **Travel Planner**, an application that makes planning your travels as enjoyable as the journey itself! This app is designed to assist you in creating the best itineraries for your trips. Easily add a title to each trip and plan your days to ensure a memorable adventure.
+Welcome to **Travel Planner**, an application that makes planning your travels as enjoyable as the journey itself! This app is designed to help you make the best itineraries for your trips. Add a title to each trip and plan your days to enjoy a memorable adventure.
 
 ## Demo
 
@@ -30,4 +30,4 @@ Check out the live demo of the app here: [Travel Planner Demo](https://travel-pl
 
 ## Why use Travel Planner?
 
-Travel planning can be as exciting as the trip itself! Whether you're planning a quick getaway or a long vacation, travel_planner is here to ensure your journey is well-organized and stress-free. Capture the essence of every destination and create a travel itinerary that suits your interests and needs.
+Planning becomes more enjoyable, and if you keep recording here, your memories will more accumulate. When you look back later, Travel Planner reminds you of wonderful details of your trip vividly.
