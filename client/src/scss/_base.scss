@@ -32,11 +32,8 @@ main::after {
 html {
   font-size: 62.0%;
 }
-body{
-  // background-color: $color-theme;
-}
 main{
-  background-image: url(../images/default-image.jpg);
+  background-image: url(../images/beach-image.jpg);
   background-size: cover;
   background-attachment: fixed;
   font-family: $font-base;
