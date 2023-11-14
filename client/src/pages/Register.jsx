@@ -1,46 +1,47 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'
-import axios from 'axios';
-import passwordValidator from 'password-validator';
-import common from './Common.jsx';
-import Header from "../components/Header"
-import Footer from "../components/Footer"
-import "../css/main.css"
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import passwordValidator from "password-validator";
+import common from "./Common.jsx";
+import Header from "../components/Header";
+import "../css/main.css";
 
 axios.defaults.withCredentials = true;
 const Register = () => {
-  const [userName, setUserName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirtmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirtmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     var validate = new passwordValidator();
     validate.is().min(8);
-    if(!validate.validate(password)){
-      setError('The password must be at least 8 characters.');
+    if (!validate.validate(password)) {
+      setError("The password must be at least 8 characters.");
       return;
     }
     validate.is().has().uppercase().has().lowercase().has().digits(1);
-    if(!validate.validate(password)){
-      setError('The password must contain at least one lowercase and uppercase letter, and one digit.');
+    if (!validate.validate(password)) {
+      setError(
+        "The password must contain at least one lowercase and uppercase letter, and one digit."
+      );
       return;
     }
-    if(password !== confirtmPassword){
-      setError('The password and confirmation password do not match.');
+    if (password !== confirtmPassword) {
+      setError("The password and confirmation password do not match.");
       return;
     }
     try {
-      const res = await axios.post(common.api + '/user', { email: email });
+      const res = await axios.post(common.api + "/user", { email: email });
       if (res.data.existUser) {
-        setError('This email is already registered.');
+        setError("This email is already registered.");
         return;
       }
 
-      await axios.post(common.api + '/register', {
+      await axios.post(common.api + "/register", {
         userName: userName,
         email: email,
         password: password,
@@ -48,19 +49,19 @@ const Register = () => {
       navigate(`/`);
     } catch (error) {
       console.log(error);
-      navigate(`/login`, { state: { err: true }});
+      navigate(`/login`, { state: { err: true } });
     }
   };
 
   return (
     <main>
-      <Header logined={false}/>
+      <Header logined={false} />
       <section className="register-container">
-        <div className='register-wrap'>
+        <div className="register-wrap">
           <p>Register</p>
-          <div className='form-wrap'>
-            <form onSubmit={handleSubmit} action='/'>
-            <div className="form-group">
+          <div className="form-wrap">
+            <form onSubmit={handleSubmit} action="/">
+              <div className="form-group">
                 <p htmlFor="user-name">User Name</p>
                 <input
                   type="text"
@@ -101,14 +102,15 @@ const Register = () => {
                 />
               </div>
               {error && <p className="error-message">{error}</p>}
-              <div className='button-group'>
-                <button className='register' type="submit">Register</button>
+              <div className="button-group">
+                <button className="register" type="submit">
+                  Register
+                </button>
               </div>
             </form>
           </div>
         </div>
       </section>
-      <Footer />
     </main>
   );
 };
