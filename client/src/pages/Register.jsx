@@ -5,6 +5,7 @@ import passwordValidator from "password-validator";
 import common from "./Common.jsx";
 import Header from "../components/Header";
 import "../css/main.css";
+import { handleError } from "./Common.jsx";
 
 axios.defaults.withCredentials = true;
 const Register = () => {
@@ -48,8 +49,7 @@ const Register = () => {
       });
       navigate(`/`);
     } catch (error) {
-      console.log(error);
-      navigate(`/login`, { state: { err: true } });
+      handleError(error, navigate);
     }
   };
 

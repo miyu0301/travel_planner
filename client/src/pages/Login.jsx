@@ -31,8 +31,8 @@ const Login = () => {
         password: password,
       });
       if (response.data.success) {
-        console.log("login succeed");
         setUserId(response.data.user_id);
+        localStorage.setItem("user_id", response.data.user_id);
         navigate(`/`);
       } else {
         setError("Invalid email or password");

@@ -58,6 +58,18 @@ app.post("/plan_detail", isAuthenticated, detail.insertPlanDetail);
 app.put("/plan_detail/:id", isAuthenticated, detail.updatePlanDetail);
 app.delete("/plan_detail/:id", isAuthenticated, detail.deletePlanDetail);
 
+app.get("/checkCookieValidity", (req, res) => {
+  try{
+      if (req.session && req.session.isAuthenticated) {
+        return res.status(200);
+      } else {
+        return res.status(401).json({ message: 'Unauthorized' });
+      }
+    }catch(error){
+    console.log(error)
+  }
+});
+
 app.listen(8800, () => {
   console.log("connected to backend!!")
 })

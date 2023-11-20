@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import "../css/main.css";
 import common from "./Common.jsx";
 import CreateDayBoard from "./CreateDayBoard";
+import { handleError } from "./Common.jsx";
 
 axios.defaults.withCredentials = true;
 const Create = () => {
@@ -27,8 +28,7 @@ const Create = () => {
           setPlans(sortPlans(res.data.plan, true));
         }
       } catch (error) {
-        console.log(error);
-        navigate(`/login`, { state: { err: true } });
+        handleError(error, navigate);
       }
     };
     getTravelPlans();
@@ -61,8 +61,7 @@ const Create = () => {
         is_input: false,
       });
     } catch (err) {
-      console.log(err);
-      navigate(`/login`, { state: { err: true } });
+      handleError(err, navigate);
     }
   };
 

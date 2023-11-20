@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import common from "../pages/Common.jsx";
 import UserContext from "../context/UserContext.jsx";
+import { handleError } from "../pages/Common.jsx";
 
 axios.defaults.withCredentials = true;
 
@@ -12,10 +13,11 @@ function Header(prop) {
   const logout = async () => {
     try {
       await axios.get(common.api + "/logout");
-      setUserId("");
+      setUserId(null);
+      localStorage.removeItem("user_id");
       navigate(`/login`);
     } catch (error) {
-      console.log(error);
+      handleError(error);
     }
   };
 

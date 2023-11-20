@@ -5,6 +5,7 @@ import "../css/main.css";
 import common from "./Common.jsx";
 import { sortPlans, sortDetails } from "./Create";
 import CreateDayBoardContent from "./CreateDayBoardContent";
+import { handleError } from "./Common.jsx";
 axios.defaults.withCredentials = true;
 
 const CreateDayBoard = ({ plan, p_idx, travel, plans, setPlans }) => {
@@ -34,8 +35,7 @@ const CreateDayBoard = ({ plan, p_idx, travel, plans, setPlans }) => {
       try {
         await axios.delete(common.api + "/plan/" + plans[p_idx].plan_id);
       } catch (err) {
-        console.log(err);
-        navigate(`/login`, { state: { err: true } });
+        handleError(err, navigate);
       }
       let updatedPlans = [...plans];
       updatedPlans.splice(p_idx, 1);
@@ -67,8 +67,7 @@ const CreateDayBoard = ({ plan, p_idx, travel, plans, setPlans }) => {
           setPlans(sortPlans(updatePlans, false));
         }
       } catch (err) {
-        console.log(err);
-        navigate(`/login`, { state: { err: true } });
+        handleError(err, navigate);
       }
     }
   };

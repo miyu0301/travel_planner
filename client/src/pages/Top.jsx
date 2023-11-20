@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import "../css/main.css";
 import common from "./Common.jsx";
+import { handleError } from "./Common.jsx";
 import UserContext from "../context/UserContext.jsx";
 
 axios.defaults.withCredentials = true;
@@ -15,7 +16,7 @@ const Top = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (userId.length === 0) {
+    if (!userId) {
       navigate(`/login`);
     } else {
       const fechAllTravels = async () => {
@@ -23,7 +24,7 @@ const Top = () => {
           const res = await axios.get(common.api + "/travels/" + userId);
           setTravels(res.data);
         } catch (err) {
-          console.log(err);
+          handleError(err, navigate);
         }
       };
       fechAllTravels();
@@ -40,8 +41,7 @@ const Top = () => {
       let result = await axios.post(common.api + "/travel", data);
       navigate(`/create/${result.data.insertId}`);
     } catch (error) {
-      console.log(error);
-      navigate(`/login`, { state: { err: true } });
+      handleError(error, navigate);
     }
   };
 
@@ -50,8 +50,7 @@ const Top = () => {
       try {
         await axios.delete(common.api + "/travel/" + travel_id);
       } catch (err) {
-        console.log(err);
-        navigate(`/login`, { state: { err: true } });
+        handleError(err, navigate);
       }
       let updatedTravels = [...travels];
       updatedTravels.splice(idx, 1);
